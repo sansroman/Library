@@ -1,7 +1,8 @@
 'use strict';
 
 const Service = require('egg').Service;
-const {ROLE_ADMAIN,ROLE_CUSTOMER} = app.config.role;
+const { ROLE_ADMAIN, ROLE_CUSTOMER } = require('../config/role');
+
 class UserServiceService extends Service {
     constructor(ctx) {
         spuer(ctx)
