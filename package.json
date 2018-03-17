@@ -1,0 +1,28 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "egg": "^2.4.1",
+    "egg-validate": "^1.0.0",
+    "egg-view-nunjucks": "^2.1.6",
+    "init": "^0.1.2",
+    "md5": "^2.2.1",
+    "moment": "^2.21.0"
+  },
+  "devDependencies": {
+    "egg-bin": "^4.3.7",
+    "egg-mock": "^3.15.0"
+  },
+  "scripts": {
+    "dev": "egg-bin dev",
+    "test": "egg-bin test",
+    "cov": "egg-bin cov"
+  },
+  "keywords": [
+    "egg.js"
+  ],
+  "author": "sansroman",
+  "license": "MIT"
+}
