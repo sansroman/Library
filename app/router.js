@@ -7,7 +7,7 @@ module.exports = app => {
     
     router.post('/user/register',controller.userController.register);
     
-    router.get('/user/question/:username',controller.userController.getQuestion);
+    router.get('/user/question/',controller.userController.getQuestion);
     
     router.put('/user/resetPassword',controller.userController.resetPassword);
     
@@ -19,5 +19,37 @@ module.exports = app => {
     
     router.get('/user/userInfo',controller.userController.getUserInfo);
     
-    app.router.get('/user/checkValid/:type/:value',controller.userController.checkValid);
+    router.get('/user/checkValid/:type/:value',controller.userController.checkValid);
+
+    router.put('/user/bookShelf',controller.userController.getBookshelf);
+
+    router.put('/user/bookShelf/:bookid',controller.userController.addBookshelf);
+    
+    router.del('/user/bookShelf/:bookid',controller.userController.delBookshelf)
+
+    router.get('/user/times',controller.userController.getUserListBytime);
+
+    router.get('/user/books',controller.userController.getUserListByBooks);
+
+    rouetr.get('/user',controller.userController.getUserList);
+
+    router.put('/user/:userid',controller.userController.ManagerUser);
+  
+
+
+
+    router.get('/book/recommend',controller.bookController.recommend);
+
+    router.get('/book/:bookid',controller.bookController.getBook);
+
+    router.get('/book/',controller.bookController.getBookList);
+
+    router.put('/book/:bookid',controller.bookController.updateBook);    
+
+    router.get('/book/:bookid/detail',controller.bookController.getBookDetail);
+    
+    
+
+
+
 };
