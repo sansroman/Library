@@ -9,7 +9,8 @@
     "egg-view-nunjucks": "^2.1.6",
     "init": "^0.1.2",
     "md5": "^2.2.1",
-    "moment": "^2.21.0"
+    "moment": "^2.21.0",
+    "sequelize": "^4.37.4"
   },
   "devDependencies": {
     "egg-bin": "^4.3.7",
