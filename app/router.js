@@ -27,16 +27,13 @@ module.exports = app => {
     
     router.del('/user/bookShelf/:bookid',controller.userController.delBookshelf)
 
-    router.get('/user/times',controller.userController.getUserListBytime);
+    rouetr.get('/user/all',controller.userController.getAllUserList);
 
-    router.get('/user/books',controller.userController.getUserListByBooks);
-
-    rouetr.get('/user',controller.userController.getUserList);
+    rouetr.get('/user/all',controller.userController.getUserList);    
 
     router.put('/user/:userid',controller.userController.ManagerUser);
   
-
-
+    
 
     router.get('/book/recommend',controller.bookController.recommend);
 

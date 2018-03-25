@@ -97,32 +97,47 @@ class UserController extends Controller {
       value,
       type
     } = this.ctx.params;
-    const respponse = await this.UserService.checkValid(type, value);
-    this.ctx.body = respponse;
+    const response = await this.UserService.checkValid(type, value);
+    this.ctx.body = response;
   }
 
   async getBookshelf() {
-
+    let response;
+    const user = this.session.currentUser;
+    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
+    else response = await this.UserService.getBookshelf(user.id);
+    this.ctx.body = response;
   }
 
   async addBookshelf() {
-
+    let response;
+    const user = this.session.currentUser;
+    const {bookid} = this.ctx.params;
+    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
+    else response = await this.UserService.addBookshelf(user.id,bookid);
+    this.ctx.body = response;
   }
 
   async delBookshelf() {
-
-  }
-
-  async getUserListBytime() {
-
-  }
-
-  async getUserListByBooks() {
-
+    let response;
+    const user = this.session.currentUser;
+    const {bookid} = this.ctx.params;
+    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
+    else response = await this.UserService.delBookshelf(user.id,bookid);
+    this.ctx.body = response;
   }
 
   async getUserList() {
+    const {order,limit} = this.ctx.params;
+    const response = await this.UserService.getUserList("all",order,limit);
+    this.ctx.body = response;
 
+  }
+
+  async getAllUserList() {
+    const {type,order,limit} = this.ctx.params;
+    const response = await this.UserService.getUserList(type,order,limit);
+    this.ctx.body = response;
   }
 
   async ManagerUser() {
