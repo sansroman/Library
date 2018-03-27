@@ -27,23 +27,42 @@ module.exports = app => {
     
     router.del('/user/bookShelf/:bookid',controller.userController.delBookshelf)
 
-    rouetr.get('/user/all',controller.userController.getAllUserList);
+    router.get('/user/times',controller.userController.getUserListBytime);
 
-    rouetr.get('/user/all',controller.userController.getUserList);    
+    router.get('/user/books',controller.userController.getUserListByBooks);
+
+    rouetr.get('/user',controller.userController.getUserList);
 
     router.put('/user/:userid',controller.userController.ManagerUser);
+
+    router.del('/user/:userid',controller.userController.deleteUser);    
+
+    router.get('/user/search',controller.userController.searchUser)
   
+    router.get('/user/category',controller.userController.getCategory);
     
+
+
 
     router.get('/book/recommend',controller.bookController.recommend);
 
+    router.get('/book',controller.bookController.getBookList);
+
+    router.post('/book',controller.bookController.addBook);    
+    
+    router.get('/book/search',controller.bookController.searchBook);
+    
     router.get('/book/:bookid',controller.bookController.getBook);
 
-    router.get('/book/',controller.bookController.getBookList);
-
-    router.put('/book/:bookid',controller.bookController.updateBook);    
-
+    router.put('/book/:bookid',controller.bookController.updateBook);   
+    
+    router.del('/book/:bookid',controller.bookController.deleteBook);    
+    
     router.get('/book/:bookid/detail',controller.bookController.getBookDetail);
+    
+    router.get('/book/category',controller.bookController.getCategory);
+
+    router.post('/book/category',controller.bookController.addCategory);
     
     
 

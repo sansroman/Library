@@ -128,20 +128,32 @@ class UserController extends Controller {
   }
 
   async getUserList() {
-    const {order,limit} = this.ctx.params;
-    const response = await this.UserService.getUserList("all",order,limit);
-    this.ctx.body = response;
-
-  }
-
-  async getAllUserList() {
     const {type,order,limit} = this.ctx.params;
     const response = await this.UserService.getUserList(type,order,limit);
     this.ctx.body = response;
   }
 
-  async ManagerUser() {
 
+  async ManagerUser() {
+    const {userid} = this.ctx.params;
+    // 暂时只有role
+    const {role}  = this.ctx.request.body;
+    const response = await this.userService.managerUser(userid,role);
+    this.ctx.body = response;
+  }
+
+  async searchUser() {
+    const {username} = this.ctx.params;
+    const response = await this.UserService.searchUser(username);
+    this.ctx.body = response;
+  }
+
+  async getCategory(){
+
+  }
+
+  async deleteUser(){
+    
   }
 }
 
