@@ -128,8 +128,8 @@ class UserController extends Controller {
   }
 
   async getUserList() {
-    const {type,order,limit} = this.ctx.params;
-    const response = await this.UserService.getUserList(type,order,limit);
+    const {type,limit} = this.ctx.params;
+    const response = await this.UserService.getUserList(type,limit);
     this.ctx.body = response;
   }
 
@@ -149,11 +149,14 @@ class UserController extends Controller {
   }
 
   async getCategory(){
-
+    const response = await this.UserService.getCategory();
+    this.ctx.body = response;
   }
 
   async deleteUser(){
-    
+    const {userid} = this.ctx.params;
+    const response = await this.UserService.deleteUser(userid);
+    this.ctx.body = response;
   }
 }
 

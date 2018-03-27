@@ -51,14 +51,12 @@ module.exports = app => {
     router.post('/book',controller.bookController.addBook);    
     
     router.get('/book/search',controller.bookController.searchBook);
-    
-    router.get('/book/:bookid',controller.bookController.getBook);
 
     router.put('/book/:bookid',controller.bookController.updateBook);   
     
     router.del('/book/:bookid',controller.bookController.deleteBook);    
     
-    router.get('/book/:bookid/detail',controller.bookController.getBookDetail);
+    router.get('/book/:bookid',controller.bookController.getBookDetail);
     
     router.get('/book/category',controller.bookController.getCategory);
 
