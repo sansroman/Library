@@ -14,7 +14,9 @@ class UserController extends Controller {
     }
 
     async recommend() {
-
+        const {options} = this.ctx.params;
+        const response = await this.BookService.getRecommend(options);
+        this.ctx.body = response;
     }
 
     async getBookList() {
@@ -24,7 +26,9 @@ class UserController extends Controller {
     }
 
     async addBook() {
-
+        const {bookname,category} = this.ctx.params;
+        const response = await this.BookService.addBook(type,order,limit);
+        this.ctx.body = response;
     }
 
     async searchBook() {
