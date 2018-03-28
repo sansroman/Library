@@ -11,7 +11,6 @@ class UserServiceService extends Service {
         this.ResponseCode = ctx.response.ResponseCode;
         this.ServerResponse = ctx.response.ServerResponse;
         this.encryption = ctx.encryption;
-        console.log(ROLE_ADMAIN);
     }
     /**
      * 
