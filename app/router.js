@@ -7,14 +7,6 @@ module.exports = app => {
     
     router.post('/user/register',controller.userController.register);
     
-    router.get('/user/question/',controller.userController.getQuestion);
-    
-    router.put('/user/resetPassword',controller.userController.resetPassword);
-    
-    router.post('/user/forgetCheckPassword',controller.userController.forgetResetPassword);
-
-    router.post('/user/forgetCheckAnswer', controller.userController.forgetCheckAnswer);
-    
     router.put('/user/userInfo',controller.userController.updateUserInfo);
     
     router.get('/user/userInfo',controller.userController.getUserInfo);

@@ -36,46 +36,6 @@ class UserController extends Controller {
     this.ctx.body = response;
   }
 
-  async getQuestion() {
-    const {
-      username
-    } = this.ctx.params;
-    const response = await this.UserService.selectQuestion(username);
-    this.ctx.body = response;
-  }
-
-  async resetPassword() {
-    let response;
-    const {
-      passwordOld,
-      passwordNew
-    } = this.ctx.request.body;
-    const user = this.session.currentUser;
-    if (!user) response = this.ServerResponse.createByErrorMsg('用户未登录');
-    else response = await this.UserService.resetPassword(user, passwordOld, passwordNew);
-    this.ctx.body = response;
-  }
-
-  async forgetCheckAnswer() {
-    const {
-      username,
-      question,
-      answer
-    } = this.ctx.request.body;
-    const response = await this.UserService.checkAnswer(username, question, answer);
-    this.ctx.body = response;
-  }
-
-  async forgetResetPassword() {
-    const {
-      username,
-      paswordNew,
-      forgetToken
-    } = this.ctx.request.body;
-    const response = await this.UserService.forgetRestPassword(username, paswordNew, forgetToken);
-    this.ctx.body = response;
-  }
-
   async updateUserInfo() {
     const userInfo = this.ctx.request.body;
     const user = this.session.currentUser;
