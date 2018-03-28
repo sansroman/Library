@@ -1,6 +1,6 @@
 module.exports = app => {
   const { INTEGER, STRING, DATE, UUID, UUIDV4 } = app.Sequelize;
-  const UserModel = app.model.define('user', {
+  const UserModel = app.model.define('book', {
     id: {
       type: INTEGER(20),
       allowNull: false,
@@ -31,14 +31,10 @@ module.exports = app => {
     },
   }, {
     timestamps: false,
-    tablseName: 'user',
-  });
-
-  UserModel.beforeBulkUpdate(user => {
-    user.attributes.updateTime = new Date();
-    return user;
+    tablseName: 'book',
   });
 
 
-  return UserModel;
+
+  return BookModel;
 };
