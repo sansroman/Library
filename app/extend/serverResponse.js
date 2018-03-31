@@ -1,5 +1,7 @@
 const { SUCCESS, ERROR } = require('./responseCode');
 
+
+// 需要具体细化 修改头部
 module.exports = class ServerResponse {
   constructor(status, msg, data) {
     this.status = status;
