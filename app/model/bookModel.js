@@ -18,17 +18,7 @@ module.exports = app => {
     borrower: {
       type: UUID,
       allowNull: true,
-    },
-    borrowTime: {
-      type: DATE,
-      allowNull: false,
-      defaultValue: new Date(),
-    },
-    revertTime: {
-      type: DATE,
-      allowNull: false,
-      defaultValue: new Date(),
-    },
+    }
   }, {
     timestamps: false,
     tablseName: 'book',
