@@ -1,6 +1,6 @@
 module.exports = app => {
   const { INTEGER, STRING, DATE, UUID, UUIDV4 } = app.Sequelize;
-  const UserModel = app.model.define('book', {
+  const BookModel = app.model.define('book', {
     id: {
       type: INTEGER(20),
       allowNull: false,

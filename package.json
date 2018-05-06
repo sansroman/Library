@@ -5,12 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "egg": "^2.4.1",
+    "egg-sequelize": "^3.1.4",
     "egg-validate": "^1.0.0",
     "egg-view-nunjucks": "^2.1.6",
     "init": "^0.1.2",
     "md5": "^2.2.1",
     "moment": "^2.21.0",
-    "sequelize": "^4.37.4"
+    "pg": "^7.4.2",
+    "pg-hstore": "^2.3.2"
   },
   "devDependencies": {
     "egg-bin": "^4.3.7",
@@ -19,7 +21,10 @@
   "scripts": {
     "dev": "egg-bin dev",
     "test": "egg-bin test",
-    "cov": "egg-bin cov"
+    "cov": "egg-bin cov",
+    "migrate:new": "egg-sequelize migration:create",
+    "migrate:up": "egg-sequelize db:migrate",
+    "migrate:down": "egg-sequelize db:migrate:undo"
   },
   "keywords": [
     "egg.js"
