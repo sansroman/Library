@@ -1,5 +1,9 @@
 module.exports = app => {
     const { router, controller } = app;
+    
+    const checkLogin = app.middleware.checkPermission({});
+    
+    router.get('/',checkLogin,controller.userController.login)
 
     router.post('/user/login',controller.userController.login);
 
