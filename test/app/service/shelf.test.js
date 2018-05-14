@@ -50,21 +50,21 @@ describe('test/app/service/shelf.test.js', () => {
         assert(data[0].get('name') === 'firstShelf');
         assert(data[0].get('avatar') === 'www.baidu,com');
     })
-    it('should create shelf succeed' async function(){
+    it('should create shelf succeed' ,async function(){
 
-    }
-    it('should update shelf failure,shelf id is not exist' async function(){
+    })
+    it('should update shelf failure,shelf id is not exist', async function(){
 
-    }
-    it('should update shelf succeed ' async function(){
+    })
+    it('should update shelf succeed ', async function(){
 
-    }
-    it('should delete shelf succeed ' async function(){
+    })
+    it('should delete shelf succeed ', async function(){
 
-    }
-    it('should delete shelf failure,shelf id is not exist' async function(){
+    })
+    it('should delete shelf failure,shelf id is not exist', async function(){
 
-    }
+    })
   });
 
 });
