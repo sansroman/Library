@@ -5,21 +5,69 @@ const Service = require('egg').Service;
 class UserService extends Service {
     constructor(ctx) {
         super(ctx)
-        this.session = ctx.session;
-        this.UserModel = ctx.model.User;
     }
-    async register(email,password,avatar,name,signature){
-        const data = await this.UserModel.createUser(email,password,avatar,name,signature);
-        return data;
+    async login() {
+
     }
-    async getUserInfo(email){
-        return await this.UserModel.findOnebyEmail(email);
+    async logout() {
+
     }
-    async updateUserInfo(email,name,avatar,signature){
-        return await this.UserModel.updateUserInfo(email,name,avatar,signature);
+    async register() {
+
     }
-    async changePwd(email,password){
-        return await this.UserModel.changePwd(email,password);
+    async resetPassword() {
+
+    }
+    async updateUserInfo() {
+
+    }
+    async getUserInfo() {
+
+    }
+    async getRankList() {
+
+    }
+    async getShelfList() {
+
+    }
+    async createShelf() {
+
+    }
+    async modifyShelf() {
+
+    }
+    async delShelf() {
+
+    }
+    async getShelfByID() {
+
+    }
+    async collectBook() {
+
+    }
+    async cancelCollectBook() {
+
+    }
+    async getAllCollection() {
+
+    }
+    async collectComment() {
+
+    }
+    async delCollectComment() {
+
+    }
+    async getFollowerList() {
+
+    }
+    async getFollowerList() {
+
+    }
+    async followOne() {
+
+    }
+    async unfollow() {
+
     }
 
 }

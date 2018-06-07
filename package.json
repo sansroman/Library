@@ -11,6 +11,7 @@
     "init": "^0.1.2",
     "md5": "^2.2.1",
     "moment": "^2.21.0",
+    "mysql2": "^1.5.3",
     "pg": "^7.4.3"
   },
   "devDependencies": {
@@ -20,7 +21,11 @@
   "scripts": {
     "dev": "egg-bin dev",
     "test": "egg-bin test",
-    "cov": "egg-bin cov"
+    "cov": "egg-bin cov",
+    "migrate:new": "egg-sequelize migration:create",
+    "migrate:up": "egg-sequelize db:migrate",
+    "migrate:down": "egg-sequelize db:migrate:undo",
+    "migrate:sync": "egg-sequelize model:generate"
   },
   "keywords": [
     "egg.js"

@@ -7,9 +7,10 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const UserModel = app.model.define('User', {
+    const UserModel = app.model.define('User', 
+    {
         id: {
-            type: INTEGER(20),
+            type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
@@ -37,7 +38,7 @@ module.exports = app => {
             defaultValue: 'undefined',
         },
         role: { //
-            type: INTEGER(5),
+            type: INTEGER,
             allowNull: false,
             defaultValue: 1,
         },
@@ -54,54 +55,12 @@ module.exports = app => {
         createAt: 'created_at',
         updateAt: 'updated_at',
         timestamps: true,
-        // freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
+        freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
-    UserModel.createUser = async function (email, password, avatar, name, signature) {
-        return await this.findOrCreate({
-            where: {
-                email
-            },
-            defaults: {
-                password,
-                avatar,
-                name,
-                signature
-            }
-        })
-    }
-    UserModel.findOnebyEmail = async function (email) {
-        return await this.findOne({
-            where: {
-                email
-            }
-        })
-    }
-
-    UserModel.updateUserInfo = async function (email,name,avatar,signature) {
-        return await this.update({
-            email,
-            avatar,
-            name,
-            signature
-        }, {
-
-            where: {
-                email
-            }
-        })
-    }
-    UserModel.changePwd = async function (email,password) {
-        return await this.update({
-            password
-        }, {
-
-            where: {
-                email
-            }
-        })
-    }
     UserModel.associate = function() {
-        UserModel.hasMany(app.model.Shelf);
-    }
+        UserModel.hasMany(app.model.CommentModel,{foreignKey:'uid',targetKey:'id',as:'comments'});
+        UserModel.hasMany(app.model.ShelfModel,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
+    
+      };
     return UserModel;
 };
