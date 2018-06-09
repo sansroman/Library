@@ -38,8 +38,8 @@ module.exports = app => {
         timestamps: true,
     });
     ShelfModel.associate = function() {
-        ShelfModel.belongsTo(app.model.UserModel, { foreignKey: 'uid' });
-        ShelfModel.belongsToMany(app.model.BookModel,{through:'bookShelfs',as:'BookShelfs'});
+        ShelfModel.belongsTo(app.model.User, { foreignKey: 'uid' });
+        ShelfModel.belongsToMany(app.model.Book,{through:'bookShelfs',as:'BookShelfs'});
     }
     return ShelfModel;
 };

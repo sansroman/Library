@@ -9,18 +9,44 @@ class UserController extends Controller {
     this.session = ctx.session;
     this.UserModel = ctx.model.UserModel;
     this.UserService = ctx.service.userService;
-    this.ResponseCode = ctx.response.ResponseCode;
-    this.ServerResponse = ctx.response.ServerResponse;
-
   }
   async login() {
-
+    this.ctx.validate({
+      userid: { type: 'number' },
+      password: { type: 'string', min: 8, max: 20 },
+      rememberMe: { type: 'boolean', required: false },
+    });
+    const {
+      userid,
+      password,
+      rememberMe,
+    } = this.ctx.request.body;
+    const response = await this.userService.login(userid, password);
+    if (response.error) this.ctx.status = 403;
+    if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
+    this.ctx.body = response;
   }
   async logout() {
-  
+    this.ctx.session = null;
+    this.ctx.body = '退出成功';
   }
   async register() {
-
+    this.ctx.validate({
+      userid: { type: 'email' },
+      password: { type: 'string', min: 8, max: 20 },
+      nickname: { type: 'string', min: 1, max: 20 },
+      avatar: { type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200}
+    });
+    const {
+      userid ,
+      password,
+      nickname = 'guest',
+      avatar = null,
+    } = this.ctx.request.body;
+    const response = await this.userService.register(userid , password, nickname, avatar, signature);
+    if (response.error) this.ctx.status = 405;
+    this.ctx.body = response;
   }
   async resetPassword() {
 
@@ -67,7 +93,7 @@ class UserController extends Controller {
   async getFollowerList() {
 
   }
-  async getFollowerList() {
+  async getFollowingList() {
 
   }
   async followOne() {

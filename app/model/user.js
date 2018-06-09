@@ -15,7 +15,7 @@ module.exports = app => {
             primaryKey: true,
             autoIncrement: true,
         },
-        email: {
+        userid: {
             type: STRING(50),
             allowNull: false,
         },
@@ -36,6 +36,16 @@ module.exports = app => {
             type: STRING(100),
             allowNull: true,
             defaultValue: 'undefined',
+        },
+        integral:{
+            type:INTEGER,
+            allowNull: false,
+            defaultValue:0
+        },
+        readingTime:{
+            type:INTEGER,
+            allowNull: false,
+            defaultValue:0
         },
         role: { //
             type: INTEGER,
@@ -58,8 +68,8 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     UserModel.associate = function() {
-        UserModel.hasMany(app.model.CommentModel,{foreignKey:'uid',targetKey:'id',as:'comments'});
-        UserModel.hasMany(app.model.ShelfModel,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
+        UserModel.hasMany(app.model.Comment,{foreignKey:'uid',targetKey:'id',as:'comments'});
+        UserModel.hasMany(app.model.Shelf,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
     
       };
     return UserModel;

@@ -38,7 +38,7 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     ChapterModel.associate = function() {
-        ChapterModel.belongsTo(app.model.BookModel);
+        ChapterModel.belongsTo(app.model.Book);
     };
     return ChapterModel;
 };

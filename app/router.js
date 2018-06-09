@@ -8,7 +8,6 @@ module.exports = app => {
 
     const owned = app.role.can('owned');
 
-    
 
     router.get('/book',controller.bookController.getBookList)
 
@@ -17,7 +16,7 @@ module.exports = app => {
 
     router.get('/book/:bookid',controller.bookController.getBookByID)
 
-    router.post('/book/:bookid'controller.bookController.createChapter);
+    router.post('/book/:bookid',controller.bookController.createChapter);
 
     router.get('/book/search',controller.bookController.seachBook)
     
@@ -97,7 +96,7 @@ module.exports = app => {
 
     router.delete('/comment/:commentID',controller.commentController.delComment);
 
-    router.put('/comment/:commentID',commentController.modifyComment);
+    router.put('/comment/:commentID',controller.commentController.modifyComment);
 
     router.get('/comment/:commentID',controller.commentController.getCommentByID);
 

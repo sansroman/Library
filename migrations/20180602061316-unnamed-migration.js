@@ -17,7 +17,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      email: {
+      userid: {
         type: STRING(50),
         allowNull: false,
       },
@@ -33,6 +33,16 @@ module.exports = {
         type: STRING(20),
         allowNull: false,
         defaultValue: 'undefined',
+      },
+      integral:{
+        type:INTEGER,
+        allowNull: false,
+        defaultValue:0
+      },
+      readingTime:{
+          type:INTEGER,
+          allowNull: false,
+          defaultValue:0
       },
       signature: {
         type: STRING(100),

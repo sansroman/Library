@@ -48,7 +48,7 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     CommentModel.associate = function() {
-        CommentModel.belongsTo(app.model.UserModel, { foreignKey: 'uid' });        
+        CommentModel.belongsTo(app.model.User, { foreignKey: 'uid' });        
     };
     return CommentModel;
 };

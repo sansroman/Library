@@ -51,8 +51,8 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     BookModel.associate = function() {
-        BookModel.belongsToMany(app.model.ShelfModel,{through:'bookShelfs',as:'BookShelfs'});
-        BookModel.hasMany(app.model.ChapterModel,{foreignKey:'bid',targetKey:'id',as:'Chapter'});
+        BookModel.belongsToMany(app.model.Shelf,{through:'bookShelfs'});
+        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',targetKey:'id',as:'Chapter'});
     };
     return BookModel;
 };
