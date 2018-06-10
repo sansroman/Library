@@ -6,8 +6,6 @@ module.exports = app => {
 
     const logged = app.role.can('logged');
 
-    const owned = app.role.can('owned');
-
 
     router.get('/book',controller.bookController.getBookList)
 

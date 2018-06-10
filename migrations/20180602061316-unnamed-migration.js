@@ -17,7 +17,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      userid: {
+      account: {
         type: STRING(50),
         allowNull: false,
       },
@@ -29,7 +29,7 @@ module.exports = {
         type: STRING(200),
         allowNull: true,
       },
-      name: {
+      nickname: {
         type: STRING(20),
         allowNull: false,
         defaultValue: 'undefined',
@@ -182,14 +182,38 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      shelfId:{
+      sid:{
         type:INTEGER,
         references:{
           model:'Shelf',
           key:'id'
         }
       },
-      bookId:{
+      bid:{
+        type:INTEGER,
+        references:{
+          model:'Book',
+          key:'id'
+        }
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+    await queryInterface.createTable('RecentBook', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      uid:{
+        type:INTEGER,
+        references:{
+          model:'User',
+          key:'id'
+        }
+      },
+      bid:{
         type:INTEGER,
         references:{
           model:'Book',
@@ -210,10 +234,12 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     await queryInterface.dropTable('BookShelfs');
+    await queryInterface.dropTable('RecentBook');
     await queryInterface.dropTable('Comment');
     await queryInterface.dropTable('Shelf');
     await queryInterface.dropTable('Chapter');
     await queryInterface.dropTable('Book');
     await queryInterface.dropTable('User');
+
   }
 };

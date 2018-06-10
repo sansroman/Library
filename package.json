@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "egg": "^2.4.1",
+    "egg-bcrypt": "^1.1.0",
+    "egg-cors": "^2.0.0",
     "egg-sequelize": "^3.1.4",
     "egg-userrole": "^2.0.0",
     "egg-validate": "^1.0.0",
@@ -26,7 +28,8 @@
     "migrate:new": "egg-sequelize migration:create",
     "migrate:up": "egg-sequelize db:migrate",
     "migrate:down": "egg-sequelize db:migrate:undo",
-    "migrate:sync": "egg-sequelize model:generate"
+    "migrate:sync": "egg-sequelize model:generate",
+    "migrate:seed":"egg-sequelize seed:generate"
   },
   "keywords": [
     "egg.js"

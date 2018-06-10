@@ -7,21 +7,20 @@ class UserController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.session = ctx.session;
-    this.UserModel = ctx.model.UserModel;
-    this.UserService = ctx.service.userService;
+    this.userService = ctx.service.userService;
   }
   async login() {
     this.ctx.validate({
-      userid: { type: 'number' },
+      account: { type: 'string'},
       password: { type: 'string', min: 8, max: 20 },
       rememberMe: { type: 'boolean', required: false },
     });
     const {
-      userid,
+      account,
       password,
       rememberMe,
     } = this.ctx.request.body;
-    const response = await this.userService.login(userid, password);
+    const response = await this.userService.login(account, password);
     if (response.error) this.ctx.status = 403;
     if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
     this.ctx.body = response;
@@ -32,20 +31,21 @@ class UserController extends Controller {
   }
   async register() {
     this.ctx.validate({
-      userid: { type: 'email' },
+      account: { type: 'string'},
       password: { type: 'string', min: 8, max: 20 },
-      nickname: { type: 'string', min: 1, max: 20 },
-      avatar: { type: 'url', required: false },
-      signature:{type: 'string', min: 0, max: 200}
+      nickname: {type: 'string', min: 1, max: 20 , required: false },
+      avatar: {type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200,required:false}
     });
     const {
-      userid ,
+      account ,
       password,
       nickname = 'guest',
       avatar = null,
+      signature = '这个人很懒,什么都没有留下',
     } = this.ctx.request.body;
-    const response = await this.userService.register(userid , password, nickname, avatar, signature);
-    if (response.error) this.ctx.status = 405;
+    const response = await this.userService.register(account , password, nickname, avatar, signature);
+    if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
   async resetPassword() {
@@ -55,7 +55,11 @@ class UserController extends Controller {
 
   }
   async getUserInfo() {
-
+    const account = this.ctx.query.account;
+    console.log(this.ctx.query)
+    const response = await this.userService.getUserInfo(account);
+    if(response.error) this.ctx.state = 404;
+    this.ctx.body = response;
   }
   async getRankList() {
 

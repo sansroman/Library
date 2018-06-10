@@ -15,7 +15,7 @@ module.exports = app => {
             primaryKey: true,
             autoIncrement: true,
         },
-        userid: {
+        account: {
             type: STRING(50),
             allowNull: false,
         },
@@ -27,7 +27,7 @@ module.exports = app => {
             type: STRING(200),
             allowNull: true,
         },
-        name: {
+        nickname: {
             type: STRING(20),
             allowNull: false,
             defaultValue: 'undefined',
@@ -70,7 +70,8 @@ module.exports = app => {
     UserModel.associate = function() {
         UserModel.hasMany(app.model.Comment,{foreignKey:'uid',targetKey:'id',as:'comments'});
         UserModel.hasMany(app.model.Shelf,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
+        UserModel.belongsToMany(app.model.Book,{through:app.model.RecentBook,foreignKey:'uid'});
     
-      };
+    };
     return UserModel;
 };
