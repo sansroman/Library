@@ -8,7 +8,7 @@ class UserService extends Service {
     this.UserModel = ctx.model.User;
     this.BookModel = ctx.model.Book;
   }
-  async login(account, password) {
+  async _checkPass(account, password) {
     const user = await this.UserModel.findOne({
       include: [{
         model: this.BookModel,
@@ -20,11 +20,15 @@ class UserService extends Service {
         account
       }
     });
-    if (user && this.ctx.compare(password, user.get('password'))) {
-      const role = user.get('role');
+    return (user && this.ctx.compare(password, user.get('password'))) ? user : null;
+  }
+  async login(account, password) {
+
+    let user = await this._checkPass(account, password);
+    if (user) {
       this.ctx.session.user = {
         uid: user.get('id'),
-      };
+      }
       return {
         error: false,
         data: {
@@ -32,18 +36,44 @@ class UserService extends Service {
           user: {
             nickname: user.get('nickname'),
             avatar: user.get('avatar'),
-            signature:user.get('signature'),
-            integral:user.get('integral'),
-            readingTime:user.get('readingTime'),
+            signature: user.get('signature'),
+            integral: user.get('integral'),
+            readingTime: user.get('readingTime'),
             recentBook: user.get('Books')
           },
         },
       };
+    } else {
+      return {
+        error: true,
+        data: '账号密码错误',
+      };
     }
-    return {
-      error: true,
-      data: '账号密码错误',
-    };
+  }
+  async adminLogin(account, password) {
+    let user = await this._checkPass(account, password);
+    const role = user.get('role');
+    if (user && user.get('role') > 1) {
+      this.ctx.session.user = {
+        uid: user.get('id'),
+        isAdmin: role > 2?true:false,
+        isLibrarian: true
+      }
+      return {
+        error: false,
+        data: {
+          text: '认证成功',
+          nickname: user.get('nickname'),
+          role: user.get('role')
+        }
+      }
+    } else {
+      return {
+        error: true,
+        data: '认证失败',
+      };
+    }
+
   }
   async register(account, password, nickname, avatar, signature) {
     const pwdHash = await this.ctx.genHash(password);
@@ -73,17 +103,22 @@ class UserService extends Service {
   async resetPassword() {
 
   }
-  async updateUserInfo() {
-
+  async updateUserInfo(uid,nickname, avatar, signature) {
+    const result = await this.UserModel.update({
+      nickname,
+      avatar,
+      signature
+    }, {
+      where: {
+        id: uid
+      }
+    });
+    return result;
   }
-  async getUserInfo(account) {
-    let condition = account ? {
-      account
-    } : {
-      id: this.ctx.session.uid
-    };
+  async getUserInfo(uid) {
+    let condition = uid ||this.session;
     const user = await this.UserModel.findOne({
-      attributes: ['account', 'avatar', 'nickname', 'readingTime', 'signature'],
+      attributes: ['account', 'avatar','integral', 'nickname', 'readingTime', 'signature'],
       include: [{
         model: this.BookModel,
         through: {
@@ -91,14 +126,39 @@ class UserService extends Service {
         }
       }],
       where: {
-        account
+        id:condition
       }
     });
-    console.log(user.get('Books'));
     return {
       error: false,
       data: user
     }
+  }
+
+  async getUserList(rid) {
+    const condition = rid==-1?{where:{role:rid}}:null
+    const result = await this.UserModel.findAll({
+        condition,
+        attributes:['id','account','nickname','role',]
+    });
+    return result;
+  }
+  async modifyRole(uid, role) {
+    const result = await this.UserModel.update({
+      role
+    }, {
+      where: {
+        id: uid
+      }
+    });
+    return result;
+  }
+  async searchUser(name){
+    const result = await this.UserModel.findAll({
+        where:{account:{[this.app.Sequelize.Op.like]:`%${name}%`}},
+        attributes:['id','account','nickname','role',]
+    });
+    return result;
   }
   async getRankList() {
 

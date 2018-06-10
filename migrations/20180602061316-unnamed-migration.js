@@ -2,7 +2,11 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-     const { STRING, INTEGER, DATE } = Sequelize;
+    const {
+      STRING,
+      INTEGER,
+      DATE
+    } = Sequelize;
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -34,15 +38,15 @@ module.exports = {
         allowNull: false,
         defaultValue: 'undefined',
       },
-      integral:{
-        type:INTEGER,
+      integral: {
+        type: INTEGER,
         allowNull: false,
-        defaultValue:0
+        defaultValue: 0
       },
-      readingTime:{
-          type:INTEGER,
-          allowNull: false,
-          defaultValue:0
+      readingTime: {
+        type: INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       signature: {
         type: STRING(100),
@@ -53,6 +57,25 @@ module.exports = {
         type: INTEGER,
         allowNull: false,
         defaultValue: 1,
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+    await queryInterface.createTable('Category', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      category: {
+        type: STRING(50),
+        allowNull: false,
+        defaultValue: '未命名分类',
+      },
+      type: {
+        type: STRING(50),
+        allowNull: false,
       },
       created_at: DATE,
       updated_at: DATE,
@@ -68,17 +91,32 @@ module.exports = {
         type: STRING(20),
         allowNull: true
       },
+      cover: {
+        type: STRING(200),
+        allowNull: true
+      },
       name: {
         type: STRING(20),
         allowNull: false
       },
-      PublishingCompany: {
+      publishingCompany: {
         type: STRING(200),
         allowNull: false
       },
-      PublishingPerson: {
+      publishingPerson: {
         type: STRING(50),
         allowNull: false
+      },
+      position: {
+        type: STRING(100),
+        allowNull: true
+      },
+      cid: {
+        type: INTEGER,
+        references: {
+          model: 'Category',
+          key: 'id'
+        }
       },
       views: {
         type: INTEGER,
@@ -96,12 +134,16 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      bid:{
-        type:INTEGER,
-        references:{
-          model:'Book',
-          key:'id'
+      bid: {
+        type: INTEGER,
+        references: {
+          model: 'Book',
+          key: 'id'
         }
+      },
+      title: {
+        type: STRING(100),
+        allowNull: false
       },
       index: {
         type: INTEGER,
@@ -121,11 +163,11 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      uid:{
-        type:INTEGER,
-        references:{
-          model:'User',
-          key:'id'
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
         }
       },
       name: {
@@ -147,11 +189,11 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      uid:{
-        type:INTEGER,
-        references:{
-          model:'User',
-          key:'id'
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
         }
       },
       bid: {
@@ -182,18 +224,18 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      sid:{
-        type:INTEGER,
-        references:{
-          model:'Shelf',
-          key:'id'
+      sid: {
+        type: INTEGER,
+        references: {
+          model: 'Shelf',
+          key: 'id'
         }
       },
-      bid:{
-        type:INTEGER,
-        references:{
-          model:'Book',
-          key:'id'
+      bid: {
+        type: INTEGER,
+        references: {
+          model: 'Book',
+          key: 'id'
         }
       },
       created_at: DATE,
@@ -206,23 +248,24 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      uid:{
-        type:INTEGER,
-        references:{
-          model:'User',
-          key:'id'
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
         }
       },
-      bid:{
-        type:INTEGER,
-        references:{
-          model:'Book',
-          key:'id'
+      bid: {
+        type: INTEGER,
+        references: {
+          model: 'Book',
+          key: 'id'
         }
       },
       created_at: DATE,
       updated_at: DATE,
     })
+
   },
 
   async down(queryInterface, Sequelize) {
@@ -240,6 +283,7 @@ module.exports = {
     await queryInterface.dropTable('Chapter');
     await queryInterface.dropTable('Book');
     await queryInterface.dropTable('User');
+    await queryInterface.dropTable('Category')
 
   }
 };

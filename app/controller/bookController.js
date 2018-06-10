@@ -4,46 +4,46 @@ const Controller = require('egg').Controller;
 
 class BookController extends Controller {
 
-  constructor(ctx){
+  constructor(ctx) {
     super(ctx);
     this.session = ctx.session;
   }
-  async getBookList(){
-      
-}
-async getRankList(){
+  async getBookList() {
 
-}
-async getBookByID(){
+  }
+  async getRankList() {
 
-}
-async createChapter(){
+  }
+  async getBookByID() {
 
-}
-async seachBook(){
+  }
+  async createChapter() {
 
-}
-async bookRecommend(){
+  }
+  async seachBook() {
 
-}
-async addBook(){
+  }
+  async bookRecommend() {
 
-}
-async modifyBook(){
+  }
+  async addBook() {
 
-}
-async delBook(){
+  }
+  async modifyBook() {
 
-}
-async geChapterByID(){
+  }
+  async delBook() {
 
-}
-async delChapter(){
+  }
+  async geChapterByID() {
 
-}
-async modifyChapter(){
+  }
+  async delChapter() {
 
-}
+  }
+  async modifyChapter() {
+
+  }
 }
 
 module.exports = BookController;

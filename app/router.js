@@ -27,14 +27,22 @@ module.exports = app => {
     router.delete('/book/:bookid',controller.bookController.delBook);
     
     
-    
     router.get('/book/:bookid/:chapterID',controller.bookController.geChapterByID)
 
     router.delete('/book/:bookid/:chapterID',controller.bookController.delChapter);
 
     router.put('/book/:bookid/:chapterID',controller.bookController.modifyChapter);
     
-    
+
+    router.get('/category',controller.categoryController.getAllCategory);
+
+    router.post('/category',controller.categoryController.createCategory);
+
+    router.put('/category/:cid',controller.categoryController.modifyCategory);
+
+    router.delete('/category/:cid',controller.categoryController.modifyCategory);
+
+    router.get('/category/sub',controller.categoryController.getSubCategory)
 
 
 
@@ -47,9 +55,9 @@ module.exports = app => {
     
     router.put('/user/resetPassword',controller.userController.resetPassword);
     
-    router.put('/user/userInfo',controller.userController.updateUserInfo);
+    router.put('/user/info/:uid',controller.userController.updateUserInfo);
     
-    router.get('/user/userInfo',controller.userController.getUserInfo);
+    router.get('/user/info/:uid',controller.userController.getUserInfo);
 
     router.get('/user/ranking',controller.userController.getRankList);
     
@@ -88,6 +96,16 @@ module.exports = app => {
     router.delete('/user/following/:id',controller.userController.unfollow);
 
     
+
+    router.post('/admin/login',controller.adminController.login);
+
+    router.get('/admin/user/:rid',isAdmin,controller.adminController.getUserList);
+
+    router.put('/admin/:uid',isAdmin,controller.adminController.modifyRole);
+
+    router.get('/admin/search',isAdmin,controller.adminController.searchUser)
+
+
     router.get('/comment',controller.commentController.getAllComment);
 
     router.post('/comment',controller.commentController.craeteComment);

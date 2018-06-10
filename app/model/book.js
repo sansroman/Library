@@ -14,6 +14,10 @@ module.exports = app => {
             primaryKey: true,
             autoIncrement: true,
         },
+        cover:{
+            type:STRING(200),
+            allowNull:true
+        },
         type:{
             type:STRING(20),
             allowNull:true
@@ -22,13 +26,17 @@ module.exports = app => {
             type:STRING(20),
             allowNull:false
         },
-        PublishingCompany:{
+        publishingCompany:{
             type:STRING(200),
             allowNull:false
         },
-        PublishingPerson:{
+        publishingPerson:{
             type:STRING(50),
             allowNull:false
+        },
+        position:{
+            type: STRING(100),
+            allowNull: true
         },
         views:{
             type:INTEGER,
@@ -54,6 +62,8 @@ module.exports = app => {
         BookModel.belongsToMany(app.model.Shelf,{through:app.model.BookShelfs,foreignKey:'bid'});
         BookModel.belongsToMany(app.model.User,{through:app.model.RecentBook,foreignKey:'bid'});
         BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',targetKey:'id',as:'Chapter'});
+        BookModel.belongsTo(app.model.Category, { foreignKey: 'cid' })
+        
     };
     return BookModel;
 };

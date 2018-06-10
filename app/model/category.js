@@ -7,24 +7,21 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const ChapterModel = app.model.define('Chapter', {
+    const CategoryModel = app.model.define('Category', {
         id: {
             type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        title:{
-            type:STRING(100),
-            allowNull:false
+        category: {
+            type: STRING(50),
+            allowNull: false,
+            defaultValue: '未命名分类',            
         },
-        index:{
-            type:INTEGER,
-            allowNull:false
-        },
-        content:{
-            type:STRING(10000),
-            allowNull:false
+        type: {
+            type: STRING(50),
+            allowNull: false,
         },
         created_at: {
             type: DATE,
@@ -39,10 +36,6 @@ module.exports = app => {
         createAt: 'created_at',
         updateAt: 'updated_at',
         timestamps: true,
-        freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
-    ChapterModel.associate = function() {
-        ChapterModel.belongsTo(app.model.Book);
-    };
-    return ChapterModel;
+    return CategoryModel;
 };

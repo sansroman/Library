@@ -52,12 +52,23 @@ class UserController extends Controller {
 
   }
   async updateUserInfo() {
-
+    this.ctx.validate({
+      nickname: {type: 'string', min: 1, max: 20 , required: false },
+      avatar: {type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200,required:false}
+    });
+    const uid = this.ctx.params.uid;    
+    const {
+      nickname = 'guest',
+      avatar = null,
+      signature = '这个人很懒,什么都没有留下',
+    } = this.ctx.request.body;
+    const response = await this.userService.updateUserInfo( uid,nickname, avatar, signature);
+    this.ctx.body = response;
   }
   async getUserInfo() {
-    const account = this.ctx.query.account;
-    console.log(this.ctx.query)
-    const response = await this.userService.getUserInfo(account);
+    const uid = this.ctx.params.uid;
+    const response = await this.userService.getUserInfo(uid);
     if(response.error) this.ctx.state = 404;
     this.ctx.body = response;
   }
