@@ -14,15 +14,15 @@ module.exports = app => {
             primaryKey: true,
             autoIncrement: true,
         },
-        bid: {
-            type: INTEGER,
-            allowNull: false,
-            references:{
-                model:'User',
-                key:'id'
-            },
-            comment:'书籍ID'
-        },
+        // bid: {
+        //     type: INTEGER,
+        //     allowNull: false,
+        //     references:{
+        //         model:'User',
+        //         key:'id'
+        //     },
+        //     comment:'书籍ID'
+        // },
         content: {
             type: STRING(2000),
             allowNull: false,
@@ -48,7 +48,9 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     CommentModel.associate = function() {
-        CommentModel.belongsTo(app.model.User, { foreignKey: 'uid' });        
+        CommentModel.belongsTo(app.model.User, { foreignKey: 'uid' });  
+        CommentModel.belongsTo(app.model.Book, { foreignKey: 'bid' });        
+              
     };
     return CommentModel;
 };
