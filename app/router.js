@@ -42,7 +42,7 @@ module.exports = app => {
 
     router.delete('/category/:cid',controller.categoryController.modifyCategory);
 
-    router.get('/category/sub',controller.categoryController.getSubCategory)
+    router.get('/category/type',controller.categoryController.getSubCategory)
 
 
 

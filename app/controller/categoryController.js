@@ -7,7 +7,7 @@ class CategoryController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.session = ctx.session;
-    this.categoryController = ctx.controller.categoryController;
+    this.categoryService = ctx.service.categoryService;
   }
   async createCategory(){
     this.ctx.validate({
@@ -18,7 +18,7 @@ class CategoryController extends Controller {
         category='未命名分类' ,
         type,
       } = this.ctx.request.body;
-      const response = await this.categoryController.createCategory(category,type);
+      const response = await this.categoryService.createCategory(category,type);
       if (response.error) this.ctx.status = 409;
       this.ctx.body = response;
   }
@@ -29,10 +29,14 @@ class CategoryController extends Controller {
 
   }
   async getAllCategory(){
+    const response = await this.categoryService.getAllCategory();
+    this.ctx.body = response;
 
   }
   async getSubCategory(){
-
+    const category = this.ctx.query.category;
+    const response = await this.categoryService.getSubCategory(category);
+    this.ctx.body = response;
   }
 }
 

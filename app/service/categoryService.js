@@ -5,18 +5,14 @@ const Service = require('egg').Service;
 class CategoryService extends Service {
     constructor(ctx) {
         super(ctx);
-        this.CategoryModel = this.model.Category;
+        this.CategoryModel = ctx.model.Category;
     }
     async createCategory(category,type) {
         const result = await this.CategoryModel.findOrCreate({
           where: {
             category,
             type
-          },
-          defaults: {
-            category,
-            type
-          },
+          }
         });
         if (result[result.length - 1]) {
           return {
@@ -30,16 +26,23 @@ class CategoryService extends Service {
         };
     }
     async deleteCategory() {
-
+      
     }
     async modifyCategory() {
 
     }
     async getAllCategory() {
-
+      const result = await this.CategoryModel.findAll({
+        group:'category',
+        attributes:['category']
+      });
+      return result;
     }
-    async getSubCategory() {
-
+    async getSubCategory(category) {
+       return await this.CategoryModel.findAll({
+        where:{category},
+        attributes:['id','type']
+      });
     }
 
 
