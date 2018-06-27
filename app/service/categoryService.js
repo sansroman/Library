@@ -25,12 +25,16 @@ class CategoryService extends Service {
           data: '已存在此分类',
         };
     }
-    async deleteCategory() {
-      
+    async deleteCategory(cid) {
+        const result = await this.CategoryModel.destroy({
+          where:{id:cid}
+        });
+        return {
+          error:true,
+          data:result
+        }
     }
-    async modifyCategory() {
 
-    }
     async getAllCategory() {
       const result = await this.CategoryModel.findAll({
         group:'category',

@@ -99,13 +99,19 @@ module.exports = {
         type: STRING(20),
         allowNull: false
       },
-      publishingCompany: {
+      company: {
         type: STRING(200),
         allowNull: false
       },
-      publishingPerson: {
+      author: {
         type: STRING(50),
         allowNull: false
+      },
+      blurb:{
+        type:STRING(200),
+      },
+      pdate:{
+          type:STRING(30)
       },
       position: {
         type: STRING(100),

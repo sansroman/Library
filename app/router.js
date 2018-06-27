@@ -26,7 +26,8 @@ module.exports = app => {
     
     router.delete('/book/:bookid',controller.bookController.delBook);
     
-    
+    router.post('/book/:bookid',controller.bookController.addChapter);
+
     router.get('/book/:bookid/:chapterID',controller.bookController.geChapterByID)
 
     router.delete('/book/:bookid/:chapterID',controller.bookController.delChapter);
@@ -38,9 +39,7 @@ module.exports = app => {
 
     router.post('/category',controller.categoryController.createCategory);
 
-    router.put('/category/:cid',controller.categoryController.modifyCategory);
-
-    router.delete('/category/:cid',controller.categoryController.modifyCategory);
+    router.delete('/category/:cid',controller.categoryController.deleteCategory);
 
     router.get('/category/type',controller.categoryController.getSubCategory)
 

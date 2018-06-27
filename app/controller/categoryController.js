@@ -23,11 +23,11 @@ class CategoryController extends Controller {
       this.ctx.body = response;
   }
   async deleteCategory(){
-
+      const cid = this.ctx.params.cid;
+      const response = await this.categoryService.deleteCategory(cid);
+      this.ctx.body = response;
   }
-  async modifyCategory(){
 
-  }
   async getAllCategory(){
     const response = await this.categoryService.getAllCategory();
     this.ctx.body = response;
@@ -38,6 +38,7 @@ class CategoryController extends Controller {
     const response = await this.categoryService.getSubCategory(category);
     this.ctx.body = response;
   }
+
 }
 
 module.exports = CategoryController;
