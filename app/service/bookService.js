@@ -5,22 +5,29 @@ const Service = require('egg').Service;
 class BookService extends Service {
     constructor(ctx) {
         super(ctx)
-        this.bookModel = ctx.model.Book;
+        this.BookModel = ctx.model.Book;
+        this.CategoryModel = ctx.model.Category;
     }
 
-    async getBookList(limit,offset) {
-        const result = await this.bookModel.findAll({
-            attributes:['id','pdate','name','type'],
+    async getBookList(limit, offset) {
+        const result = await this.BookModel.findAndCountAll({
+            attributes: ['id', 'updated_at', 'name'],
+            include:[{model:this.CategoryModel,attributes:['category','type']}],
             limit,
             offset
-          });
+        });
         return result;
     }
     async getRankList() {
 
     }
-    async getBookByID() {
-
+    async getBookByID(bid) {
+        const result = await this.BookModel.findOne({
+            where: {
+                id: bid
+            }
+        });
+        return result;
     }
     async createChapter() {
 
@@ -33,20 +40,34 @@ class BookService extends Service {
     }
     async addBook(booklist) {
         console.log(booklist);
-        const result = this.bookModel.bulkCreate(booklist);
+        const result = this.BookModel.bulkCreate(booklist);
         return result;
     }
-    async modifyBook() {
-
+    async modifyBook(bid, cover, name, author, company, blurb, pdate) {
+        const result = await this.BookModel.update({
+            cover,
+            name,
+            author,
+            company,
+            blurb,
+            pdate
+        }, {
+            where: {
+                id: bid
+            }
+        });
+        return result;
     }
     async delBook(bid) {
-        const result = await this.bookModel.destroy({
-            where:{id:bid}
-          });
-          return {
-            error:true,
-            data:result
-          }
+        const result = await this.BookModel.destroy({
+            where: {
+                id: bid
+            }
+        });
+        return {
+            error: true,
+            data: result
+        }
     }
     async geChapterByID() {
 

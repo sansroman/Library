@@ -18,10 +18,6 @@ module.exports = app => {
             type:STRING(200),
             allowNull:true
         },
-        type:{
-            type:STRING(20),
-            allowNull:true
-        },
         name:{
             type:STRING(20),
             allowNull:false

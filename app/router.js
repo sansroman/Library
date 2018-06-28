@@ -12,27 +12,27 @@ module.exports = app => {
     router.get('/book/ranking',controller.bookController.getRankList);
     // 书籍阅读量排行  书籍收藏排行
 
-    router.get('/book/:bookid',controller.bookController.getBookByID)
+    router.get('/book/:bid',controller.bookController.getBookByID)
 
-    router.post('/book/:bookid',controller.bookController.createChapter);
+    router.post('/book/:bid',controller.bookController.createChapter);
 
     router.get('/book/search',controller.bookController.seachBook)
     
     router.get('/book/recommend',controller.bookController.bookRecommend)
     
     router.post('/book',controller.bookController.addBook);
-    
-    router.put('/book/:bookid',controller.bookController.modifyBook);
-    
-    router.delete('/book/:bookid',controller.bookController.delBook);
-    
-    router.post('/book/:bookid',controller.bookController.addChapter);
 
-    router.get('/book/:bookid/:chapterID',controller.bookController.geChapterByID)
+    router.put('/book/:bid',controller.bookController.modifyBook);
+    
+    router.delete('/book/:bid',controller.bookController.delBook);
+    
+    router.post('/book/:bid',controller.bookController.addChapter);
 
-    router.delete('/book/:bookid/:chapterID',controller.bookController.delChapter);
+    router.get('/book/:bid/:chapterID',controller.bookController.geChapterByID)
 
-    router.put('/book/:bookid/:chapterID',controller.bookController.modifyChapter);
+    router.delete('/book/:bid/:chapterID',controller.bookController.delChapter);
+
+    router.put('/book/:bid/:chapterID',controller.bookController.modifyChapter);
     
 
     router.get('/category',controller.categoryController.getAllCategory);
@@ -74,7 +74,7 @@ module.exports = app => {
 
     router.post('/user/shelf/:shelfID',controller.userController.collectBook);
 
-    router.delete('/user/shelf/:shelfID/:bookID',controller.userController.cancelCollectBook);
+    router.delete('/user/shelf/:shelfID/:bid',controller.userController.cancelCollectBook);
 
     
 

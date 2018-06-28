@@ -10,7 +10,10 @@ class BookController extends Controller {
     this.bookService = ctx.service.bookService;
   }
   async getBookList() {
-    const {limit = 10,offset = 0} = this.ctx.query;
+    let {limit = 10,offset = 0} = this.ctx.query;
+    console.log(offset);
+    limit = parseInt(limit);
+    offset = parseInt(offset) * limit;
     const response = await this.bookService.getBookList(limit,offset);
     this.ctx.body = response;
   }
@@ -18,7 +21,10 @@ class BookController extends Controller {
 
   }
   async getBookByID() {
-
+    const bid = this.ctx.params.bid;
+    const response = await this.bookService.getBookByID(bid);
+    this.ctx.body = response;
+    
   }
   async createChapter() {
 
@@ -31,7 +37,7 @@ class BookController extends Controller {
   }
   async addBook() {
     const {booklist} = this.ctx.request.body;
-    const response = this.bookService.addBook(booklist);
+    const response = await this.bookService.addBook(booklist);
     this.ctx.body = response;
   }
   async addChapter(){
@@ -39,11 +45,14 @@ class BookController extends Controller {
   }
   async modifyBook() {
     const bid = this.ctx.params.bid;
-    const response = this.bookService.delBook(bid);
+    const {cover,name,author,company,blurb,pdate} = this.ctx.request.body;
+    const response = await this.bookService.modifyBook(bid,cover,name,author,company,blurb,pdate);
     this.ctx.body = response;
   }
   async delBook() {
-
+    const bid = this.ctx.params.bid;
+    const response = await this.bookService.delBook(bid);
+    this.ctx.body = response;
   }
   async geChapterByID() {
 
