@@ -12,17 +12,19 @@ module.exports = app => {
     router.get('/book/ranking',controller.bookController.getRankList);
     // 书籍阅读量排行  书籍收藏排行
 
+    router.get('/book/search',controller.bookController.searchBook)
+    
     router.get('/book/:bid',controller.bookController.getBookByID)
-
+    
     router.post('/book/:bid',controller.bookController.createChapter);
-
-    router.get('/book/search',controller.bookController.seachBook)
     
     router.get('/book/recommend',controller.bookController.bookRecommend)
     
     router.post('/book',controller.bookController.addBook);
 
     router.put('/book/:bid',controller.bookController.modifyBook);
+
+    router.put('/book/:bid/type',controller.bookController.changeType);
     
     router.delete('/book/:bid',controller.bookController.delBook);
     

@@ -11,7 +11,6 @@ class BookController extends Controller {
   }
   async getBookList() {
     let {limit = 10,offset = 0} = this.ctx.query;
-    console.log(offset);
     limit = parseInt(limit);
     offset = parseInt(offset) * limit;
     const response = await this.bookService.getBookList(limit,offset);
@@ -29,8 +28,12 @@ class BookController extends Controller {
   async createChapter() {
 
   }
-  async seachBook() {
-
+  async searchBook() {
+    let {limit = 10,offset = 0,bookname} = this.ctx.query;
+    limit = parseInt(limit);
+    offset = parseInt(offset) * limit;
+    const response = await this.bookService.searchBook(bookname,limit,offset);
+    this.ctx.body = response;
   }
   async bookRecommend() {
 
@@ -47,6 +50,12 @@ class BookController extends Controller {
     const bid = this.ctx.params.bid;
     const {cover,name,author,company,blurb,pdate} = this.ctx.request.body;
     const response = await this.bookService.modifyBook(bid,cover,name,author,company,blurb,pdate);
+    this.ctx.body = response;
+  }
+  async changeType() {
+    const bid = this.ctx.params.bid;
+    const {cid} = this.ctx.request.body;
+    const response = await this.bookService.changeType(bid,cid);
     this.ctx.body = response;
   }
   async delBook() {

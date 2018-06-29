@@ -32,8 +32,15 @@ class BookService extends Service {
     async createChapter() {
 
     }
-    async seachBook() {
-
+    async searchBook(bookname,limit,offset) {
+        const result = await this.BookModel.findAll({
+            where:{name:{[this.app.Sequelize.Op.like]:`%${bookname}%`}},
+            attributes: ['id', 'updated_at', 'name'],
+            include:[{model:this.CategoryModel,attributes:['category','type']}],
+            limit,
+            offset
+        });
+        return result;
     }
     async bookRecommend() {
 
@@ -51,6 +58,16 @@ class BookService extends Service {
             company,
             blurb,
             pdate
+        }, {
+            where: {
+                id: bid
+            }
+        });
+        return result;
+    }
+    async changeType(bid,cid){
+        const result = await this.BookModel.update({
+            cid
         }, {
             where: {
                 id: bid
