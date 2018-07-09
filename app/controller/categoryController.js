@@ -27,7 +27,10 @@ class CategoryController extends Controller {
       const response = await this.categoryService.deleteCategory(cid);
       this.ctx.body = response;
   }
-
+  async getCategoryAndType(){
+    const response = await this.categoryService.getCategoryAndType();
+    this.ctx.body = response;
+  }
   async getAllCategory(){
     const response = await this.categoryService.getAllCategory();
     this.ctx.body = response;

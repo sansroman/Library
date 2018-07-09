@@ -14,11 +14,11 @@ module.exports = app => {
 
     router.get('/book/search',controller.bookController.searchBook)
     
+    router.get('/book/recommend',controller.bookController.recommend)
+    
     router.get('/book/:bid',controller.bookController.getBookByID)
     
     router.post('/book/:bid',controller.bookController.createChapter);
-    
-    router.get('/book/recommend',controller.bookController.bookRecommend)
     
     router.post('/book',controller.bookController.addBook);
 
@@ -38,6 +38,8 @@ module.exports = app => {
     
 
     router.get('/category',controller.categoryController.getAllCategory);
+
+    router.get('/category/all',controller.categoryController.getCategoryAndType);
 
     router.post('/category',controller.categoryController.createCategory);
 
@@ -109,7 +111,7 @@ module.exports = app => {
 
     router.get('/comment',controller.commentController.getAllComment);
 
-    router.post('/comment',controller.commentController.craeteComment);
+    router.post('/comment',controller.commentController.createComment);
 
     router.delete('/comment/:commentID',controller.commentController.delComment);
 

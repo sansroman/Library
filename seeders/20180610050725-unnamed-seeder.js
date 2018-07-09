@@ -12,6 +12,9 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+    await queryInterface..bulkInsert('Category',[{
+      
+    }])
   },
 
   async down (queryInterface, Sequelize) {

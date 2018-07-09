@@ -24,6 +24,7 @@ module.exports = {
       account: {
         type: STRING(50),
         allowNull: false,
+        unique: true
       },
       password: {
         type: STRING(50),

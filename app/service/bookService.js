@@ -9,12 +9,14 @@ class BookService extends Service {
         this.CategoryModel = ctx.model.Category;
     }
 
-    async getBookList(limit, offset) {
+    async getBookList(limit, offset,type) {
+        let condition = type == undefined ? null:{where:{type}};
         const result = await this.BookModel.findAndCountAll({
             attributes: ['id', 'updated_at', 'name'],
-            include:[{model:this.CategoryModel,attributes:['category','type']}],
+            include:[{model:this.CategoryModel}],
             limit,
-            offset
+            offset,
+            condition
         });
         return result;
     }
@@ -30,7 +32,7 @@ class BookService extends Service {
         return result;
     }
     async createChapter() {
-
+        
     }
     async searchBook(bookname,limit,offset) {
         const result = await this.BookModel.findAll({
@@ -42,11 +44,15 @@ class BookService extends Service {
         });
         return result;
     }
-    async bookRecommend() {
-
+    async recommend(num) {
+        const result = await this.BookModel.findAll({
+            order:['views'],
+            include:[{model:this.CategoryModel,attributes:['category','type']}],            
+            limit:parseInt(num)
+        });
+        return result;
     }
     async addBook(booklist) {
-        console.log(booklist);
         const result = this.BookModel.bulkCreate(booklist);
         return result;
     }

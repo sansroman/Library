@@ -52,7 +52,7 @@ class UserService extends Service {
   }
   async adminLogin(account, password) {
     let user = await this._checkPass(account, password);
-    const role = user.get('role');
+    const role = user.get('role')||0;
     if (user && user.get('role') > 1) {
       this.ctx.session.user = {
         uid: user.get('id'),
@@ -75,30 +75,36 @@ class UserService extends Service {
     }
 
   }
-  async register(account, password, nickname, avatar, signature) {
-    const pwdHash = await this.ctx.genHash(password);
-    const result = await this.UserModel.findOrCreate({
-      where: {
-        account,
-      },
-      defaults: {
-        account,
-        password: pwdHash,
-        nickname,
-        avatar,
-        signature
-      },
-    });
-    if (result[result.length - 1]) {
-      return {
-        error: false,
-        data: '创建成功',
-      };
+  async register(userList) {
+    // const pwdHash = await this.ctx.genHash(password);
+    // const result = await this.UserModel.findOrCreate({
+    //   where: {
+    //     account,
+    //   },
+    //   defaults: {
+    //     account,
+    //     password: pwdHash,
+    //     nickname,
+    //     avatar,
+    //     signature
+    //   },
+    // });
+    // if (result[result.length - 1]) {
+    //   return {
+    //     error: false,
+    //     data: '创建成功',
+    //   };
+    // }
+    // return {
+    //   error: true,
+    //   data: '已存在此用户',
+    // };
+    try {  
+      const result = await this.UserModel.bulkCreate(userList);
+      return result;
+    } catch (error) {
+      return {error:true,message:error};
     }
-    return {
-      error: true,
-      data: '已存在此用户',
-    };
   }
   async resetPassword() {
 
@@ -135,11 +141,13 @@ class UserService extends Service {
     }
   }
 
-  async getUserList(rid) {
+  async getUserList(rid,limit,offset) {
     const condition = rid==-1?{where:{role:rid}}:null
-    const result = await this.UserModel.findAll({
+    const result = await this.UserModel.findAndCountAll({
         condition,
-        attributes:['id','account','nickname','role',]
+        attributes:['id','account','nickname','role',],
+        limit,
+        offset
     });
     return result;
   }

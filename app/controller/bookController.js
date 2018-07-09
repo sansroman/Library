@@ -10,10 +10,10 @@ class BookController extends Controller {
     this.bookService = ctx.service.bookService;
   }
   async getBookList() {
-    let {limit = 10,offset = 0} = this.ctx.query;
+    let {limit = 10,offset = 0,type = 0} = this.ctx.query;
     limit = parseInt(limit);
     offset = parseInt(offset) * limit;
-    const response = await this.bookService.getBookList(limit,offset);
+    const response = await this.bookService.getBookList(limit,offset,type);
     this.ctx.body = response;
   }
   async getRankList() {
@@ -35,8 +35,10 @@ class BookController extends Controller {
     const response = await this.bookService.searchBook(bookname,limit,offset);
     this.ctx.body = response;
   }
-  async bookRecommend() {
-
+  async recommend() {
+    const {num} = this.ctx.query;
+    const response = await this.bookService.recommend(num);
+    this.ctx.body = response;
   }
   async addBook() {
     const {booklist} = this.ctx.request.body;

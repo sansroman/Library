@@ -18,6 +18,7 @@ module.exports = app => {
         account: {
             type: STRING(50),
             allowNull: false,
+            unique: true            
         },
         password: {
             type: STRING(50),
@@ -35,7 +36,7 @@ module.exports = app => {
         signature: {
             type: STRING(100),
             allowNull: true,
-            defaultValue: 'undefined',
+            defaultValue: '这个人很懒，没有签名',
         },
         integral:{
             type:INTEGER,
