@@ -7,6 +7,24 @@ module.exports = app => {
     const logged = app.role.can('logged');
 
 
+
+
+    router.get('/book/:bid/comment',controller.commentController.getAllComment);
+
+    router.post('/book/:bid/comment',controller.commentController.createComment);
+
+    router.delete('/book/:bid/comment/:cid',controller.commentController.delComment);
+
+    router.put('/book/comment/:cid',controller.commentController.modifyComment);
+
+    router.get('/book/comment/:cid',controller.commentController.getCommentByID);
+
+    router.get('/book/comment/:cid/like',controller.commentController.likeComment);
+
+    router.delete('/book/comment/:cid/like',controller.commentController.unlikeComment);
+
+
+
     router.get('/book',controller.bookController.getBookList)
 
     router.get('/book/ranking',controller.bookController.getRankList);
@@ -108,20 +126,6 @@ module.exports = app => {
 
     router.get('/admin/search',isAdmin,controller.adminController.searchUser)
 
-
-    router.get('/comment',controller.commentController.getAllComment);
-
-    router.post('/comment',controller.commentController.createComment);
-
-    router.delete('/comment/:commentID',controller.commentController.delComment);
-
-    router.put('/comment/:commentID',controller.commentController.modifyComment);
-
-    router.get('/comment/:commentID',controller.commentController.getCommentByID);
-
-    router.get('/comment/:commentID/like',controller.commentController.likeComment);
-
-    router.delete('/comment/:commentID/like',controller.commentController.unlikeComment);
 
 
 

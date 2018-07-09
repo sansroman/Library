@@ -272,6 +272,30 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
+    await queryInterface.createTable('UserLiked', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      cid: {
+        type: INTEGER,
+        references: {
+          model: 'Comment',
+          key: 'id'
+        }
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
 
   },
 
@@ -291,6 +315,7 @@ module.exports = {
     await queryInterface.dropTable('Book');
     await queryInterface.dropTable('User');
     await queryInterface.dropTable('Category')
+    await queryInterface.dropTable('UserLiked')
 
   }
 };

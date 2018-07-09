@@ -9,14 +9,13 @@ class BookService extends Service {
         this.CategoryModel = ctx.model.Category;
     }
 
-    async getBookList(limit, offset,type) {
-        let condition = type == undefined ? null:{where:{type}};
+    async getBookList(limit, offset,cid) {
+        let condition = cid? {cid:parseInt(cid)}:null;
         const result = await this.BookModel.findAndCountAll({
-            attributes: ['id', 'updated_at', 'name'],
             include:[{model:this.CategoryModel}],
+            where:condition,
             limit,
-            offset,
-            condition
+            offset
         });
         return result;
     }

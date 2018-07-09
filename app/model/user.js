@@ -69,7 +69,9 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     UserModel.associate = function() {
-        UserModel.hasMany(app.model.Comment,{foreignKey:'uid',targetKey:'id',as:'comments'});
+        UserModel.hasMany(app.model.Comment,{foreignKey:'authorId',as:'authorTopic'});
+        UserModel.belongsToMany(app.model.Comment,{as:'likedComment',through:'likeComment',foreignKey:'uid'});
+        UserModel.belongsToMany(app.model.Comment,{as:'likedComment',through:'unlikeComment',foreignKey:'uid'});        
         UserModel.hasMany(app.model.Shelf,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
         UserModel.belongsToMany(app.model.Book,{through:app.model.RecentBook,foreignKey:'uid'});
     

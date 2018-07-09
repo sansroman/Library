@@ -10,10 +10,10 @@ class BookController extends Controller {
     this.bookService = ctx.service.bookService;
   }
   async getBookList() {
-    let {limit = 10,offset = 0,type = 0} = this.ctx.query;
+    let {limit = 10,offset = 0,cid} = this.ctx.query;
     limit = parseInt(limit);
     offset = parseInt(offset) * limit;
-    const response = await this.bookService.getBookList(limit,offset,type);
+    const response = await this.bookService.getBookList(limit,offset,cid);
     this.ctx.body = response;
   }
   async getRankList() {

@@ -10,16 +10,27 @@ class CommentController extends Controller {
         this.commentService = ctx.service.commentService;        
     }
     async getAllComment() {
-        const {limit,offset} = this.ctx.query;
-        const response = await this.CommentService.getAllComment(limit,offset);
+        let {limit = 10,offset = 0} = this.ctx.query;
+        limit = parseInt(limit);
+        offset = parseInt(offset) * limit;
+        const {bid} = this.ctx.params;
+        const response = await this.commentService.getAllComment(bid,limit,offset);
         this.ctx.body = response;
     }
     async createComment() {
-
+        this.ctx.validate({
+            content: { type: 'string'},
+        });
+        const {uid} = this.session.user;
+        const {bid} = this.ctx.params;
+        const {content} = this.ctx.request.body;
+        console.log(content);
+        const response = await this.commentService.createComment(bid,uid,content);
+        this.ctx.body = response;
     }
     async delComment() {
         const {cid} = this.ctx.params;
-        const response = await this.CommentService.delComment(cid);
+        const response = await this.commentService.delComment(cid);
         this.ctx.body = response;
     }
     async modifyComment() {
