@@ -7,6 +7,7 @@ class UserService extends Service {
     super(ctx)
     this.UserModel = ctx.model.User;
     this.BookModel = ctx.model.Book;
+    this.BookShelfsModel = ctx.model.BookShelfs;
   }
   async _checkPass(account, password) {
     const user = await this.UserModel.findOne({
@@ -52,7 +53,7 @@ class UserService extends Service {
   }
   async adminLogin(account, password) {
     let user = await this._checkPass(account, password);
-    const role = user.get('role')||0;
+    const role = user?user.get('role'):0;
     if (user && user.get('role') > 1) {
       this.ctx.session.user = {
         uid: user.get('id'),
@@ -75,30 +76,38 @@ class UserService extends Service {
     }
 
   }
-  async register(userList) {
-    // const pwdHash = await this.ctx.genHash(password);
-    // const result = await this.UserModel.findOrCreate({
-    //   where: {
-    //     account,
-    //   },
-    //   defaults: {
-    //     account,
-    //     password: pwdHash,
-    //     nickname,
-    //     avatar,
-    //     signature
-    //   },
-    // });
-    // if (result[result.length - 1]) {
-    //   return {
-    //     error: false,
-    //     data: '创建成功',
-    //   };
+  async register(account,password,nickname,avatar,signature) {
+    const pwdHash = await this.ctx.genHash(password);
+    const result = await this.UserModel.findOrCreate({
+      where: {
+        account,
+      },
+      defaults: {
+        account,
+        password: pwdHash,
+        nickname,
+        avatar,
+        signature
+      },
+    });
+    if (result[result.length - 1]) {
+      return {
+        error: false,
+        data: '创建成功',
+      };
+    }
+    return {
+      error: true,
+      data: '已存在此用户',
+    };
+    // try {  
+    //   const result = await this.UserModel.bulkCreate(userList);
+    //   return result;
+    // } catch (error) {
+    //   return {error:true,message:error};
     // }
-    // return {
-    //   error: true,
-    //   data: '已存在此用户',
-    // };
+  }
+  async batchRegister(userList) {
     try {  
       const result = await this.UserModel.bulkCreate(userList);
       return result;
@@ -171,26 +180,33 @@ class UserService extends Service {
   async getRankList() {
 
   }
-  async getShelfList() {
 
+  async collectBook(uid,bid) {
+    let result = await this.BookShelfsModel.findOrCreate({
+      where: {
+          bid,
+          uid
+      }
+    })
+    return result;
   }
-  async createShelf() {
-
-  }
-  async modifyShelf() {
-
-  }
-  async delShelf() {
-
-  }
-  async getShelfByID() {
-
-  }
-  async collectBook() {
-
-  }
-  async cancelCollectBook() {
-
+  async cancelCollectBook(uid,bid) {
+    let result = await this.BookShelfsModel.findOrCreate({
+      where: {
+          bid,
+          uid
+      }
+    })
+    let status = result[result.length - 1] ? true : false;
+    if (!result[result.length - 1]) {
+        result = await this.BookShelfsModel.destroy({
+            where: {
+                bid,
+                uid
+            }
+        })
+    }
+    return status;
   }
   async getAllCollection() {
 

@@ -19,9 +19,9 @@ module.exports = app => {
 
     router.get('/book/comment/:cid',controller.commentController.getCommentByID);
 
-    router.get('/book/comment/:cid/like',controller.commentController.likeComment);
+    router.get('/book/comment/:cid/like',controller.commentController.likedComment);
 
-    router.delete('/book/comment/:cid/like',controller.commentController.unlikeComment);
+    router.get('/book/comment/:cid/unlike',controller.commentController.unlikedComment);
 
 
 
@@ -73,6 +73,8 @@ module.exports = app => {
     router.get('/user/logout',controller.userController.logout);
     
     router.post('/user/register',controller.userController.register);
+
+
     
     router.put('/user/resetPassword',controller.userController.resetPassword);
     
@@ -84,19 +86,10 @@ module.exports = app => {
     
     
     
-    router.get('/user/shelf',controller.userController.getShelfList);
-    
-    router.post('/user/shelf',controller.userController.createShelf);
 
-    router.put('/user/shelf/:shelfID',controller.userController.modifyShelf);
+    router.post('/user/collect/',controller.userController.collectBook);
 
-    router.delete('/user/shelf/:shelfID',controller.userController.delShelf);
-    
-    router.get('/user/shelf/:shelfID',controller.userController.getShelfByID);
-
-    router.post('/user/shelf/:shelfID',controller.userController.collectBook);
-
-    router.delete('/user/shelf/:shelfID/:bid',controller.userController.cancelCollectBook);
+    router.delete('/user/collect//:bid',controller.userController.cancelCollectBook);
 
     
 
@@ -125,7 +118,8 @@ module.exports = app => {
     router.put('/admin/:uid',isAdmin,controller.adminController.modifyRole);
 
     router.get('/admin/search',isAdmin,controller.adminController.searchUser)
-
+    
+    router.post('/admin/register',isAdmin,controller.adminController.register)
 
 
 

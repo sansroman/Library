@@ -14,7 +14,8 @@ class CommentController extends Controller {
         limit = parseInt(limit);
         offset = parseInt(offset) * limit;
         const {bid} = this.ctx.params;
-        const response = await this.commentService.getAllComment(bid,limit,offset);
+        const uid = this.session.user?this.session.user.uid:0;
+        const response = await this.commentService.getAllComment(bid,uid,limit,offset);
         this.ctx.body = response;
     }
     async createComment() {
@@ -43,14 +44,16 @@ class CommentController extends Controller {
         const response = await this.commentService.getCommentByID(cid);
         this.ctx.body = response;
     }
-    async likeComment() {
+    async likedComment() {
         const {cid} = this.ctx.params;
-        const response = await this.commentService.likeComment(cid);
+        const {uid} = this.session.user;
+        const response = await this.commentService.likedComment(cid,uid);
         this.ctx.body = response;
     }
-    async unlikeComment() {
+    async unlikedComment() {
         const {cid} = this.ctx.params;
-        const response = await this.commentService.unlikeComment(cid);
+        const {uid} = this.session.user;
+        const response = await this.commentService.unlikedComment(cid,uid);
         this.ctx.body = response;
     }
 

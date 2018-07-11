@@ -30,22 +30,22 @@ class UserController extends Controller {
     this.ctx.body = '退出成功';
   }
   async register() {
-    // this.ctx.validate({
-    //   account: { type: 'string'},
-    //   password: { type: 'string', min: 8, max: 20 },
-    //   nickname: {type: 'string', min: 1, max: 20 , required: false },
-    //   avatar: {type: 'url', required: false },
-    //   signature:{type: 'string', min: 0, max: 200,required:false}
-    // });
-    // const {
-    //   account ,
-    //   password,
-    //   nickname = 'guest',
-    //   avatar = null,
-    //   signature = '这个人很懒,什么都没有留下',
-    // } = this.ctx.request.body;
-    const {userList} = this.ctx.request.body;
-    const response = await this.userService.register(userList);
+    this.ctx.validate({
+      account: { type: 'string'},
+      password: { type: 'string', min: 8, max: 20 },
+      nickname: {type: 'string', min: 1, max: 20 , required: false },
+      avatar: {type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200,required:false}
+    });
+    const {
+      account ,
+      password,
+      nickname = 'guest',
+      avatar = null,
+      signature = '这个人很懒,什么都没有留下',
+    } = this.ctx.request.body;
+    // const {userList} = this.ctx.request.body;
+    const response = await this.userService.register(account,password,nickname,avatar,signature);
     if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
@@ -76,26 +76,21 @@ class UserController extends Controller {
   async getRankList() {
 
   }
-  async getShelfList() {
-
-  }
-  async createShelf() {
-
-  }
-  async modifyShelf() {
-
-  }
-  async delShelf() {
-
-  }
   async getShelfByID() {
 
   }
   async collectBook() {
+      const {bid} = this.ctx.request.body;
+      const {uid} = this.session.user;
+      const response =await this.userService.collectBook(uid,bid);
+      this.ctx.body = response;
 
   }
   async cancelCollectBook() {
-
+    const {bid} = this.ctx.params;
+    const {uid} = this.session.user;
+    const response =await this.userService.cancelCollectBook(uid,bid);
+    this.ctx.body = response;
   }
   async getAllCollection() {
 

@@ -32,7 +32,7 @@ class AdminController extends Controller {
   async getUserList(){
     let {limit = 10,offset = 0,bookname} = this.ctx.query;
     limit = parseInt(limit);
-    offset = parseInt(offset) * limit; 
+    offset = parseInt(offset<0?0:offset) * limit; 
     const {rid} = this.ctx.params;
     const response = await this.userService.getUserList(rid,limit,offset);
     this.ctx.body = response;
@@ -47,6 +47,12 @@ class AdminController extends Controller {
     const {role} = this.ctx.request.body;
     const response = await this.userService.modifyRole(uid,role); 
     
+    this.ctx.body = response;
+  }
+  async register() {
+    const {userList} = this.ctx.request.body;
+    const response = await this.userService.batchRegister(userList);
+    if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
 

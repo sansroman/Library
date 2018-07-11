@@ -163,32 +163,7 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
-    await queryInterface.createTable('Shelf', {
-      id: {
-        type: INTEGER(20),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      uid: {
-        type: INTEGER,
-        references: {
-          model: 'User',
-          key: 'id'
-        }
-      },
-      name: {
-        type: STRING(50),
-        allowNull: false,
-        defaultValue: '未命名书架',
-      },
-      avatar: {
-        type: STRING(200),
-        allowNull: true,
-      },
-      created_at: DATE,
-      updated_at: DATE,
-    })
+
     await queryInterface.createTable('Comment', {
       id: {
         type: INTEGER,
@@ -196,7 +171,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      uid: {
+      aid: {
         type: INTEGER,
         references: {
           model: 'User',
@@ -234,7 +209,7 @@ module.exports = {
       sid: {
         type: INTEGER,
         references: {
-          model: 'Shelf',
+          model: 'User',
           key: 'id'
         }
       },
@@ -272,7 +247,31 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
-    await queryInterface.createTable('UserLiked', {
+    await queryInterface.createTable('UnlikedComment', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      cid: {
+        type: INTEGER,
+        references: {
+          model: 'Comment',
+          key: 'id'
+        }
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+    await queryInterface.createTable('LikedComment', {
       id: {
         type: INTEGER,
         allowNull: false,
@@ -307,15 +306,15 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
+    await queryInterface.dropTable('UnlikedComment')
+    await queryInterface.dropTable('LikedComment')
     await queryInterface.dropTable('BookShelfs');
     await queryInterface.dropTable('RecentBook');
     await queryInterface.dropTable('Comment');
-    await queryInterface.dropTable('Shelf');
     await queryInterface.dropTable('Chapter');
     await queryInterface.dropTable('Book');
     await queryInterface.dropTable('User');
     await queryInterface.dropTable('Category')
-    await queryInterface.dropTable('UserLiked')
 
   }
 };

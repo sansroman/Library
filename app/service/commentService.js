@@ -8,25 +8,72 @@ class CommentService extends Service {
         this.CommentModel = ctx.model.Comment;
         this.BookModel = ctx.model.Book;
         this.UserModel = ctx.model.User;
+        this.LikedCommentModel = ctx.model.LikedComment;
+        this.UnlikedCommentModel = ctx.model.UnlikedComment;
+
     }
-    async getAllComment(bid,limit,offset) {
+    async getAllComment(bid, uid, limit, offset) {
         const result = await this.CommentModel.findAndCountAll({
             limit,
             offset,
-            where:{
+            where: {
                 bid
             },
-            include:[{model:this.UserModel,attributes:['nickname','avatar','role']}]
-          });
-          return result;
+            include: [{
+                model: this.UserModel,
+                attributes: ['id', 'nickname', 'avatar', 'role'],
+                as: 'author'
+            }, {
+                model: this.UserModel,
+                as: 'likedUser',
+                attributes: ['id'],
+                through: {
+                    attributes: []
+                }
+            }, {
+                model: this.UserModel,
+                as: 'unlikedUser',
+                attributes: ['id'],
+                through: {
+                    attributes: []
+                }
+            }]
+        });
+        let temp = result.rows.map((element) => {
+            let tmp = element.get({plain: true })
+            let likedUserList = tmp.likedUser.map((ele) => {
+                return ele.id;
+            })
+            let unlikedUserList = tmp.unlikedUser.map((ele) => {
+                return ele.id;
+            })
+            
+            tmp.likedUser = {
+                count: likedUserList.length,
+                status: likedUserList.indexOf(uid) == -1?false:true
+            }
+            tmp.unlikedUser = {
+                count: unlikedUserList.length,
+                status: unlikedUserList.indexOf(uid) == -1?false:true
+            }
+            return tmp;
+        })
+        return {
+            count: result.rows.length,
+            rows: temp
+        };
     }
-    async createComment(bid,uid,content) {
+    async createComment(bid, uid, content) {
         const result = await this.CommentModel.create({
-            uid,
+            aid: uid,
             content,
             bid
-        },{
-            include:[{model:this.BookModel},{model:this.UserModel}]
+        }, {
+            include: [{
+                model: this.BookModel
+            }, {
+                model: this.UserModel,as:'author'
+            }]
         })
         return result;
     }
@@ -46,17 +93,47 @@ class CommentService extends Service {
     }
     async getCommentByID(cid) {
         const result = await this.CommentModel.findOne({
-            where:{
-                id:cid
+            where: {
+                id: cid
             }
-          });
-          return result;
+        });
+        return result;
     }
-    async likeComment() {
-
+    async likedComment(cid, uid) {
+        let result = await this.LikedCommentModel.findOrCreate({
+            where: {
+                cid,
+                uid
+            }
+        })
+        let status = result[result.length - 1] ? true : false;
+        if (!result[result.length - 1]) {
+            result = await this.LikedCommentModel.destroy({
+                where: {
+                    cid,
+                    uid
+                }
+            })
+        }
+        return status;
     }
-    async unlikeComment() {
-
+    async unlikedComment(cid, uid) {
+        let result = await this.UnlikedCommentModel.findOrCreate({
+            where: {
+                cid,
+                uid
+            }
+        })
+        let status = result[result.length - 1] ? true : false;
+        if (!result[result.length - 1]) {
+            result = await this.UnlikedCommentModel.destroy({
+                where: {
+                    cid,
+                    uid
+                }
+            })
+        }
+        return status;
     }
 
 }

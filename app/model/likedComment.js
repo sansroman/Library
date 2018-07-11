@@ -7,27 +7,27 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const BookShelfsModel = app.model.define('BookShelfs', {
-          id: {
+    const likedCommentModel = app.model.define('LikedComment', {
+        id: {
             type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
-          },
-          uid:{
-            type:INTEGER,
-            references:{
-              model:'User',
-              key:'id'
+        },
+        uid: {
+            type: INTEGER,
+            references: {
+                model: 'User',
+                key: 'id'
             }
-          },
-          bid:{
-            type:INTEGER,
-            references:{
-              model:'Book',
-              key:'id'
+        },
+        cid: {
+            type: INTEGER,
+            references: {
+                model: 'Book',
+                key: 'id'
             }
-          }
+        }
 
     }, {
         createAt: 'created_at',
@@ -35,5 +35,5 @@ module.exports = app => {
         timestamps: true,
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
-    return BookShelfsModel;
+    return likedCommentModel;
 };
