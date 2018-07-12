@@ -22,7 +22,7 @@ class CommentService extends Service {
             include: [{
                 model: this.UserModel,
                 attributes: ['id', 'nickname', 'avatar', 'role'],
-                as: 'author'
+                as: 'commentAuthor'
             }, {
                 model: this.UserModel,
                 as: 'likedUser',
@@ -72,7 +72,7 @@ class CommentService extends Service {
             include: [{
                 model: this.BookModel
             }, {
-                model: this.UserModel,as:'author'
+                model: this.UserModel,as:'commentAuthor'
             }]
         })
         return result;

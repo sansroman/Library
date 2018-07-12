@@ -7,7 +7,7 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const CommentModel = app.model.define('Comment', {
+    const CommunityCommentModel = app.model.define('CommunityComment', {
         id: {
             type: INTEGER,
             allowNull: false,
@@ -33,12 +33,12 @@ module.exports = app => {
         timestamps: true,
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
-    CommentModel.associate = function() {
-        CommentModel.belongsTo(app.model.User, { foreignKey: 'aid',onDelete: 'cascade',as:'commentAuthor' });
-        CommentModel.belongsToMany(app.model.User, { through:'LikedComment',foreignKey: 'cid' ,onDelete: 'cascade',as:'likedUser'});
-        CommentModel.belongsToMany(app.model.User, { through:'UnlikedComment',foreignKey: 'cid',onDelete: 'cascade',as:'unlikedUser'});
-        CommentModel.belongsTo(app.model.Book, { foreignKey: 'bid',onDelete: 'cascade' }); 
+    CommunityCommentModel.associate = function() {
+        CommunityCommentModel.belongsTo(app.model.User, { foreignKey: 'aid',onDelete: 'cascade',as:'author' });
+        CommunityCommentModel.belongsToMany(app.model.User, { through:'LikedCommunityComment',foreignKey: 'ccid' ,onDelete: 'cascade',as:'likedUser'});
+        CommunityCommentModel.belongsToMany(app.model.User, { through:'UnlikedCommunityComment',foreignKey: 'ccid',onDelete: 'cascade',as:'unlikedUser'});
+        CommunityCommentModel.belongsTo(app.model.Community, { foreignKey: 'community_id',onDelete: 'cascade' }); 
               
     };
-    return CommentModel;
+    return CommunityCommentModel;
 };

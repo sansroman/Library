@@ -14,19 +14,21 @@ module.exports = app => {
             primaryKey: true,
             autoIncrement: true,
           },
-          uid:{
+          user_id:{
             type:INTEGER,
             references:{
               model:'User',
               key:'id'
             }
+            
           },
-          bid:{
+          book_id:{
             type:INTEGER,
             references:{
               model:'Book',
               key:'id'
             }
+
           }
 
     }, {

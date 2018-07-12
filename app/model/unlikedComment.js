@@ -24,7 +24,7 @@ module.exports = app => {
         cid: {
             type: INTEGER,
             references: {
-                model: 'Book',
+                model: 'Comment',
                 key: 'id'
             }
         }

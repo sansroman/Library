@@ -108,11 +108,11 @@ module.exports = {
         type: STRING(50),
         allowNull: false
       },
-      blurb:{
-        type:STRING(200),
+      blurb: {
+        type: STRING(200),
       },
-      pdate:{
-          type:STRING(30)
+      pdate: {
+        type: STRING(30)
       },
       position: {
         type: STRING(100),
@@ -163,6 +163,63 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
+    await queryInterface.createTable('Community', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      aid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      title: {
+        type: STRING(200),
+        allowNull: false,
+      },
+      content: {
+        type: STRING(20000),
+        allowNull: false,
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+
+    await queryInterface.createTable('CommunityComment', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      aid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      community_id: {
+        type: INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Community',
+          key: 'id'
+        },
+        comment: '书籍ID'
+      },
+      content: {
+        type: STRING(2000),
+        allowNull: false,
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+
 
     await queryInterface.createTable('Comment', {
       id: {
@@ -295,7 +352,54 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
-
+    await queryInterface.createTable('UnlikedCommunity', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      cid: {
+        type: INTEGER,
+        references: {
+          model: 'Community',
+          key: 'id'
+        }
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
+    await queryInterface.createTable('LikedCommunity', {
+      id: {
+        type: INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      uid: {
+        type: INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        }
+      },
+      cid: {
+        type: INTEGER,
+        references: {
+          model: 'Community',
+          key: 'id'
+        }
+      },
+      created_at: DATE,
+      updated_at: DATE,
+    })
   },
 
   async down(queryInterface, Sequelize) {
@@ -308,6 +412,10 @@ module.exports = {
     */
     await queryInterface.dropTable('UnlikedComment')
     await queryInterface.dropTable('LikedComment')
+    await queryInterface.dropTable('UnlikedCommunity')
+    await queryInterface.dropTable('LikedCommunity')
+    await queryInterface.dropTable('CommunityComment')
+    await queryInterface.dropTable('Community')
     await queryInterface.dropTable('BookShelfs');
     await queryInterface.dropTable('RecentBook');
     await queryInterface.dropTable('Comment');

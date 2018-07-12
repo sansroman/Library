@@ -7,6 +7,8 @@ class BookService extends Service {
         super(ctx)
         this.BookModel = ctx.model.Book;
         this.CategoryModel = ctx.model.Category;
+        this.UserModel = ctx.model.User;
+
     }
 
     async getBookList(limit, offset,cid) {
@@ -22,13 +24,22 @@ class BookService extends Service {
     async getRankList() {
 
     }
-    async getBookByID(bid) {
+    async getBookByID(uid,bid) {
         const result = await this.BookModel.findOne({
+            include:[{model:this.UserModel,as:'collection'}],
             where: {
                 id: bid
             }
         });
-        return result;
+        let tmp = result.get({plain: true })
+        let collectionUser = tmp.collection.map((ele) => {
+                return ele.id;
+        })
+        tmp.collection = {
+            count:collectionUser.length,
+            status: collectionUser.indexOf(uid) == -1?false:true
+        }
+        return tmp;
     }
     async createChapter() {
         

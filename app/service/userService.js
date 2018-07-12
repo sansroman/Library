@@ -13,6 +13,7 @@ class UserService extends Service {
     const user = await this.UserModel.findOne({
       include: [{
         model: this.BookModel,
+        as:'recent',
         through: {
           attributes: ['created_at', 'update_at'],
         }
@@ -184,51 +185,33 @@ class UserService extends Service {
   async collectBook(uid,bid) {
     let result = await this.BookShelfsModel.findOrCreate({
       where: {
-          bid,
-          uid
+          book_id:bid,
+          user_id:uid
       }
     })
     return result;
   }
   async cancelCollectBook(uid,bid) {
-    let result = await this.BookShelfsModel.findOrCreate({
-      where: {
-          bid,
-          uid
+    let result = await this.BookShelfsModel.destroy({
+        where: {
+          book_id:bid,
+          user_id:uid
+        }
+    })
+    
+    return result;
+  }
+  async getAllCollection(uid) {
+    const result = await this.UserModel.findOne({
+      include:[{model:this.BookModel,as:'collection'}],
+      where:{
+        id:uid
       }
     })
-    let status = result[result.length - 1] ? true : false;
-    if (!result[result.length - 1]) {
-        result = await this.BookShelfsModel.destroy({
-            where: {
-                bid,
-                uid
-            }
-        })
-    }
-    return status;
+    return result;
   }
-  async getAllCollection() {
 
-  }
-  async collectComment() {
 
-  }
-  async delCollectComment() {
-
-  }
-  async getFollowerList() {
-
-  }
-  async getFollowerList() {
-
-  }
-  async followOne() {
-
-  }
-  async unfollow() {
-
-  }
 
 }
 

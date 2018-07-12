@@ -66,7 +66,7 @@ module.exports = app => {
     router.get('/category/type',controller.categoryController.getSubCategory)
 
 
-
+    router.post('/community',controller.communityController.createArticle);
 
     router.post('/user/login',controller.userController.login);
 
@@ -89,27 +89,15 @@ module.exports = app => {
 
     router.post('/user/collect/',controller.userController.collectBook);
 
-    router.delete('/user/collect//:bid',controller.userController.cancelCollectBook);
+    router.delete('/user/collect/:bid',controller.userController.cancelCollectBook);
 
     
 
-    router.get('/user/collection',controller.userController.getAllCollection);
-
-    router.post('/user/collection',controller.userController.collectComment);
-
-    router.delete('/user/collection/:commentID',controller.userController.delCollectComment);
+    router.get('/user/collect',controller.userController.getAllCollection);
 
 
 
-    router.get('/user/follower',controller.userController.getFollowerList);
 
-    router.get('/user/following',controller.userController.getFollowingList);
-
-    router.post('/user/following',controller.userController.followOne);
-
-    router.delete('/user/following/:id',controller.userController.unfollow);
-
-    
 
     router.post('/admin/login',controller.adminController.login);
 

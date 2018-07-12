@@ -7,7 +7,7 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const likedCommentModel = app.model.define('LikedComment', {
+    const LikedCommunity = app.model.define('LikedCommunity', {
         id: {
             type: INTEGER,
             allowNull: false,
@@ -24,7 +24,7 @@ module.exports = app => {
         cid: {
             type: INTEGER,
             references: {
-                model: 'Comment',
+                model: 'Community',
                 key: 'id'
             }
         }
@@ -35,5 +35,5 @@ module.exports = app => {
         timestamps: true,
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
-    return likedCommentModel;
+    return LikedCommunity;
 };

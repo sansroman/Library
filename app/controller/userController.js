@@ -93,26 +93,12 @@ class UserController extends Controller {
     this.ctx.body = response;
   }
   async getAllCollection() {
-
+    const {uid} = this.session.user;
+    const response =await this.userService.getAllCollection(uid);
+    this.ctx.body = response;
   }
-  async collectComment() {
 
-  }
-  async delCollectComment() {
 
-  }
-  async getFollowerList() {
-
-  }
-  async getFollowingList() {
-
-  }
-  async followOne() {
-
-  }
-  async unfollow() {
-
-  }
 }
 
 module.exports = UserController;

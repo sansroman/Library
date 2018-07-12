@@ -21,7 +21,8 @@ class BookController extends Controller {
   }
   async getBookByID() {
     const bid = this.ctx.params.bid;
-    const response = await this.bookService.getBookByID(bid);
+    const uid = this.session.user?this.session.user.uid:0;
+    const response = await this.bookService.getBookByID(uid,bid);
     this.ctx.body = response;
     
   }

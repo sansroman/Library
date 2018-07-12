@@ -61,11 +61,11 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     BookModel.associate = function() {
-        BookModel.belongsToMany(app.model.User,{through:app.model.BookShelfs,foreignKey:'bid',onDelete: 'cascade'});
-        BookModel.belongsToMany(app.model.User,{through:app.model.RecentBook,foreignKey:'bid',onDelete: 'cascade'});
-        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',targetKey:'id',as:'Chapter',onDelete: 'cascade'});
+        BookModel.belongsToMany(app.model.User,{through:'BookShelfs',onDelete: 'cascade',as:'collection'});
+        BookModel.belongsToMany(app.model.User,{through:'RecentBook',foreignKey:'bid',onDelete: 'cascade',as:'recent'});
+        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',as:'Chapter',onDelete: 'cascade'});
         BookModel.belongsTo(app.model.Category, { foreignKey: 'cid' })
         
     };
     return BookModel;
-};
+}
