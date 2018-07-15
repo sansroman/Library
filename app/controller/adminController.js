@@ -25,6 +25,7 @@ class AdminController extends Controller {
     if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
     this.ctx.body = response;
   }
+
   async logout() {
     this.ctx.session = null;
     this.ctx.body = '退出成功';

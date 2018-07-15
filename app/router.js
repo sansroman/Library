@@ -68,6 +68,10 @@ module.exports = app => {
 
     router.post('/community',controller.communityController.createArticle);
 
+    router.get('/community',controller.communityController.getAllArticle)
+
+    
+
     router.post('/user/login',controller.userController.login);
 
     router.get('/user/logout',controller.userController.logout);
@@ -82,20 +86,13 @@ module.exports = app => {
     
     router.get('/user/info/:uid',controller.userController.getUserInfo);
 
-    router.get('/user/ranking',controller.userController.getRankList);
-    
-    
-    
+    router.get('/user/ranking',controller.userController.getRankList);    
 
     router.post('/user/collect/',controller.userController.collectBook);
 
     router.delete('/user/collect/:bid',controller.userController.cancelCollectBook);
 
-    
-
     router.get('/user/collect',controller.userController.getAllCollection);
-
-
 
 
 

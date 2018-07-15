@@ -7,6 +7,7 @@ class CommunityService extends Service {
         super(ctx)
         this.CommunityModel = ctx.model.Community;
         this.UserModel = ctx.model.User;
+        this.CommunityCommentModel = ctx.model.CommunityComment;
 
     }
 
@@ -18,7 +19,21 @@ class CommunityService extends Service {
         })
         return result;
     }
-
+    async getAllArticle(limit, offset) {
+        const result = await this.CommunityModel.findAndCountAll({
+            limit,
+            offset,
+            include:[{
+                model: this.UserModel,
+                attributes: ['id', 'nickname', 'avatar', 'role'],
+                as: 'author'
+            },
+            {
+                model:this.CommunityCommentModel
+            }]
+        })
+        return result;
+    }
 }
 
 module.exports = CommunityService;
