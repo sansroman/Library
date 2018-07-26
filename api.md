@@ -70,6 +70,98 @@
             2.  **offset** :  specifies the offset of the first row to return
 
    * #### response:
+    
+        ```json
+        {
+            "count": 28,
+            "rows": [
+                {
+                    "id": 1,
+                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
+                    "name": "1",
+                    "company": "清华大学出版社",
+                    "author": "张鹏宇",
+                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
+                    "pdate": "4/3/18",
+                    "position": "tp123/java",
+                    "views": 0,
+                    "created_at": "2018-07-10T13:52:36.000Z",
+                    "updated_at": "2018-07-10T13:56:08.000Z",
+                    "cid": 1,
+                    "Category": {
+                        "id": 1,
+                        "category": "网络文学",
+                        "type": "男频",
+                        "created_at": "2018-07-03T03:39:46.000Z",
+                        "updated_at": "2018-07-03T03:39:46.000Z"
+                    }
+                },
+                {
+                    "id": 2,
+                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
+                    "name": "1",
+                    "company": "清华大学出版社",
+                    "author": "张鹏宇",
+                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
+                    "pdate": "4/3/18",
+                    "position": "tp123/java",
+                    "views": 0,
+                    "created_at": "2018-07-10T13:52:36.000Z",
+                    "updated_at": "2018-07-10T13:56:41.000Z",
+                    "cid": 1,
+                    "Category": {
+                        "id": 1,
+                        "category": "网络文学",
+                        "type": "男频",
+                        "created_at": "2018-07-03T03:39:46.000Z",
+                        "updated_at": "2018-07-03T03:39:46.000Z"
+                    }
+                },
+                {
+                    "id": 3,
+                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
+                    "name": "1",
+                    "company": "清华大学出版社",
+                    "author": "张鹏宇",
+                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
+                    "pdate": "4/3/18",
+                    "position": "tp123/java",
+                    "views": 0,
+                    "created_at": "2018-07-10T13:52:36.000Z",
+                    "updated_at": "2018-07-10T13:56:57.000Z",
+                    "cid": 2,
+                    "Category": {
+                        "id": 2,
+                        "category": "网络文学",
+                        "type": "女频",
+                        "created_at": "2018-07-03T03:39:51.000Z",
+                        "updated_at": "2018-07-03T03:39:51.000Z"
+                    }
+                },
+                {
+                    "id": 4,
+                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
+                    "name": "1",
+                    "company": "清华大学出版社",
+                    "author": "张鹏宇",
+                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
+                    "pdate": "4/3/18",
+                    "position": "tp123/java",
+                    "views": 0,
+                    "created_at": "2018-07-10T13:52:36.000Z",
+                    "updated_at": "2018-07-10T13:57:06.000Z",
+                    "cid": 2,
+                    "Category": {
+                        "id": 2,
+                        "category": "网络文学",
+                        "type": "女频",
+                        "created_at": "2018-07-03T03:39:51.000Z",
+                        "updated_at": "2018-07-03T03:39:51.000Z"
+                    }
+                }
+            ]
+        }
+        ```
 
   ## 1.9 get /book/ranking
 
