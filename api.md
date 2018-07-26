@@ -2,358 +2,371 @@
 
   ## 1.1 get /book/:bid/comment
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.2  post /book/:bid/comment
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.3  delete /book/:bid/comment/:cid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.4  put /book/comment/:cid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.5  get /book/comment/:cid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.6  get /book/comment/:cid/like
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.7 get /book/comment/:cid/unlike
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.8 get /book
 
-   * description:
+   * #### description:
 
-   * request:
+        getBookList
 
-   * response:
+   * #### request:
+        
+        * query
+
+            1.  **limit** : specifies the maximum number of rows to return
+            2.  **offset** :  specifies the offset of the first row to return
+
+   * #### response:
 
   ## 1.9 get /book/ranking
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.10 get /book/search
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
   ## 1.11 get /book/recommend
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
   ## 1.12 get /book/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.13 post /book/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
   ## 1.14 post /book
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.15 put /book/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.16 put /book/:bid/type
-    
+
+   * #### description:
+
+   * #### request:
+
+   * #### response:
+
   ## 1.17 delete /book/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.18 post /book/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.19 get /book/:bid/:chapterID
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.20 delete /book/:bid/:chapterID
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
   ## 1.21 put /book/:bid/:chapterID
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
 # 2. category
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /category
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /category/all
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     post /category
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     delete /category/:cid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /category/type
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
 # 3. community
 
     post /community
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /community
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
 # 4. user
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     post /user/login
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /user/
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
     post /user/register
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     put /user/resetPassword
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     put /user/info/:uid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
     get /user/info/:uid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /user/ranking    
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     post /user/collect/
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     delete /user/collect/:bid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /user/collect
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
 # 5. admin
 
     post /admin/login
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /admin/user/:rid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     put /admin/:uid
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
 
     get /admin/search
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
     
     post /admin/register
 
-   * description:
+   * #### description:
 
-   * request:
+   * #### request:
 
-   * response:
+   * #### response:
