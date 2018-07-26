@@ -2,71 +2,48 @@
 
 const Controller = require('egg').Controller;
 
-class UserController extends Controller {
+class BookController extends Controller {
 
-    constructor(ctx) {
-        super(ctx);
-        this.session = ctx.session;
-        this.BookModel = ctx.model.BookModel;
-        this.BookService = ctx.service.bookservice;
-        this.ResponseCode = ctx.response.ResponseCode;
-        this.ServerResponse = ctx.response.ServerResponse;
-    }
+  constructor(ctx) {
+    super(ctx);
+    this.session = ctx.session;
+  }
+  async getBookList() {
 
-    async recommend() {
-        const {options} = this.ctx.params;
-        const response = await this.BookService.getRecommend(options);
-        this.ctx.body = response;
-    }
+  }
+  async getRankList() {
 
-    async getBookList() {
-        const {type,limit} = this.ctx.params;
-        const response = await this.BookService.getBookList(type,order,limit);
-        this.ctx.body = response;
-    }
+  }
+  async getBookByID() {
 
-    async addBook() {
-        const {bookname,category} = this.ctx.params;
-        const response = await this.BookService.addBook(type,order,limit);
-        this.ctx.body = response;
-    }
+  }
+  async createChapter() {
 
-    async searchBook() {
-        const {bookname} = this.ctx.params;
-        const response = await this.BookService.searchUser(bookname);
-        this.ctx.body = response;
-    }
+  }
+  async seachBook() {
 
-    async updateBook() {
-        const {bookid,category} = this.ctx.params;
-        // 目前只能更改category
-        const response = await this.BookService.updateBook(userid,category);
-        this.ctx.body = response;
+  }
+  async bookRecommend() {
 
-    }
+  }
+  async addBook() {
 
-    async deleteBook() {
-        const {bookid} = this.ctx.params;
-        const response = await this.BookService.deleteBook(bookid);
-        this.ctx.body = response;
-    }
+  }
+  async modifyBook() {
 
-    async getCategory() {
-        const response = await this.BookService.getCategory();
-        this.ctx.body = response;
-    }
+  }
+  async delBook() {
 
-    async addCategory() {
-        const {label,value} = this.ctx.request.body;
-        const response = await this.BookService.addCategory();
-        this.ctx.body = response;
-    }
+  }
+  async geChapterByID() {
 
-    async getBookDetail() {
-        const {bookid} = this.ctx.params;
-        const response = await this.BookService.getBookDetail(bookid);
-        this.ctx.body = response;
-    }
+  }
+  async delChapter() {
+
+  }
+  async modifyChapter() {
+
+  }
 }
 
-module.exports = UserController;
+module.exports = BookController;

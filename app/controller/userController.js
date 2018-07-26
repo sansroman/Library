@@ -7,116 +7,115 @@ class UserController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.session = ctx.session;
-    this.UserModel = ctx.model.UserModel;
-    this.UserService = ctx.service.userService;
-    this.ResponseCode = ctx.response.ResponseCode;
-    this.ServerResponse = ctx.response.ServerResponse;
-
+    this.userService = ctx.service.userService;
   }
   async login() {
+    this.ctx.validate({
+      account: { type: 'string'},
+      password: { type: 'string', min: 8, max: 20 },
+      rememberMe: { type: 'boolean', required: false },
+    });
     const {
-      username,
-      password
+      account,
+      password,
+      rememberMe,
     } = this.ctx.request.body;
-    const response = await this.userService.login(username, password);
-    if (response.isSuccess()) {
-      this.session.currentUser = response.getData();
-    }
+    const response = await this.userService.login(account, password);
+    if (response.error) this.ctx.status = 403;
+    if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
     this.ctx.body = response;
   }
-
   async logout() {
     this.ctx.session = null;
-    this.ctx.body = this.ServerResponse.createBySuccess();
+    this.ctx.body = '退出成功';
   }
-
   async register() {
-    const user = this.ctx.request.body;
-    const response = await this.UserService.register(user);
-    this.ctx.body = response;
-  }
-
-  async updateUserInfo() {
-    const userInfo = this.ctx.request.body;
-    const user = this.session.currentUser;
-    const response = await this.UserService.updateUserInfo(userInfo, user);
-    this.session.currentUser = response.getData();
-    this.ctx.body = response;
-  }
-
-  async getUserInfo() {
-    let response;
-    const user = this.session.currentUser;
-    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
-    else response = await this.UserService.getUserInfo(user.id);
-    this.ctx.body = response;
-  }
-
-  async checkValid() {
+    this.ctx.validate({
+      account: { type: 'string'},
+      password: { type: 'string', min: 8, max: 20 },
+      nickname: {type: 'string', min: 1, max: 20 , required: false },
+      avatar: {type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200,required:false}
+    });
     const {
-      value,
-      type
-    } = this.ctx.params;
-    const response = await this.UserService.checkValid(type, value);
+      account ,
+      password,
+      nickname = 'guest',
+      avatar = null,
+      signature = '这个人很懒,什么都没有留下',
+    } = this.ctx.request.body;
+    const response = await this.userService.register(account , password, nickname, avatar, signature);
+    if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
+  async resetPassword() {
 
-  async getBookshelf() {
-    let response;
-    const user = this.session.currentUser;
-    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
-    else response = await this.UserService.getBookshelf(user.id);
+  }
+  async updateUserInfo() {
+    this.ctx.validate({
+      nickname: {type: 'string', min: 1, max: 20 , required: false },
+      avatar: {type: 'url', required: false },
+      signature:{type: 'string', min: 0, max: 200,required:false}
+    });
+    const uid = this.ctx.params.uid;    
+    const {
+      nickname = 'guest',
+      avatar = null,
+      signature = '这个人很懒,什么都没有留下',
+    } = this.ctx.request.body;
+    const response = await this.userService.updateUserInfo( uid,nickname, avatar, signature);
     this.ctx.body = response;
   }
-
-  async addBookshelf() {
-    let response;
-    const user = this.session.currentUser;
-    const {bookid} = this.ctx.params;
-    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
-    else response = await this.UserService.addBookshelf(user.id,bookid);
+  async getUserInfo() {
+    const uid = this.ctx.params.uid;
+    const response = await this.userService.getUserInfo(uid);
+    if(response.error) this.ctx.state = 404;
     this.ctx.body = response;
   }
+  async getRankList() {
 
-  async delBookshelf() {
-    let response;
-    const user = this.session.currentUser;
-    const {bookid} = this.ctx.params;
-    if (!user) response = this.ServerResponse.createByErrorCodeMsg(this.ResponseCode.NEED_LOGIN, '需要强制登录status=10');
-    else response = await this.UserService.delBookshelf(user.id,bookid);
-    this.ctx.body = response;
   }
+  async getShelfList() {
 
-  async getUserList() {
-    const {type,limit} = this.ctx.params;
-    const response = await this.UserService.getUserList(type,limit);
-    this.ctx.body = response;
   }
+  async createShelf() {
 
-
-  async ManagerUser() {
-    const {userid} = this.ctx.params;
-    // 暂时只有role
-    const {role}  = this.ctx.request.body;
-    const response = await this.userService.managerUser(userid,role);
-    this.ctx.body = response;
   }
+  async modifyShelf() {
 
-  async searchUser() {
-    const {username} = this.ctx.params;
-    const response = await this.UserService.searchUser(username);
-    this.ctx.body = response;
   }
+  async delShelf() {
 
-  async getCategory(){
-    const response = await this.UserService.getCategory();
-    this.ctx.body = response;
   }
+  async getShelfByID() {
 
-  async deleteUser(){
-    const {userid} = this.ctx.params;
-    const response = await this.UserService.deleteUser(userid);
-    this.ctx.body = response;
+  }
+  async collectBook() {
+
+  }
+  async cancelCollectBook() {
+
+  }
+  async getAllCollection() {
+
+  }
+  async collectComment() {
+
+  }
+  async delCollectComment() {
+
+  }
+  async getFollowerList() {
+
+  }
+  async getFollowingList() {
+
+  }
+  async followOne() {
+
+  }
+  async unfollow() {
+
   }
 }
 

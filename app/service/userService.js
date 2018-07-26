@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+<<<<<<< HEAD
 const { ROLE_ADMAIN, ROLE_CUSTOMER } = require('../config/role');
 
 class UserServiceService extends Service {
@@ -11,83 +12,213 @@ class UserServiceService extends Service {
         this.ResponseCode = ctx.response.ResponseCode;
         this.ServerResponse = ctx.response.ServerResponse;
         this.encryption = ctx.encryption;
-    }
-    /**
-     * 
-     * 
-     * @param {String} field 
-     * @param {String} value 
-     * @returns  {Promise.<boolean>}
-     * @memberof UserServiceService
-     */
-    async _checkExistColByField(field, value) {
-        const data = await this.UserModel.findOne({
-            attributes: [field],
-            where: {
-                [field]: value
-            },
-        });
-        return !!data;
-    }
+=======
 
-    async login(username, password) {
-        // 用户名存在报错
-        const validResponse = await this.checkValid(USERNAME, username);
-        if (validResponse.isSuccess()) return validResponse;
-
-        // 检查密码是否正确
-        const user = await this.UserModel.findOne({
-            attributes: ['id', 'username', 'email', 'phone', 'role'],
-            where: {
-                username,
-                password: this.encryption(password),
-            },
-        });
-
-        if (!user) return this.ServerResponse.createByErrorMsg('密码错误');
-
-        const userInfo = user.toJSON()
-        let redirectTo
-        if (userInfo.role === ROLE_ADMAIN) redirectTo = '/'
-        else redirectTo = ''
-
-        return this.ServerResponse.createBySuccessMsgAndData('登录成功', { ...userInfo,redirectTo});
-    }
-
-    async checkVaild(value, type) {
-        if (type.trim()) {
-            if (USERNAME === type) {
-                return await this._checkExistColByField(USERNAME, value) ?
-                    this.ServerResponse.createByErrorMsg('用户名已存在') :
-                    this.ServerResponse.createBySuccessMsg('用户名不存在');
-            }
-            if (EMAIL === type) {
-                return await this._checkExistColByField(EMAIL, value) ?
-                    this.ServerResponse.createByErrorMsg('邮箱已存在') :
-                    this.ServerResponse.createBySuccessMsg('邮箱不存在');
-            }
-            return this.ServerResponse.createByErrorMsg('参数错误');
+class UserService extends Service {
+  constructor(ctx) {
+    super(ctx)
+    this.UserModel = ctx.model.User;
+    this.BookModel = ctx.model.Book;
+  }
+  async _checkPass(account, password) {
+    const user = await this.UserModel.findOne({
+      include: [{
+        model: this.BookModel,
+        through: {
+          attributes: ['created_at', 'update_at'],
         }
+      }],
+      where: {
+        account
+      }
+    });
+    return (user && this.ctx.compare(password, user.get('password'))) ? user : null;
+  }
+  async login(account, password) {
 
+    let user = await this._checkPass(account, password);
+    if (user) {
+      this.ctx.session.user = {
+        uid: user.get('id'),
+      }
+      return {
+        error: false,
+        data: {
+          text: '登录成功',
+          user: {
+            nickname: user.get('nickname'),
+            avatar: user.get('avatar'),
+            signature: user.get('signature'),
+            integral: user.get('integral'),
+            readingTime: user.get('readingTime'),
+            recentBook: user.get('Books')
+          },
+        },
+      };
+    } else {
+      return {
+        error: true,
+        data: '账号密码错误',
+      };
+>>>>>>> 2178a86b8366851964f84a408f97e44fac6d09c4
     }
-    
-    
-    async register(user){}
-    
-    async selctQuestion(username){}
+  }
+  async adminLogin(account, password) {
+    let user = await this._checkPass(account, password);
+    const role = user.get('role');
+    if (user && user.get('role') > 1) {
+      this.ctx.session.user = {
+        uid: user.get('id'),
+        isAdmin: role > 2?true:false,
+        isLibrarian: true
+      }
+      return {
+        error: false,
+        data: {
+          text: '认证成功',
+          nickname: user.get('nickname'),
+          role: user.get('role')
+        }
+      }
+    } else {
+      return {
+        error: true,
+        data: '认证失败',
+      };
+    }
 
-    async resetPassword(user,oldPassword,newPassword){}
-    
-    async checkAnswer(username,question,answer){}
+  }
+  async register(account, password, nickname, avatar, signature) {
+    const pwdHash = await this.ctx.genHash(password);
+    const result = await this.UserModel.findOrCreate({
+      where: {
+        account,
+      },
+      defaults: {
+        account,
+        password: pwdHash,
+        nickname,
+        avatar,
+        signature
+      },
+    });
+    if (result[result.length - 1]) {
+      return {
+        error: false,
+        data: '创建成功',
+      };
+    }
+    return {
+      error: true,
+      data: '已存在此用户',
+    };
+  }
+  async resetPassword() {
 
-    async forgetRestPassword(username,newPassword,token){}
+  }
+  async updateUserInfo(uid,nickname, avatar, signature) {
+    const result = await this.UserModel.update({
+      nickname,
+      avatar,
+      signature
+    }, {
+      where: {
+        id: uid
+      }
+    });
+    return result;
+  }
+  async getUserInfo(uid) {
+    let condition = uid ||this.session;
+    const user = await this.UserModel.findOne({
+      attributes: ['account', 'avatar','integral', 'nickname', 'readingTime', 'signature'],
+      include: [{
+        model: this.BookModel,
+        through: {
+          attributes: ['created_at', 'update_at'],
+        }
+      }],
+      where: {
+        id:condition
+      }
+    });
+    return {
+      error: false,
+      data: user
+    }
+  }
 
-    async updateUserInfo(userInfo,user){}
+  async getUserList(rid) {
+    const condition = rid==-1?{where:{role:rid}}:null
+    const result = await this.UserModel.findAll({
+        condition,
+        attributes:['id','account','nickname','role',]
+    });
+    return result;
+  }
+  async modifyRole(uid, role) {
+    const result = await this.UserModel.update({
+      role
+    }, {
+      where: {
+        id: uid
+      }
+    });
+    return result;
+  }
+  async searchUser(name){
+    const result = await this.UserModel.findAll({
+        where:{account:{[this.app.Sequelize.Op.like]:`%${name}%`}},
+        attributes:['id','account','nickname','role',]
+    });
+    return result;
+  }
+  async getRankList() {
 
-    async getUserInfo(userId){}
+  }
+  async getShelfList() {
 
-    async checkAdminRole(user){}
+  }
+  async createShelf() {
+
+  }
+  async modifyShelf() {
+
+  }
+  async delShelf() {
+
+  }
+  async getShelfByID() {
+
+  }
+  async collectBook() {
+
+  }
+  async cancelCollectBook() {
+
+  }
+  async getAllCollection() {
+
+  }
+  async collectComment() {
+
+  }
+  async delCollectComment() {
+
+  }
+  async getFollowerList() {
+
+  }
+  async getFollowerList() {
+
+  }
+  async followOne() {
+
+  }
+  async unfollow() {
+
+  }
 
 }
 
-module.exports = UserServiceService;
+module.exports = UserService;
