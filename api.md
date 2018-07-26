@@ -1,96 +1,96 @@
 # 1.  book
-    get /book/:bid/comment'
+    get /book/:bid/comment
 
-    post /book/:bid/comment'
+    post /book/:bid/comment
 
-    delete /book/:bid/comment/:cid'
+    delete /book/:bid/comment/:cid
 
-    put /book/comment/:cid'
+    put /book/comment/:cid
 
-    get /book/comment/:cid'
+    get /book/comment/:cid
 
-    get /book/comment/:cid/like'
+    get /book/comment/:cid/like
 
-    get /book/comment/:cid/unlike'
+    get /book/comment/:cid/unlike
 
 
 
-    get /book'
+    get /book
 
-    get /book/ranking'
+    get /book/ranking
+
+    get /book/search
     
-    get /book/search'
+    get /book/recommend
     
-    get /book/recommend'
+    get /book/:bid
     
-    get /book/:bid'
+    post /book/:bid
     
-    post /book/:bid'
-    
-    post /book'
+    post /book
 
-    put /book/:bid'
+    put /book/:bid
 
-    put /book/:bid/type'
+    put /book/:bid/type
     
-    delete /book/:bid'
+    delete /book/:bid
     
-    post /book/:bid'
+    post /book/:bid
 
-    get /book/:bid/:chapterID'
+    get /book/:bid/:chapterID
 
-    delete /book/:bid/:chapterID'
+    delete /book/:bid/:chapterID
 
-    put /book/:bid/:chapterID'
+    put /book/:bid/:chapterID
     
 # 2. category
-    get /category'
+    get /category
 
-    get /category/all'
+    get /category/all
 
-    post /category'
+    post /category
 
-    delete /category/:cid'
+    delete /category/:cid
 
-    get /category/type'
+    get /category/type
 
 # 3. community
-    post /community'
+    post /community
 
-    get /community'
+    get /community
 
     
 # 4. user
-    post /user/login'
+    post /user/login
 
-    get /user/logout'
+    get /user/logout
     
-    post /user/register'
+    post /user/register
 
 
     
-    put /user/resetPassword'
+    put /user/resetPassword
     
-    put /user/info/:uid'
+    put /user/info/:uid
     
-    get /user/info/:uid'
+    get /user/info/:uid
 
-    get /user/ranking'    
+    get /user/ranking    
 
-    post /user/collect/'
+    post /user/collect/
 
-    delete /user/collect/:bid'
+    delete /user/collect/:bid
 
-    get /user/collect'
+    get /user/collect
 
 
 # 5. admin
-    post /admin/login'
+    post /admin/login
 
-    get /admin/user/:rid',isAdmin
+    get /admin/user/:rid
 
-    put /admin/:uid',isAdmin
+    put /admin/:uid
 
-    get /admin/search',isAdmin
+    get /admin/search
     
-    post /admin/register',isAdmin
+    post /admin/register
