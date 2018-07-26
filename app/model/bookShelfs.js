@@ -8,25 +8,27 @@ module.exports = app => {
         DATE,
     } = app.Sequelize;
     const BookShelfsModel = app.model.define('BookShelfs', {
-        id: {
+          id: {
             type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
           },
-          sid:{
+          user_id:{
             type:INTEGER,
             references:{
-              model:'Shelf',
+              model:'User',
               key:'id'
             }
+            
           },
-          bid:{
+          book_id:{
             type:INTEGER,
             references:{
               model:'Book',
               key:'id'
             }
+
           }
 
     }, {

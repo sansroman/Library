@@ -19,11 +19,13 @@ class UserService extends Service {
     super(ctx)
     this.UserModel = ctx.model.User;
     this.BookModel = ctx.model.Book;
+    this.BookShelfsModel = ctx.model.BookShelfs;
   }
   async _checkPass(account, password) {
     const user = await this.UserModel.findOne({
       include: [{
         model: this.BookModel,
+        as:'recent',
         through: {
           attributes: ['created_at', 'update_at'],
         }
@@ -65,7 +67,7 @@ class UserService extends Service {
   }
   async adminLogin(account, password) {
     let user = await this._checkPass(account, password);
-    const role = user.get('role');
+    const role = user?user.get('role'):0;
     if (user && user.get('role') > 1) {
       this.ctx.session.user = {
         uid: user.get('id'),
@@ -88,7 +90,7 @@ class UserService extends Service {
     }
 
   }
-  async register(account, password, nickname, avatar, signature) {
+  async register(account,password,nickname,avatar,signature) {
     const pwdHash = await this.ctx.genHash(password);
     const result = await this.UserModel.findOrCreate({
       where: {
@@ -112,6 +114,20 @@ class UserService extends Service {
       error: true,
       data: '已存在此用户',
     };
+    // try {  
+    //   const result = await this.UserModel.bulkCreate(userList);
+    //   return result;
+    // } catch (error) {
+    //   return {error:true,message:error};
+    // }
+  }
+  async batchRegister(userList) {
+    try {  
+      const result = await this.UserModel.bulkCreate(userList);
+      return result;
+    } catch (error) {
+      return {error:true,message:error};
+    }
   }
   async resetPassword() {
 
@@ -148,11 +164,13 @@ class UserService extends Service {
     }
   }
 
-  async getUserList(rid) {
+  async getUserList(rid,limit,offset) {
     const condition = rid==-1?{where:{role:rid}}:null
-    const result = await this.UserModel.findAll({
+    const result = await this.UserModel.findAndCountAll({
         condition,
-        attributes:['id','account','nickname','role',]
+        attributes:['id','account','nickname','role',],
+        limit,
+        offset
     });
     return result;
   }
@@ -176,48 +194,37 @@ class UserService extends Service {
   async getRankList() {
 
   }
-  async getShelfList() {
 
+  async collectBook(uid,bid) {
+    let result = await this.BookShelfsModel.findOrCreate({
+      where: {
+          book_id:bid,
+          user_id:uid
+      }
+    })
+    return result;
   }
-  async createShelf() {
+  async cancelCollectBook(uid,bid) {
+    let result = await this.BookShelfsModel.destroy({
+        where: {
+          book_id:bid,
+          user_id:uid
+        }
+    })
+    
+    return result;
+  }
+  async getAllCollection(uid) {
+    const result = await this.UserModel.findOne({
+      include:[{model:this.BookModel,as:'collection'}],
+      where:{
+        id:uid
+      }
+    })
+    return result;
+  }
 
-  }
-  async modifyShelf() {
 
-  }
-  async delShelf() {
-
-  }
-  async getShelfByID() {
-
-  }
-  async collectBook() {
-
-  }
-  async cancelCollectBook() {
-
-  }
-  async getAllCollection() {
-
-  }
-  async collectComment() {
-
-  }
-  async delCollectComment() {
-
-  }
-  async getFollowerList() {
-
-  }
-  async getFollowerList() {
-
-  }
-  async followOne() {
-
-  }
-  async unfollow() {
-
-  }
 
 }
 

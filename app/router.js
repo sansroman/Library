@@ -7,51 +7,78 @@ module.exports = app => {
     const logged = app.role.can('logged');
 
 
+
+
+    router.get('/book/:bid/comment',controller.commentController.getAllComment);
+
+    router.post('/book/:bid/comment',controller.commentController.createComment);
+
+    router.delete('/book/:bid/comment/:cid',controller.commentController.delComment);
+
+    router.put('/book/comment/:cid',controller.commentController.modifyComment);
+
+    router.get('/book/comment/:cid',controller.commentController.getCommentByID);
+
+    router.get('/book/comment/:cid/like',controller.commentController.likedComment);
+
+    router.get('/book/comment/:cid/unlike',controller.commentController.unlikedComment);
+
+
+
     router.get('/book',controller.bookController.getBookList)
 
     router.get('/book/ranking',controller.bookController.getRankList);
     // 书籍阅读量排行  书籍收藏排行
 
-    router.get('/book/:bookid',controller.bookController.getBookByID)
-
-    router.post('/book/:bookid',controller.bookController.createChapter);
-
-    router.get('/book/search',controller.bookController.seachBook)
+    router.get('/book/search',controller.bookController.searchBook)
     
-    router.get('/book/recommend',controller.bookController.bookRecommend)
+    router.get('/book/recommend',controller.bookController.recommend)
+    
+    router.get('/book/:bid',controller.bookController.getBookByID)
+    
+    router.post('/book/:bid',controller.bookController.createChapter);
     
     router.post('/book',controller.bookController.addBook);
-    
-    router.put('/book/:bookid',controller.bookController.modifyBook);
-    
-    router.delete('/book/:bookid',controller.bookController.delBook);
-    
-    
-    router.get('/book/:bookid/:chapterID',controller.bookController.geChapterByID)
 
-    router.delete('/book/:bookid/:chapterID',controller.bookController.delChapter);
+    router.put('/book/:bid',controller.bookController.modifyBook);
 
-    router.put('/book/:bookid/:chapterID',controller.bookController.modifyChapter);
+    router.put('/book/:bid/type',controller.bookController.changeType);
+    
+    router.delete('/book/:bid',controller.bookController.delBook);
+    
+    router.post('/book/:bid',controller.bookController.addChapter);
+
+    router.get('/book/:bid/:chapterID',controller.bookController.geChapterByID)
+
+    router.delete('/book/:bid/:chapterID',controller.bookController.delChapter);
+
+    router.put('/book/:bid/:chapterID',controller.bookController.modifyChapter);
     
 
     router.get('/category',controller.categoryController.getAllCategory);
 
-    router.post('/category',controller.categoryController.createCategory);
+    router.get('/category/all',controller.categoryController.getCategoryAndType);
 
-    router.put('/category/:cid',controller.categoryController.modifyCategory);
+    router.post('/category',controller.categoryController.createCategory);
 
     router.delete('/category/:cid',controller.categoryController.deleteCategory);
 
     router.get('/category/type',controller.categoryController.getSubCategory)
 
 
+    router.post('/community',controller.communityController.createArticle);
 
+    router.get('/community',controller.communityController.getAllArticle)
+
+    
 
     router.post('/user/login',controller.userController.login);
 
     router.get('/user/logout',controller.userController.logout);
     
     router.post('/user/register',controller.userController.register);
+
+
     
     router.put('/user/resetPassword',controller.userController.resetPassword);
     
@@ -59,43 +86,15 @@ module.exports = app => {
     
     router.get('/user/info/:uid',controller.userController.getUserInfo);
 
-    router.get('/user/ranking',controller.userController.getRankList);
-    
-    
-    
-    router.get('/user/shelf',controller.userController.getShelfList);
-    
-    router.post('/user/shelf',controller.userController.createShelf);
+    router.get('/user/ranking',controller.userController.getRankList);    
 
-    router.put('/user/shelf/:shelfID',controller.userController.modifyShelf);
+    router.post('/user/collect/',controller.userController.collectBook);
 
-    router.delete('/user/shelf/:shelfID',controller.userController.delShelf);
-    
-    router.get('/user/shelf/:shelfID',controller.userController.getShelfByID);
+    router.delete('/user/collect/:bid',controller.userController.cancelCollectBook);
 
-    router.post('/user/shelf/:shelfID',controller.userController.collectBook);
-
-    router.delete('/user/shelf/:shelfID/:bookID',controller.userController.cancelCollectBook);
-
-    
-
-    router.get('/user/collection',controller.userController.getAllCollection);
-
-    router.post('/user/collection',controller.userController.collectComment);
-
-    router.delete('/user/collection/:commentID',controller.userController.delCollectComment);
+    router.get('/user/collect',controller.userController.getAllCollection);
 
 
-
-    router.get('/user/follower',controller.userController.getFollowerList);
-
-    router.get('/user/following',controller.userController.getFollowingList);
-
-    router.post('/user/following',controller.userController.followOne);
-
-    router.delete('/user/following/:id',controller.userController.unfollow);
-
-    
 
     router.post('/admin/login',controller.adminController.login);
 
@@ -104,21 +103,8 @@ module.exports = app => {
     router.put('/admin/:uid',isAdmin,controller.adminController.modifyRole);
 
     router.get('/admin/search',isAdmin,controller.adminController.searchUser)
-
-
-    router.get('/comment',controller.commentController.getAllComment);
-
-    router.post('/comment',controller.commentController.craeteComment);
-
-    router.delete('/comment/:commentID',controller.commentController.delComment);
-
-    router.put('/comment/:commentID',controller.commentController.modifyComment);
-
-    router.get('/comment/:commentID',controller.commentController.getCommentByID);
-
-    router.get('/comment/:commentID/like',controller.commentController.likeComment);
-
-    router.delete('/comment/:commentID/like',controller.commentController.unlikeComment);
+    
+    router.post('/admin/register',isAdmin,controller.adminController.register)
 
 
 

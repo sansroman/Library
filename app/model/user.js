@@ -18,6 +18,7 @@ module.exports = app => {
         account: {
             type: STRING(50),
             allowNull: false,
+            unique: true            
         },
         password: {
             type: STRING(50),
@@ -35,7 +36,7 @@ module.exports = app => {
         signature: {
             type: STRING(100),
             allowNull: true,
-            defaultValue: 'undefined',
+            defaultValue: '这个人很懒，没有签名',
         },
         integral:{
             type:INTEGER,
@@ -68,10 +69,14 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     UserModel.associate = function() {
-        UserModel.hasMany(app.model.Comment,{foreignKey:'uid',targetKey:'id',as:'comments'});
-        UserModel.hasMany(app.model.Shelf,{foreignKey:'uid',targetKey:'id',as:'shelfs'});
-        UserModel.belongsToMany(app.model.Book,{through:app.model.RecentBook,foreignKey:'uid'});
-    
+        UserModel.hasMany(app.model.Comment,{foreignKey:'aid',as:'commentAuthor'});
+        UserModel.hasMany(app.model.Community,{foreignKey:'aid',as:'communityAuthor'});
+        UserModel.belongsToMany(app.model.Community,{through:'LikedCommunity',foreignKey:'uid',onDelete: 'cascade' ,as:'clikedUser'});
+        UserModel.belongsToMany(app.model.Community,{through:'UnlikedCommunity',foreignKey:'uid',as:'cunlikedUsers'});
+        UserModel.belongsToMany(app.model.Comment,{through:'LikedComment',foreignKey:'uid',onDelete: 'cascade' ,as:'likedUser'});
+        UserModel.belongsToMany(app.model.Comment,{through:'UnlikedComment',foreignKey:'uid',as:'unlikedUsers'});        
+        UserModel.belongsToMany(app.model.Book,{through:'BookShelfs',as:'collection',onDelete: 'cascade'});
+        UserModel.belongsToMany(app.model.Book,{through:'RecentBook',foreignKey:'uid',as:'recent',onDelete: 'cascade'});
     };
     return UserModel;
 };

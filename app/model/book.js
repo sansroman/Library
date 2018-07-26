@@ -18,24 +18,26 @@ module.exports = app => {
             type:STRING(200),
             allowNull:true
         },
-        type:{
-            type:STRING(20),
-            allowNull:true
-        },
         name:{
             type:STRING(20),
             allowNull:false
         },
-        publishingCompany:{
+        company:{
             type:STRING(200),
             allowNull:false
         },
-        publishingPerson:{
+        author:{
             type:STRING(50),
             allowNull:false
         },
+        blurb:{
+            type:STRING(200),
+        },
+        pdate:{
+            type:STRING(30)
+        },
         position:{
-            type: STRING(100),
+            type: STRING(50),
             allowNull: true
         },
         views:{
@@ -59,11 +61,11 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     BookModel.associate = function() {
-        BookModel.belongsToMany(app.model.Shelf,{through:app.model.BookShelfs,foreignKey:'bid'});
-        BookModel.belongsToMany(app.model.User,{through:app.model.RecentBook,foreignKey:'bid'});
-        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',targetKey:'id',as:'Chapter'});
+        BookModel.belongsToMany(app.model.User,{through:'BookShelfs',onDelete: 'cascade',as:'collection'});
+        BookModel.belongsToMany(app.model.User,{through:'RecentBook',foreignKey:'bid',onDelete: 'cascade',as:'recent'});
+        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',as:'Chapter',onDelete: 'cascade'});
         BookModel.belongsTo(app.model.Category, { foreignKey: 'cid' })
         
     };
     return BookModel;
-};
+}

@@ -44,7 +44,8 @@ class UserController extends Controller {
       avatar = null,
       signature = '这个人很懒,什么都没有留下',
     } = this.ctx.request.body;
-    const response = await this.userService.register(account , password, nickname, avatar, signature);
+    // const {userList} = this.ctx.request.body;
+    const response = await this.userService.register(account,password,nickname,avatar,signature);
     if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
@@ -75,48 +76,29 @@ class UserController extends Controller {
   async getRankList() {
 
   }
-  async getShelfList() {
-
-  }
-  async createShelf() {
-
-  }
-  async modifyShelf() {
-
-  }
-  async delShelf() {
-
-  }
   async getShelfByID() {
 
   }
   async collectBook() {
+      const {bid} = this.ctx.request.body;
+      const {uid} = this.session.user;
+      const response =await this.userService.collectBook(uid,bid);
+      this.ctx.body = response;
 
   }
   async cancelCollectBook() {
-
+    const {bid} = this.ctx.params;
+    const {uid} = this.session.user;
+    const response =await this.userService.cancelCollectBook(uid,bid);
+    this.ctx.body = response;
   }
   async getAllCollection() {
-
+    const {uid} = this.session.user;
+    const response =await this.userService.getAllCollection(uid);
+    this.ctx.body = response;
   }
-  async collectComment() {
 
-  }
-  async delCollectComment() {
 
-  }
-  async getFollowerList() {
-
-  }
-  async getFollowingList() {
-
-  }
-  async followOne() {
-
-  }
-  async unfollow() {
-
-  }
 }
 
 module.exports = UserController;

@@ -25,13 +25,17 @@ class AdminController extends Controller {
     if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
     this.ctx.body = response;
   }
+
   async logout() {
     this.ctx.session = null;
     this.ctx.body = '退出成功';
   }
   async getUserList(){
+    let {limit = 10,offset = 0,bookname} = this.ctx.query;
+    limit = parseInt(limit);
+    offset = parseInt(offset<0?0:offset) * limit; 
     const {rid} = this.ctx.params;
-    const response = await this.userService.getUserList(rid);
+    const response = await this.userService.getUserList(rid,limit,offset);
     this.ctx.body = response;
   }
   async searchUser(){
@@ -44,6 +48,12 @@ class AdminController extends Controller {
     const {role} = this.ctx.request.body;
     const response = await this.userService.modifyRole(uid,role); 
     
+    this.ctx.body = response;
+  }
+  async register() {
+    const {userList} = this.ctx.request.body;
+    const response = await this.userService.batchRegister(userList);
+    if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
 

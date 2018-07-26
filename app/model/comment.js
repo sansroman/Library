@@ -7,30 +7,16 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const CommentModel = app.model.define('User', {
+    const CommentModel = app.model.define('Comment', {
         id: {
             type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        // bid: {
-        //     type: INTEGER,
-        //     allowNull: false,
-        //     references:{
-        //         model:'User',
-        //         key:'id'
-        //     },
-        //     comment:'书籍ID'
-        // },
         content: {
             type: STRING(2000),
             allowNull: false,
-        },
-        liked:{
-            type:INTEGER,
-            allowNull:false,
-            defaultValue:0
         },
         created_at: {
             type: DATE,
@@ -48,8 +34,10 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     CommentModel.associate = function() {
-        CommentModel.belongsTo(app.model.User, { foreignKey: 'uid' });  
-        CommentModel.belongsTo(app.model.Book, { foreignKey: 'bid' });        
+        CommentModel.belongsTo(app.model.User, { foreignKey: 'aid',onDelete: 'cascade',as:'commentAuthor' });
+        CommentModel.belongsToMany(app.model.User, { through:'LikedComment',foreignKey: 'cid' ,onDelete: 'cascade',as:'likedUser'});
+        CommentModel.belongsToMany(app.model.User, { through:'UnlikedComment',foreignKey: 'cid',onDelete: 'cascade',as:'unlikedUser'});
+        CommentModel.belongsTo(app.model.Book, { foreignKey: 'bid',onDelete: 'cascade' }); 
               
     };
     return CommentModel;
