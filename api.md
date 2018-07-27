@@ -1,719 +1,571 @@
-<<<<<<< HEAD
-# 1. Overview
-1. [user](#user)
-2. [book](#book)
-3. [category](#category)
-4. [admin](#admin)
-5. [comment](#comment)
-6. [shelf](#shelf)
-# 2. <span id="user">User</span>
-
-### 1. login
-
-> POST /user/login
-
-Parameters:
-* username
-* password
-* rememberMe
-
-
-Response:
-### 2. logout
-
-> GET /user/logout
-
-Parameters:none
-
-
-Response:
-
-### 3. register
-> POST /user/register
-
-Parameters:
-* account
-* password
-* nickname
-* avatar
-* signature
-
-
-Response:
-### 4. reset password
-> PUT /user/resetPassword
-
-Parameters:
-* answer
-* newPassword
-
-Response:
-### 5. get user info
-> GET /user/info/:uid
-
-Parameters:none
-
-
-Response:
-### 6. modify user info
-> PUT /user/info/:uid
-
-Parameters:
-* nickname
-* avatar
-* signature
-
-
-Response:
-### 7. get user rank
-> GET /user/rank
-
-Parameters:none
-
-Response:
-
-# 3. <span id="book">Book</span>
-
-### 1. list books
-> GET /book/
-
-Parameters:none
-
-
-Response:
-### 2. book topics
-> GET /book/ranking
-
-Parameters:none
-
-
-Response:
-### 3. search book by ID
-> GET /book/search
-
-Parameters:none
-
-
-Response:
-### 4. update book
-> PUT /book/:bookid
-
-Parameters:
-* cover
-* type
-* name
-* publishingCompany
-* publishingPerson
-* position
-* views
-
-
-Response:
-### 5. create chapter
-> POST /book/:bookid
-
-Parameters:
-* title
-* index
-* content
-
-
-Response:
-### 6. get book info
-> GET /book/:bookid
-
-Parameters:none
-
-
-Response:
-### 7. delete book 
-> delete /book/:bookid
-
-Parameters:none
-
-
-Response:
-### 8. add book
-> POST /book/
-
-Parameters:
-* cover
-* type
-* name
-* publishingCompany
-* publishingPerson
-* position
-* views
-
-Response:
-### 9. modify chapter
-> PUT /book/:bookid/:chapterID
-
-Parameters:
-* title
-* index
-* content
-
-
-Response:
-### 10. delete chapter
-> DELTET /book/:bookid/:chapterID
-
-Parameters:none
-
-
-Response:
-### 11. get chapter
-> GET /book/:bookid/:chapterID
-
-Parameters:none
-
-
-Response:
-
-# 4. <span id="category">Category</span>
-
-### 1. list category
-> GET /category
-
-Parameters:none
-
-
-
-Response:
-### 2. create category
-> POST /category
-
-Parameters:
-* category
-* type
-
-
-Response:
-### 3. modifyCategory
-> PUT /category/:cid
-
-Parameters:
-* category
-* type
-
-
-
-Response:
-### 4. get sub category
-> GET /category/:cid/type
-
-Parameters:none
-
-
-Response:
-### 5. delete category
-> DELETE /category/:cid
-
-Parameters:none
-
-
-Response:
-# 5. <span id="admin">Admin</span>
-
-### 1. login
-> POST /admin/login
-
-Parameters:
-* username
-* password
-* rememberMe
-
-
-Response:
-### 2. list user
-> GET /admin/user/:rid
-
-Parameters:none
-
-
-Response:
-### 3. modify user role
-> PUT /admin/:uid
-
-Parameters:
-* userid
-* rid
-
-
-Response:
-### 4. search user by username
-> GET /admin/search
-
-Parameters:
-* username
-
-Response:
-# 6. <span id="comment">Comment</span>
-# 7. <span id="shelf">Shelf</span>
-=======
 # 1.  book
 
-  ## 1.1 get /book/:bid/comment
+  ## 1.1 获取某本书的评论
 
-   * #### description:
+  - 接口地址 /book/:bid/comment
 
-   * #### request:
+  - 请求方法:get
 
-   * #### response:
+  - 请求参数: 
+	* query
+      参数名称 | 必需 | 类型   | 描述
+      ---------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset   | 是   | string | 当前页数
 
-  ## 1.2  post /book/:bid/comment
+	* params
+      参数名称 | 必需 | 类型   | 描述
+      ------------|------|--------|--------------
+      bid    | 是   | string | 书id
 
-   * #### description:
+  - 响应参数
 
-   * #### request:
+      参数名称 | 必需 | 类型   | 描述
+      ------------|------|---------|----------------
+      status      | 是   | boolean | 判断相应状态
 
-   * #### response:
 
-  ## 1.3  delete /book/:bid/comment/:cid
+  ## 1.2 在某本书下提交评论
 
-   * #### description:
+  - 接口地址 /book/:bid/comment
 
-   * #### request:
+  - 请求方法:post
 
-   * #### response:
+  - 请求参数: 
+	* body
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|--------|--------------
+      content | 是   | string | 评论内容
 
-  ## 1.4  put /book/comment/:cid
+	* params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 书id
 
-   * #### description:
+  - 响应参数
 
-   * #### request:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### response:
 
-  ## 1.5  get /book/comment/:cid
+  ## 1.3  删除某本书下某条评论
 
-   * #### description:
+  - 接口地址 /book/:bid/comment/:cid
 
-   * #### request:
+  - 请求方法: delete
 
-   * #### response:
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 评论id
 
-  ## 1.6  get /book/comment/:cid/like
+  - 响应参数
 
-   * #### description:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### request:
+  ## 1.4  修改某条评论
 
-   * #### response:
+  - 接口地址 /book/comment/:cid
 
-  ## 1.7 get /book/comment/:cid/unlike
+  - 请求方法:put
 
-   * #### description:
+  - 请求参数: 
+    * body
 
-   * #### request:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|--------|--------------
+      content | 是   | string | 评论内容
 
-   * #### response:
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 评论id
 
-  ## 1.8 get /book
+  - 响应参数
 
-   * #### description:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-        getBookList
+  ## 1.5 获取某一条评论
 
-   * #### request:
-        
-        * query
+  - 接口地址 /book/comment/:cid
 
-            1.  **limit** : specifies the maximum number of rows to return
-            2.  **offset** :  specifies the offset of the first row to return
+  - 请求方法:get
 
-   * #### response:
-    
-        ```json
-        {
-            "count": 28,
-            "rows": [
-                {
-                    "id": 1,
-                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
-                    "name": "1",
-                    "company": "清华大学出版社",
-                    "author": "张鹏宇",
-                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
-                    "pdate": "4/3/18",
-                    "position": "tp123/java",
-                    "views": 0,
-                    "created_at": "2018-07-10T13:52:36.000Z",
-                    "updated_at": "2018-07-10T13:56:08.000Z",
-                    "cid": 1,
-                    "Category": {
-                        "id": 1,
-                        "category": "网络文学",
-                        "type": "男频",
-                        "created_at": "2018-07-03T03:39:46.000Z",
-                        "updated_at": "2018-07-03T03:39:46.000Z"
-                    }
-                },
-                {
-                    "id": 2,
-                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
-                    "name": "1",
-                    "company": "清华大学出版社",
-                    "author": "张鹏宇",
-                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
-                    "pdate": "4/3/18",
-                    "position": "tp123/java",
-                    "views": 0,
-                    "created_at": "2018-07-10T13:52:36.000Z",
-                    "updated_at": "2018-07-10T13:56:41.000Z",
-                    "cid": 1,
-                    "Category": {
-                        "id": 1,
-                        "category": "网络文学",
-                        "type": "男频",
-                        "created_at": "2018-07-03T03:39:46.000Z",
-                        "updated_at": "2018-07-03T03:39:46.000Z"
-                    }
-                },
-                {
-                    "id": 3,
-                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
-                    "name": "1",
-                    "company": "清华大学出版社",
-                    "author": "张鹏宇",
-                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
-                    "pdate": "4/3/18",
-                    "position": "tp123/java",
-                    "views": 0,
-                    "created_at": "2018-07-10T13:52:36.000Z",
-                    "updated_at": "2018-07-10T13:56:57.000Z",
-                    "cid": 2,
-                    "Category": {
-                        "id": 2,
-                        "category": "网络文学",
-                        "type": "女频",
-                        "created_at": "2018-07-03T03:39:51.000Z",
-                        "updated_at": "2018-07-03T03:39:51.000Z"
-                    }
-                },
-                {
-                    "id": 4,
-                    "cover": "http://img3m1.ddimg.cn/93/17/25288851-1_l_17.jpg",
-                    "name": "1",
-                    "company": "清华大学出版社",
-                    "author": "张鹏宇",
-                    "blurb": "这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了这本书太棒了",
-                    "pdate": "4/3/18",
-                    "position": "tp123/java",
-                    "views": 0,
-                    "created_at": "2018-07-10T13:52:36.000Z",
-                    "updated_at": "2018-07-10T13:57:06.000Z",
-                    "cid": 2,
-                    "Category": {
-                        "id": 2,
-                        "category": "网络文学",
-                        "type": "女频",
-                        "created_at": "2018-07-03T03:39:51.000Z",
-                        "updated_at": "2018-07-03T03:39:51.000Z"
-                    }
-                }
-            ]
-        }
-        ```
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 评论id
 
-  ## 1.9 get /book/ranking
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### description:
+  ## 1.6  获取评论的点赞数
 
-   * #### request:
+  - 接口地址 /book/comment/:cid/like
 
-   * #### response:
+  - 请求方法:get
 
-  ## 1.10 get /book/search
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 评论id
 
-   * #### description:
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### request:
+  ## 1.7 获取评论的不喜欢数
 
-   * #### response:
-    
+  - 接口地址 /book/comment/:cid/unlike
+
+  - 请求方法:get
+
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 评论id
+
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.8 获取所有书
+
+  - 接口地址 /book
+
+  - 请求方法:get
+
+  - 请求参数: 
+    * query
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset    | 是   | string | 当前页数
+      cid    | 是   | string | 分类id
+
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.9 书籍排行
+
+  - 接口地址 /book/ranking
+
+  - 请求方法:get
+
+  - 请求参数: 
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.10 查询书籍
+
+  - 接口地址 /book/search
+
+  - 请求方法:get
+
+  - 请求参数: 
+    * query
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset    | 是   | string | 当前页数
+      bookname    | 是   | string | 书名
+
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
   ## 1.11 get /book/recommend
 
-   * #### description:
+  - 接口地址 /book/recommend
 
-   * #### request:
+  - 请求方法:get
 
-   * #### response:
-    
+  - 请求参数: 
+    * query
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      num    | 是   | string | 推荐书的数量
+
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
   ## 1.12 get /book/:bid
 
-   * #### description:
+  - 接口地址 /book/recommend
 
-   * #### request:
+  - 请求方法:get
 
-   * #### response:
+  - 请求参数: 
+    * query
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      num    | 是   | string | 推荐书的数量
 
-  ## 1.13 post /book/:bid
+  - 响应参数
 
-   * #### description:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### request:
+  ## 1.13 通过id查找图书
 
-   * #### response:
+  - 接口地址 /book/:bid
+
+  - 请求方法:post
+
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 图书id
+
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
     
-  ## 1.14 post /book
+  ## 1.14 添加图书
 
-   * #### description:
+  - 接口地址 /book
 
-   * #### request:
+  - 请求方法:post
 
-   * #### response:
+  - 请求参数: 
+    * body
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      booklist    | 是   | string | 图书列表
 
-  ## 1.15 put /book/:bid
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### description:
+  ## 1.15 根据id更新书的信息
 
-   * #### request:
+  - 接口地址 /book/:bid
 
-   * #### response:
+  - 请求方法:put
 
-  ## 1.16 put /book/:bid/type
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 图书id
 
-   * #### description:
+    * body
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cover  | 是   | string | 图书图片
+      name  | 是   | string | 图书名字
+      author  | 是   | string | 图书作者
+      company  | 是   | string | 图书出版社
+      blurb  | 是   | string | 图书简介
+      pdate  | 是   | string | 图书出版日期
 
-   * #### request:
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * #### response:
+  ## 1.16 更新图书分类
+    
+  - 接口地址 /book/:bid/type
 
-  ## 1.17 delete /book/:bid
+  - 请求方法:put
 
-   * #### description:
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 图书id
 
-   * #### request:
+    * body
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      cid    | 是   | string | 分类id
 
-   * #### response:
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.17 删除图书
+    
+  - 接口地址 /book/:bid
+
+  - 请求方法:delete
+
+  - 请求参数: 
+    * params
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 图书id
+
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
   ## 1.18 post /book/:bid
 
-   * #### description:
+  - 接口地址 /book/:bid
 
-   * #### request:
+  - 请求方法:post
 
-   * #### response:
+  - 请求参数: 
+   
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
   ## 1.19 get /book/:bid/:chapterID
 
-   * #### description:
+  - 接口地址 /book/:bid/:chapterID
 
-   * #### request:
+  - 请求方法:get
 
-   * #### response:
+  - 请求参数: 
+   
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
   ## 1.20 delete /book/:bid/:chapterID
 
-   * #### description:
+  - 接口地址 /book/:bid/:chapterID
 
-   * #### request:
+  - 请求方法:delete
 
-   * #### response:
+  - 请求参数: 
+   
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
   ## 1.21 put /book/:bid/:chapterID
 
-   * #### description:
+  - 接口地址 /book/:bid/:chapterID
 
-   * #### request:
+  - 请求方法:put
 
-   * #### response:
+  - 请求参数: 
+   
+  - 响应参数
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 # 2. category
 
-   * #### description:
+## 2.1 get /category
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    get /category
+   * response:
 
-   * #### description:
+## 2.2 get /category/all
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    get /category/all
+   * response:
 
-   * #### description:
+## 2.3 post /category
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    post /category
+   * response:
 
-   * #### description:
+## 2.4 delete /category/:cid
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    delete /category/:cid
+   * response:
 
-   * #### description:
+## 2.5 get /category/type
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    get /category/type
-
-   * #### description:
-
-   * #### request:
-
-   * #### response:
+   * response:
 
 # 3. community
 
-    post /community
+## 3.1 post /community
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    get /community
+## 3.2 get /community
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
 # 4. user
 
-   * #### description:
+## 4.1 post /user/login
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    post /user/login
+   * response:
 
-   * #### description:
+## 4.2 get /user/
 
-   * #### request:
+   * description:
 
-   * #### response:
+   * request:
 
-    get /user/
-
-   * #### description:
-
-   * #### request:
-
-   * #### response:
+   * response:
     
-    post /user/register
+## 4.3 post /user/register
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    put /user/resetPassword
+## 4.4 put /user/resetPassword
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    put /user/info/:uid
+## 4.5 put /user/info/:uid
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
     
-    get /user/info/:uid
+## 4.6 get /user/info/:uid
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    get /user/ranking    
+## 4.7 get /user/ranking    
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    post /user/collect/
+## 4.8 post /user/collect/
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    delete /user/collect/:bid
+## 4.9 delete /user/collect/:bid
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    get /user/collect
+## 4.10 get /user/collect
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
 # 5. admin
 
-    post /admin/login
+## 5.1 post /admin/login
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    get /admin/user/:rid
+## 5.2 get /admin/user/:rid
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    put /admin/:uid
+## 5.3 put /admin/:uid
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
 
-    get /admin/search
+## 5.4 get /admin/search
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
+   * response:
     
-    post /admin/register
+## 5.5 post /admin/register
 
-   * #### description:
+   * description:
 
-   * #### request:
+   * request:
 
-   * #### response:
->>>>>>> b266e67c269c0b4e5f0ffd4b81b6ddd1ed87e716
+   * response:
