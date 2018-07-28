@@ -8,12 +8,14 @@
 
   - 请求参数: 
 	* query
+
       参数名称 | 必需 | 类型   | 描述
       ---------|------|--------|--------------
       limit    | 是   | string | 一页几条数据
       offset   | 是   | string | 当前页数
 
 	* params
+    
       参数名称 | 必需 | 类型   | 描述
       ------------|------|--------|--------------
       bid    | 是   | string | 书id
@@ -33,6 +35,7 @@
 
   - 请求参数: 
 	* body
+
       参数名称 | 必需 | 类型   | 描述
       --------|------|--------|--------------
       content | 是   | string | 评论内容
@@ -57,6 +60,7 @@
 
   - 请求参数: 
     * params
+    
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       cid    | 是   | string | 评论id
@@ -81,6 +85,7 @@
       content | 是   | string | 评论内容
 
     * params
+    
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       cid    | 是   | string | 评论id
@@ -99,6 +104,7 @@
 
   - 请求参数: 
     * params
+    
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       cid    | 是   | string | 评论id
@@ -250,6 +256,131 @@
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
+
+  ## 1.8 获取所有书
+
+  - 接口地址 /book
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset    | 是   | string | 当前页数
+      cid    | 是   | string | 分类id
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.9 书籍排行
+
+  - 接口地址 /book/ranking
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+   
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.10 查询书籍
+
+  - 接口地址 /book/search
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset    | 是   | string | 当前页数
+      bookname    | 是   | string | 书名
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.11 get /book/recommend
+
+  - 接口地址 /book/recommend
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      num    | 是   | string | 推荐书的数量
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.12 get /book/:bid
+
+  - 接口地址 /book/recommend
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      num    | 是   | string | 推荐书的数量
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 1.13 通过id查找图书
+
+  - 接口地址 /book/:bid
+
+  - 请求方法:post
+
+  - 请求参数:
+   
+    * params
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | string | 图书id
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
     
   ## 1.14 添加图书
 
@@ -257,13 +388,16 @@
 
   - 请求方法:post
 
-  - 请求参数: 
+  - 请求参数:
+   
     * body
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       booklist    | 是   | string | 图书列表
 
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -274,13 +408,16 @@
 
   - 请求方法:put
 
-  - 请求参数: 
+  - 请求参数:
+   
     * params
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       bid    | 是   | string | 图书id
 
     * body
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       cover  | 是   | string | 图书图片
@@ -291,6 +428,7 @@
       pdate  | 是   | string | 图书出版日期
 
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -301,18 +439,22 @@
 
   - 请求方法:put
 
-  - 请求参数: 
+  - 请求参数:
+   
     * params
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       bid    | 是   | string | 图书id
 
     * body
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       cid    | 是   | string | 分类id
 
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -323,13 +465,16 @@
 
   - 请求方法:delete
 
-  - 请求参数: 
+  - 请求参数:
+   
     * params
+      
       参数名称 | 必需 | 类型   | 描述
       -------|------|--------|--------------
       bid    | 是   | string | 图书id
 
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -340,9 +485,11 @@
 
   - 请求方法:post
 
-  - 请求参数: 
+  - 请求参数:
+   
    
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -353,9 +500,11 @@
 
   - 请求方法:get
 
-  - 请求参数: 
+  - 请求参数:
+   
    
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -366,9 +515,11 @@
 
   - 请求方法:delete
 
-  - 请求参数: 
+  - 请求参数:
+   
    
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
@@ -379,22 +530,18 @@
 
   - 请求方法:put
 
-  - 请求参数: 
+  - 请求参数:
+   
    
   - 响应参数
+      
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
 
 # 2. category
 
-   * description:
-
-   * request:
-
-   * response:
-
-    get /category
+## 2.1 get /category
 
    * description:
 
@@ -402,7 +549,7 @@
 
    * response:
 
-    get /category/all
+## 2.2 get /category/all
 
    * description:
 
@@ -410,7 +557,7 @@
 
    * response:
 
-    post /category
+## 2.3 post /category
 
    * description:
 
@@ -418,7 +565,7 @@
 
    * response:
 
-    delete /category/:cid
+## 2.4 delete /category/:cid
 
    * description:
 
@@ -426,7 +573,7 @@
 
    * response:
 
-    get /category/type
+## 2.5 get /category/type
 
    * description:
 
@@ -436,7 +583,7 @@
 
 # 3. community
 
-    post /community
+## 3.1 post /community
 
    * description:
 
@@ -444,7 +591,7 @@
 
    * response:
 
-    get /community
+## 3.2 get /community
 
    * description:
 
@@ -454,13 +601,7 @@
 
 # 4. user
 
-   * description:
-
-   * request:
-
-   * response:
-
-    post /user/login
+## 4.1 post /user/login
 
    * description:
 
@@ -468,7 +609,7 @@
 
    * response:
 
-    get /user/
+## 4.2 get /user/
 
    * description:
 
@@ -476,7 +617,7 @@
 
    * response:
     
-    post /user/register
+## 4.3 post /user/register
 
    * description:
 
@@ -484,7 +625,7 @@
 
    * response:
 
-    put /user/resetPassword
+## 4.4 put /user/resetPassword
 
    * description:
 
@@ -492,7 +633,7 @@
 
    * response:
 
-    put /user/info/:uid
+## 4.5 put /user/info/:uid
 
    * description:
 
@@ -500,7 +641,7 @@
 
    * response:
     
-    get /user/info/:uid
+## 4.6 get /user/info/:uid
 
    * description:
 
@@ -508,7 +649,7 @@
 
    * response:
 
-    get /user/ranking    
+## 4.7 get /user/ranking    
 
    * description:
 
@@ -516,7 +657,7 @@
 
    * response:
 
-    post /user/collect/
+## 4.8 post /user/collect/
 
    * description:
 
@@ -524,7 +665,7 @@
 
    * response:
 
-    delete /user/collect/:bid
+## 4.9 delete /user/collect/:bid
 
    * description:
 
@@ -532,7 +673,7 @@
 
    * response:
 
-    get /user/collect
+## 4.10 get /user/collect
 
    * description:
 
@@ -542,7 +683,7 @@
 
 # 5. admin
 
-    post /admin/login
+## 5.1 post /admin/login
 
    * description:
 
@@ -550,7 +691,7 @@
 
    * response:
 
-    get /admin/user/:rid
+## 5.2 get /admin/user/:rid
 
    * description:
 
@@ -558,7 +699,7 @@
 
    * response:
 
-    put /admin/:uid
+## 5.3 put /admin/:uid
 
    * description:
 
@@ -566,7 +707,7 @@
 
    * response:
 
-    get /admin/search
+## 5.4 get /admin/search
 
    * description:
 
@@ -574,7 +715,7 @@
 
    * response:
     
-    post /admin/register
+## 5.5 post /admin/register
 
    * description:
 
