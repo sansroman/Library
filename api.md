@@ -256,131 +256,6 @@
       参数名称 | 必需 | 类型   | 描述
       --------|------|---------|----------------
       status  | 是   | boolean | 判断相应状态
-
-  ## 1.8 获取所有书
-
-  - 接口地址 /book
-
-  - 请求方法:get
-
-  - 请求参数:
-   
-    * query
-      
-      参数名称 | 必需 | 类型   | 描述
-      -------|------|--------|--------------
-      limit    | 是   | string | 一页几条数据
-      offset    | 是   | string | 当前页数
-      cid    | 是   | string | 分类id
-
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
-
-  ## 1.9 书籍排行
-
-  - 接口地址 /book/ranking
-
-  - 请求方法:get
-
-  - 请求参数:
-   
-   
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
-
-  ## 1.10 查询书籍
-
-  - 接口地址 /book/search
-
-  - 请求方法:get
-
-  - 请求参数:
-   
-    * query
-      
-      参数名称 | 必需 | 类型   | 描述
-      -------|------|--------|--------------
-      limit    | 是   | string | 一页几条数据
-      offset    | 是   | string | 当前页数
-      bookname    | 是   | string | 书名
-
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
-
-  ## 1.11 get /book/recommend
-
-  - 接口地址 /book/recommend
-
-  - 请求方法:get
-
-  - 请求参数:
-   
-    * query
-      
-      参数名称 | 必需 | 类型   | 描述
-      -------|------|--------|--------------
-      num    | 是   | string | 推荐书的数量
-
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
-
-  ## 1.12 get /book/:bid
-
-  - 接口地址 /book/recommend
-
-  - 请求方法:get
-
-  - 请求参数:
-   
-    * query
-      
-      参数名称 | 必需 | 类型   | 描述
-      -------|------|--------|--------------
-      num    | 是   | string | 推荐书的数量
-
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
-
-  ## 1.13 通过id查找图书
-
-  - 接口地址 /book/:bid
-
-  - 请求方法:post
-
-  - 请求参数:
-   
-    * params
-      
-      参数名称 | 必需 | 类型   | 描述
-      -------|------|--------|--------------
-      bid    | 是   | string | 图书id
-
-  - 响应参数
-
-      
-      参数名称 | 必需 | 类型   | 描述
-      --------|------|---------|----------------
-      status  | 是   | boolean | 判断相应状态
     
   ## 1.14 添加图书
 
@@ -543,182 +418,466 @@
 
 ## 2.1 get /category
 
-   * description:
+  - 接口地址 /category
 
-   * request:
+  - 请求方法:get
 
-   * response:
+  - 请求参数:
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 ## 2.2 get /category/all
 
-   * description:
+  - 接口地址 /category/all
 
-   * request:
+  - 请求方法:get
 
-   * response:
+  - 请求参数:
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 ## 2.3 post /category
 
-   * description:
+  - 接口地址 /category
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+  
+  
+    * body
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        category  | 是   | string | 图书大分类
+        type  | 是   | string | 图书小分类
+
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 ## 2.4 delete /category/:cid
 
-   * description:
+  - 接口地址 /category/:cid
 
-   * request:
+  - 请求方法:delete
 
-   * response:
+  - 请求参数:
+  
+  
+    * params
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        cid  | 是   | number | 分类id
+        
+   
+  - 响应参数
 
-## 2.5 get /category/type
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * description:
+  ## 2.5 get /category/type
 
-   * request:
+  - 接口地址 /category/type
 
-   * response:
+  - 请求方法:get
+
+  - 请求参数:
+  
+  
+    * query
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        category  | 是   | string | 分类id
+        
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 # 3. community
 
-## 3.1 post /community
+  ## 3.1 post /community
 
-   * description:
+  - 接口地址 /community
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+  
+  
+    * body
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        title | 是   | string | 标题
+        content | 是   | string | 内容
+        
+        
+   
+  - 响应参数
 
-## 3.2 get /community
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * description:
+  ## 3.2 get /community
 
-   * request:
+  - 接口地址 /community
 
-   * response:
+  - 请求方法:get
+
+  - 请求参数:
+  
+  
+    * query
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        limit | 是   | number | 一页返回记录数量
+        offset | 是   | number | 当前页数
+        
+        
+   
+  - 响应参数
+
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
 # 4. user
 
-## 4.1 post /user/login
+  ## 4.1 post /user/login
 
-   * description:
+  - 接口地址 /user/login
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+  
+  
+    * body
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        account | 是   | string | 用户名
+        password | 是   | string | 密码
+        rememberMe | 是   | boolean | 是否记住
+        
+   
+  - 响应参数
 
-## 4.2 get /user/
+  ## 4.2 get /user/logout
 
-   * description:
+  - 接口地址 /user/logout
 
-   * request:
+  - 请求方法:get
 
-   * response:
-    
-## 4.3 post /user/register
+  - 请求参数: 
+   
+  - 响应参数
 
-   * description:
-
-   * request:
-
-   * response:
-
-## 4.4 put /user/resetPassword
-
-   * description:
-
-   * request:
-
-   * response:
-
-## 4.5 put /user/info/:uid
-
-   * description:
-
-   * request:
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+  
 
    * response:
     
-## 4.6 get /user/info/:uid
+  ## 4.3 post /user/register
 
-   * description:
+  - 接口地址 /user/register
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+  
+  
+    * body
+        
+        参数名称 | 必需 | 类型   | 描述
+        -------|------|--------|--------------
+        account | 是   | string | 用户名
+        password | 是   | string | 密码
+        nickname | 是   | string | 昵称
+        avatar | 是   | string | 头像
+        signature | 是   | string | 签名
+        
+   
+  - 响应参数
 
-## 4.7 get /user/ranking    
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * description:
+  ## 4.4 put /user/resetPassword
 
-   * request:
+  - 接口地址 /user/resetPassword
 
-   * response:
+  - 请求方法:put
 
-## 4.8 post /user/collect/
+  - 请求参数:
 
-   * description:
+  - 响应参数
 
-   * request:
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * response:
+  ## 4.5 put /user/info/:uid
 
-## 4.9 delete /user/collect/:bid
+  - 接口地址 /user/info/:uid
 
-   * description:
+  - 请求方法:put
 
-   * request:
+  - 请求参数:
+   
+    * params
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      uid    | 是   | number | 用户id
 
-   * response:
+   
+    * body
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      nickname     | 是   | number | 用户昵称
+      avatar       | 是   | number | 用户头像
+      signature    | 是   | number | 用户签名
 
-## 4.10 get /user/collect
+  - 响应参数
 
-   * description:
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * request:
+  ## 4.6 get /user/info/:uid
 
-   * response:
+  - 接口地址 /user/info/:uid
+
+  - 请求方法:get
+
+  - 请求参数:
+   
+    * params
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      uid    | 是   | number | 用户id
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 4.7 get /user/ranking    
+
+  - 接口地址 /user/ranking
+
+  - 请求方法:get
+
+  - 请求参数:
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 4.8 post /user/collect/
+
+  - 接口地址 /user/collect/
+
+  - 请求方法:post
+
+  - 请求参数:
+   
+    * body
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | number | 图书ID
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 4.9 delete /user/collect/:bid
+
+  - 接口地址 /user/collect/:bid
+
+  - 请求方法:delete
+
+  - 请求参数:
+   
+    * params
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      bid    | 是   | number | 图书ID
+
+  - 响应参数
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 4.10 get /user/collect
+
+  - 接口地址 /user/collect
+
+  - 请求方法:get
+
+  - 请求参数:
+
+  - 响应参数:
+
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
 
 # 5. admin
 
-## 5.1 post /admin/login
+  ## 5.1 post /admin/login
 
-   * description:
+  - 接口地址 /admin/login
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+   
 
-## 5.2 get /admin/user/:rid
+    * body
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      account     | 是   | string | 账号
+      password    | 是   | string | 密码
+      rememberMe  | 是   | boolean| 是否记住
 
-   * description:
+  - 响应参数
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * request:
 
-   * response:
+  ## 5.2 get /admin/user/:rid
 
-## 5.3 put /admin/:uid
+  - 接口地址 /admin/user/:rid
 
-   * description:
+  - 请求方法:get
 
-   * request:
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      limit    | 是   | string | 一页几条数据
+      offset   | 是   | string | 当前页数
+      bookname | 是   | string | 图书名称
 
-   * response:
 
-## 5.4 get /admin/search
+  - 响应参数
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
 
-   * description:
 
-   * request:
+  ## 5.3 put /admin/:uid
 
-   * response:
+  - 接口地址 /admin/:uid
+
+  - 请求方法:put
+
+  - 请求参数:
+   
+    * params
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      uid    | 是   | string | 用户id
+
+    * body
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      role    | 是   | number | 用户角色
+
+  - 响应参数
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
+  ## 5.4 get /admin/search
+
+  - 接口地址 /book/:bid/type
+
+  - 请求方法:put
+
+  - 请求参数:
+   
+    * query
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      name    | 是   | string | 用户名称
+
+  - 响应参数
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
+
     
-## 5.5 post /admin/register
+  ## 5.5 post /admin/register
 
-   * description:
+  - 接口地址 /admin/register
 
-   * request:
+  - 请求方法:post
 
-   * response:
+  - 请求参数:
+   
+    * body
+      
+      参数名称 | 必需 | 类型   | 描述
+      -------|------|--------|--------------
+      userList | 是   | array | 用户列表
+
+  - 响应参数
+      
+      参数名称 | 必需 | 类型   | 描述
+      --------|------|---------|----------------
+      status  | 是   | boolean | 判断相应状态
