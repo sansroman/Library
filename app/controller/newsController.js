@@ -6,4 +6,4 @@ class newsController extends Controller {
 
 }
 
-module.exports = UserController;
+module.exports = newsController;

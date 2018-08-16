@@ -6,4 +6,4 @@ class newsService extends Service {
 
 }
 
-module.exports = UserServiceService;
+module.exports = newsService;

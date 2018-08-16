@@ -1,18 +1,6 @@
 'use strict';
 
 const Service = require('egg').Service;
-<<<<<<< HEAD
-const { ROLE_ADMAIN, ROLE_CUSTOMER } = require('../config/role');
-
-class UserServiceService extends Service {
-    constructor(ctx) {
-        spuer(ctx)
-        this.session = ctx.session;
-        this.UserModel = ctx.model.UserModel;
-        this.ResponseCode = ctx.response.ResponseCode;
-        this.ServerResponse = ctx.response.ServerResponse;
-        this.encryption = ctx.encryption;
-=======
 
 class UserService extends Service {
   constructor(ctx) {
@@ -62,7 +50,6 @@ class UserService extends Service {
         error: true,
         data: '账号密码错误',
       };
->>>>>>> 2178a86b8366851964f84a408f97e44fac6d09c4
     }
   }
   async adminLogin(account, password) {
