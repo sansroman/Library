@@ -4,8 +4,8 @@
 $ git clone git@github.com:sansroman/Library.git
 ```
 
-Node.js >= 8.0.0 required
-MySQL required
+* Node.js >= 8.0.0 required
+* MySQL required
 
 ## Getting Started
 
