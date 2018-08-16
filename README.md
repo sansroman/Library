@@ -3,10 +3,13 @@
 
 ```bash
 $ git clone git@github.com:sansroman/Library.git
+$ cd Library
 $ npm install
 $ npm run migrate:up
 $ npm run dev
 ```
+
+> make sure mysql config is correct , They are at ./config/config.default.js
 
 * Node.js >= 8.0.0 required
 * MySQL required
@@ -16,4 +19,5 @@ $ npm run dev
 [API](api.md)
 
 ## License
+
 [MIT](LICENSE)
