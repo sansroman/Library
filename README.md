@@ -1,25 +1,23 @@
-# model:
- 1. User
- 2. Comment
- 3. Book
- 4. Chapter
- 5. Category
- 6. community
+## Installation
 
-## 1. User:Comment
-    1:n author
-    n:m liked
-    n:m unlike
-## 2. User:Book
-    n:m collection
-    n:m recentRead
-## 3. User:Community
-    1:n author
-    n:m liked
-    n:m unlike
-## 4. Comment:Book
-    1:n comment
-## 5. Book:Chapter
-    1:n include
-## 6. Book:Category
-    1:n include
+```bash
+$ git clone git@github.com:sansroman/Library.git
+```
+
+Node.js >= 8.0.0 required
+MySQL required
+
+## Getting Started
+
+```bash
+$ npm install
+$ npm run migrate:up
+$ npm run dev
+```
+
+## Docs
+
+[API](api.md)
+
+## License
+[MIT](LICENSE)
