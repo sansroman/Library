@@ -263,19 +263,21 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      sid: {
+      user_id: {
         type: INTEGER,
         references: {
           model: 'User',
           key: 'id'
         }
+  
       },
-      bid: {
+      book_id: {
         type: INTEGER,
         references: {
           model: 'Book',
           key: 'id'
         }
+  
       },
       created_at: DATE,
       updated_at: DATE,

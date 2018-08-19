@@ -26,11 +26,11 @@
     "dev": "egg-bin dev",
     "test": "egg-bin test",
     "cov": "egg-bin cov",
-    "migrate:new": "egg-sequelize migration:create",
+    "migrate:new": "egg-sequelize migration:create --name",
     "migrate:up": "egg-sequelize db:migrate",
     "migrate:down": "egg-sequelize db:migrate:undo",
     "migrate:sync": "egg-sequelize model:generate",
-    "migrate:seed":"egg-sequelize seed:generate"
+    "migrate:seed":"egg-sequelize seed:generate --name"
 
   },
   "keywords": [
