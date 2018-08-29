@@ -63,14 +63,21 @@ module.exports = app => {
 
     router.delete('/category/:cid',controller.categoryController.deleteCategory);
 
-    router.get('/category/type',controller.categoryController.getSubCategory)
+    router.get('/category/type',controller.categoryController.getSubCategory);
 
 
     router.post('/community',controller.communityController.createArticle);
 
-    router.get('/community',controller.communityController.getAllArticle)
+    router.get('/community',controller.communityController.getAllArticle);
 
+    router.get('/community/:cid',controller.communityController.getArticle);
     
+    router.get('/community/:cid/like',controller.communityController.likedCommunity);
+
+    router.get('/community/:cid/unlike',controller.communityController.unlikedCommunity);
+
+    router.post('/community/:cid',controller.communityController.addCommentToArticle);
+
 
     router.post('/user/login',controller.userController.login);
 

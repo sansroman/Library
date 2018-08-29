@@ -7,7 +7,7 @@ const config = exports = {
     database: 'library',
     host: 'localhost',
     port: '3306',
-    username: 'elearning',
+    username: 'library',
     password: '123456',
   },
   security: {

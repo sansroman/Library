@@ -30,8 +30,7 @@
     "migrate:up": "egg-sequelize db:migrate",
     "migrate:down": "egg-sequelize db:migrate:undo",
     "migrate:sync": "egg-sequelize model:generate",
-    "migrate:seed":"egg-sequelize seed:generate --name"
-
+    "migrate:seed": "egg-sequelize seed:generate --name"
   },
   "keywords": [
     "egg.js"

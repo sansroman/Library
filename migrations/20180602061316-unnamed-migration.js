@@ -27,7 +27,7 @@ module.exports = {
         unique: true
       },
       password: {
-        type: STRING(50),
+        type: STRING(100),
         allowNull: false,
       },
       avatar: {
