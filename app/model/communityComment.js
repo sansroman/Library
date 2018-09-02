@@ -34,7 +34,7 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
     CommunityCommentModel.associate = function() {
-        CommunityCommentModel.belongsTo(app.model.User, { foreignKey: 'aid',onDelete: 'cascade',as:'author' });
+        CommunityCommentModel.belongsTo(app.model.User, { foreignKey: 'aid',onDelete: 'cascade',as:'commentator' });
         CommunityCommentModel.belongsToMany(app.model.User, { through:'LikedCommunityComment',foreignKey: 'ccid' ,onDelete: 'cascade',as:'likedUser'});
         CommunityCommentModel.belongsToMany(app.model.User, { through:'UnlikedCommunityComment',foreignKey: 'ccid',onDelete: 'cascade',as:'unlikedUser'});
         CommunityCommentModel.belongsTo(app.model.Community, { foreignKey: 'community_id',onDelete: 'cascade' }); 

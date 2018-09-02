@@ -32,7 +32,14 @@ class CommunityService extends Service {
                 as: 'author'
             },
             {
-                model:this.CommunityCommentModel
+                model:this.CommunityCommentModel,
+                include:[
+                    {
+                        model:this.UserModel,
+                        as:'commentator',
+                        attributes: ['id', 'nickname', 'avatar', 'role'],
+                    }
+                ]
             }, {
                 model: this.UserModel,
                 as: 'likedUser',
@@ -59,7 +66,14 @@ class CommunityService extends Service {
                 as: 'author'
             },
             {
-                model:this.CommunityCommentModel
+                model:this.CommunityCommentModel,
+                include:[
+                    {
+                        model:this.UserModel,
+                        as:'commentator',
+                        attributes: ['id', 'nickname', 'avatar', 'role'],
+                    }
+                ]
             }, {
                 model: this.UserModel,
                 as: 'likedUser',
