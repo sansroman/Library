@@ -14,6 +14,7 @@ $ npm run dev
 * Node.js >= 8.0.0 required
 * MySQL required
 
+seeder sql file at dump dir
 ## Docs
 
 [API](api.md)
