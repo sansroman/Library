@@ -26,9 +26,7 @@ class BookController extends Controller {
     this.ctx.body = response;
     
   }
-  async createChapter() {
 
-  }
   async searchBook() {
     let {limit = 10,offset = 0,bookname} = this.ctx.query;
     limit = parseInt(limit);
@@ -46,9 +44,7 @@ class BookController extends Controller {
     const response = await this.bookService.addBook(booklist);
     this.ctx.body = response;
   }
-  async addChapter(){
 
-  }
   async modifyBook() {
     const bid = this.ctx.params.bid;
     const {cover,name,author,company,blurb,pdate} = this.ctx.request.body;
@@ -66,14 +62,38 @@ class BookController extends Controller {
     const response = await this.bookService.delBook(bid);
     this.ctx.body = response;
   }
-  async geChapterByID() {
-
+  async createChapter() {
+    const bid = this.ctx.params.bid;
+    const {title,index,content} = this.ctx.request.body;
+    const response = await this.bookService.createChapter(bid,title,index,content);
+    this.ctx.body = response;
+    
+  }
+  async getAllChapter(){
+    const bid = this.ctx.params.bid;
+    let {limit = 10,offset = 0} = this.ctx.query;
+    limit = parseInt(limit);
+    offset = parseInt(offset) * limit;
+    const response = await this.bookService.getAllChapter(bid,limit,offset);
+    this.ctx.body = response;
+    
   }
   async delChapter() {
-
+    const {bid} = this.ctx.params;
+    const {index} =  this.ctx.query;
+    const response = await this.bookService.delChapter(bid,index);
+    this.ctx.body = response;
+  }
+  async geChapterByID() {
+    const {chapterID} = this.ctx.params;
+    const response = await this.bookService.geChapterByID(chapterID);
+    this.ctx.body = response;
   }
   async modifyChapter() {
-
+    const {chapterID} = this.ctx.params;
+    const {title,content} = this.ctx.request.body;
+    const response = await this.bookService.modifyChapter(chapterID,title,content);
+    this.ctx.body = response;
   }
 }
 

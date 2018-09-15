@@ -116,9 +116,6 @@ class UserService extends Service {
       return {error:true,message:error};
     }
   }
-  async resetPassword() {
-
-  }
   async updateUserInfo(uid,nickname, avatar, signature) {
     const result = await this.UserModel.update({
       nickname,
@@ -139,7 +136,8 @@ class UserService extends Service {
         model: this.BookModel,
         through: {
           attributes: ['created_at', 'update_at'],
-        }
+        },
+        as:"collection"
       }],
       where: {
         id:condition
@@ -171,10 +169,12 @@ class UserService extends Service {
     });
     return result;
   }
-  async searchUser(name){
-    const result = await this.UserModel.findAll({
+  async searchUser(name,limit,offset){
+    const result = await this.UserModel.findAndCountAll({
         where:{account:{[this.app.Sequelize.Op.like]:`%${name}%`}},
-        attributes:['id','account','nickname','role',]
+        attributes:['id','account','nickname','role',],
+        limit,
+        offset
     });
     return result;
   }

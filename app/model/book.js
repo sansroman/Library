@@ -63,7 +63,7 @@ module.exports = app => {
     BookModel.associate = function() {
         BookModel.belongsToMany(app.model.User,{through:'BookShelfs',onDelete: 'cascade',as:'collection'});
         BookModel.belongsToMany(app.model.User,{through:'RecentBook',foreignKey:'bid',onDelete: 'cascade',as:'recent'});
-        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',as:'Chapter',onDelete: 'cascade'});
+        BookModel.hasMany(app.model.Chapter,{foreignKey:'bid',as:'Chapter',onDelete: 'cascade', foreignKeyConstraint:true});
         BookModel.belongsTo(app.model.Category, { foreignKey: 'cid' })
         
     };

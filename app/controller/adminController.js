@@ -31,7 +31,7 @@ class AdminController extends Controller {
     this.ctx.body = '退出成功';
   }
   async getUserList(){
-    let {limit = 10,offset = 0,bookname} = this.ctx.query;
+    let {limit = 10,offset = 0} = this.ctx.query;
     limit = parseInt(limit);
     offset = parseInt(offset<0?0:offset) * limit; 
     const {rid} = this.ctx.params;
@@ -40,7 +40,8 @@ class AdminController extends Controller {
   }
   async searchUser(){
     const {name} = this.ctx.query;
-    const response = await this.userService.searchUser(name);
+    let {limit = 10,offset = 0} = this.ctx.query;
+    const response = await this.userService.searchUser(name,limit,offset);
     this.ctx.body = response;
   }
   async modifyRole(){

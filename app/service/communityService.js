@@ -54,8 +54,59 @@ class CommunityService extends Service {
                 through: {
                     attributes: []
                 }
-            }]
+            }],
+            distinct:true
         })
+        return result;
+    }
+    async delArticle(cid) {
+        const result = await this.CommunityModel.destroy({
+            where: {
+                id:cid
+            }
+        })
+        return result;
+    }
+    async searchArticle(key, limit, offset) {
+        const result = await this.CommunityModel.findAndCountAll({
+            where: {
+                title: {
+                    [this.app.Sequelize.Op.like]: `%${key}%`
+                }
+            },
+            limit,
+            offset,
+            include:[{
+                model: this.UserModel,
+                attributes: ['id', 'nickname', 'avatar', 'role'],
+                as: 'author'
+            },
+            {
+                model:this.CommunityCommentModel,
+                include:[
+                    {
+                        model:this.UserModel,
+                        as:'commentator',
+                        attributes: ['id', 'nickname', 'avatar', 'role'],
+                    }
+                ]
+            }, {
+                model: this.UserModel,
+                as: 'likedUser',
+                attributes: ['id'],
+                through: {
+                    attributes: []
+                }
+            }, {
+                model: this.UserModel,
+                as: 'unlikedUser',
+                attributes: ['id'],
+                through: {
+                    attributes: []
+                }
+            }],
+            distinct:true
+        });
         return result;
     }
     async getArticle(cid) {

@@ -21,11 +21,23 @@ class CommunityController extends Controller {
     const response = await this.communityService.getArticle(cid);
     this.ctx.body = response;
   }
+  async delArticle(){
+    let {cid} = this.ctx.params;
+    const response = await this.communityService.delArticle(cid);
+    this.ctx.body = response;
+  }
   async getAllArticle(){
     let {limit = 10,offset = 0} = this.ctx.query;
     limit = parseInt(limit);
     offset = parseInt(offset) * limit;
     const response = await this.communityService.getAllArticle(limit,offset);
+    this.ctx.body = response;
+  }
+  async searchArticle(){
+    let {limit = 10,offset = 0,key} = this.ctx.query;
+    limit = parseInt(limit);
+    offset = parseInt(offset) * limit;
+    const response = await this.communityService.searchArticle(key,limit,offset);
     this.ctx.body = response;
   }
   async addCommentToArticle(){

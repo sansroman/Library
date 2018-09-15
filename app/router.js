@@ -36,23 +36,23 @@ module.exports = app => {
     
     router.get('/book/:bid',controller.bookController.getBookByID)
     
-    router.post('/book/:bid',controller.bookController.createChapter);
-    
     router.post('/book',controller.bookController.addBook);
-
+    
     router.put('/book/:bid',controller.bookController.modifyBook);
-
+    
     router.put('/book/:bid/type',controller.bookController.changeType);
     
     router.delete('/book/:bid',controller.bookController.delBook);
     
-    router.post('/book/:bid',controller.bookController.addChapter);
+    router.get('/book/:bid/chapter',controller.bookController.getAllChapter);
+    
+    router.post('/book/:bid/chapter',controller.bookController.createChapter);
+    
+    router.delete('/book/:bid/chapter',controller.bookController.delChapter);
+    
+    router.get('/chapter/:chapterID',controller.bookController.geChapterByID)
 
-    router.get('/book/:bid/:chapterID',controller.bookController.geChapterByID)
-
-    router.delete('/book/:bid/:chapterID',controller.bookController.delChapter);
-
-    router.put('/book/:bid/:chapterID',controller.bookController.modifyChapter);
+    router.put('/chapter/:chapterID',controller.bookController.modifyChapter);
     
 
     router.get('/category',controller.categoryController.getAllCategory);
@@ -70,7 +70,11 @@ module.exports = app => {
 
     router.get('/community',controller.communityController.getAllArticle);
 
+    router.get('/community/search',controller.communityController.searchArticle);
+    
     router.get('/community/:cid',controller.communityController.getArticle);
+    
+    router.delete('/community/:cid',controller.communityController.delArticle);
     
     router.get('/community/:cid/like',controller.communityController.likedCommunity);
 

@@ -76,9 +76,6 @@ class UserController extends Controller {
   async getRankList() {
 
   }
-  async getShelfByID() {
-
-  }
   async collectBook() {
       const {bid} = this.ctx.request.body;
       const {uid} = this.session.user;
