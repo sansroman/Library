@@ -57,6 +57,11 @@ class AdminController extends Controller {
     if (response.error) this.ctx.status = 409;
     this.ctx.body = response;
   }
+  async manager(){
+    const {dateTime = 7} = this.ctx.query;
+    const response = await this.userService.manager(dateTime);
+    this.ctx.body = response;
+  }
 
 }
 

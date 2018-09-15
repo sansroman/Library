@@ -1,5 +1,5 @@
 'use strict';
-
+const path = require('path')
 module.exports = appInfo => {
 const config = exports = {
   sequelize: {
@@ -9,12 +9,20 @@ const config = exports = {
     port: '3306',
     username: 'library',
     password: '123456',
+    timezone: '+08:00'
   },
   security: {
     csrf: {
       enable: false,
     },
 
+  },
+
+  view : {
+    mapping: {
+      '.nj': 'nunjucks',
+    },
+    defaultViewEngine: 'nunjucks'
   },
   cors: {
     origin: 'http://localhostne:8081',
@@ -33,6 +41,8 @@ const config = exports = {
 
 // add your config here
   config.middleware = [];
-
+  config.static = {
+    prefix: '/'
+  }
   return config;
 };

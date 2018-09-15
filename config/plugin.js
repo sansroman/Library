@@ -19,3 +19,8 @@ exports.bcrypt = {
     enable: true,
     package: 'egg-bcrypt',
 };
+
+exports.nunjucks = {
+    enable: true,
+    package: 'egg-view-nunjucks',
+}

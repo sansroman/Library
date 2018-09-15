@@ -7,7 +7,7 @@ module.exports = app => {
     const logged = app.role.can('logged');
 
 
-
+    router.get('/', controller.homeController.index);
 
     router.get('/book/:bid/comment',controller.commentController.getAllComment);
 
@@ -117,7 +117,7 @@ module.exports = app => {
     
     router.post('/admin/register',isAdmin,controller.adminController.register)
 
-
-
+    router.get('/admin/manager',controller.adminController.manager)
+    
 
 };

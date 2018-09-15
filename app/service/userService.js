@@ -8,6 +8,11 @@ class UserService extends Service {
     this.UserModel = ctx.model.User;
     this.BookModel = ctx.model.Book;
     this.BookShelfsModel = ctx.model.BookShelfs;
+    this.CategoryModel = ctx.model.Category;
+    this.ChapterModel = ctx.model.Chapter;
+    this.CommentModel = ctx.model.Comment;
+    this.CommunityModel = ctx.model.Community;
+    
   }
   async _checkPass(account, password) {
     const user = await this.UserModel.findOne({
@@ -211,7 +216,17 @@ class UserService extends Service {
     return result;
   }
 
-
+  async manager(dateTime){
+    let statistics = await this.ctx.helper.getCount([this.BookModel,this.CategoryModel,this.ChapterModel,this.CommentModel,this.UserModel,this.BookShelfsModel,this.CommunityModel]);
+    const tempArr = await this.ctx.helper.getCountByTimeRange([this.BookModel,this.CategoryModel,this.ChapterModel,this.CommentModel,this.UserModel,this.BookShelfsModel,this.CommunityModel],dateTime)
+    for (const key in statistics) {
+      if (statistics.hasOwnProperty(key)) {
+        statistics[key].range = tempArr[key]
+      }
+      // console.log(statistics)
+    }
+    return statistics
+  }
 
 }
 
