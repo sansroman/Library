@@ -6,8 +6,7 @@ module.exports = app => {
 
     const logged = app.role.can('logged');
 
-
-    router.get('/', controller.homeController.index);
+    router.get('/admin', controller.homeController.admin);
 
     router.get('/book/:bid/comment',controller.commentController.getAllComment);
 

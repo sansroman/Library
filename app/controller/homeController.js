@@ -7,7 +7,7 @@ class HomeController extends Controller {
   constructor(ctx){
     super(ctx)
   }
-  async index(){
+  async admin(){
     await this.ctx.render('index.html');
   }
 }

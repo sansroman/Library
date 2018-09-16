@@ -188,7 +188,6 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
-
     await queryInterface.createTable('CommunityComment', {
       id: {
         type: INTEGER,
@@ -219,8 +218,6 @@ module.exports = {
       created_at: DATE,
       updated_at: DATE,
     })
-
-
     await queryInterface.createTable('Comment', {
       id: {
         type: INTEGER,
