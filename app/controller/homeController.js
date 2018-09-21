@@ -8,6 +8,9 @@ class HomeController extends Controller {
     super(ctx)
   }
   async admin(){
+    await this.ctx.render('adminindex.html');
+  }
+  async index(){
     await this.ctx.render('index.html');
   }
 }

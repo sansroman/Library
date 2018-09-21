@@ -58,7 +58,7 @@ class UserController extends Controller {
       avatar: {type: 'url', required: false },
       signature:{type: 'string', min: 0, max: 200,required:false}
     });
-    const uid = this.ctx.params.uid;    
+    const uid = this.ctx.params.uid;
     const {
       nickname = 'guest',
       avatar = null,
@@ -67,6 +67,7 @@ class UserController extends Controller {
     const response = await this.userService.updateUserInfo( uid,nickname, avatar, signature);
     this.ctx.body = response;
   }
+  
   async getUserInfo() {
     const uid = this.ctx.params.uid;
     const response = await this.userService.getUserInfo(uid);
@@ -93,6 +94,11 @@ class UserController extends Controller {
     const {uid} = this.session.user;
     const response =await this.userService.getAllCollection(uid);
     this.ctx.body = response;
+  }
+  async getAllArticles(){
+    const {uid} = this.session.user;
+    const response =await this.userService.getAllArticles(uid);
+    this.ctx.body = response;  
   }
 
 

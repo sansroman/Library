@@ -12,13 +12,13 @@ class UserService extends Service {
     this.ChapterModel = ctx.model.Chapter;
     this.CommentModel = ctx.model.Comment;
     this.CommunityModel = ctx.model.Community;
-    
+    this.CommunityCommentModel = ctx.model.CommunityComment;
   }
   async _checkPass(account, password) {
     const user = await this.UserModel.findOne({
       include: [{
         model: this.BookModel,
-        as:'recent',
+        as: 'recent',
         through: {
           attributes: ['created_at', 'update_at'],
         }
@@ -59,11 +59,11 @@ class UserService extends Service {
   }
   async adminLogin(account, password) {
     let user = await this._checkPass(account, password);
-    const role = user?user.get('role'):0;
+    const role = user ? user.get('role') : 0;
     if (user && user.get('role') > 1) {
       this.ctx.session.user = {
         uid: user.get('id'),
-        isAdmin: role > 2?true:false,
+        isAdmin: role > 2 ? true : false,
         isLibrarian: true
       }
       return {
@@ -82,7 +82,7 @@ class UserService extends Service {
     }
 
   }
-  async register(account,password,nickname,avatar,signature) {
+  async register(account, password, nickname, avatar, signature) {
     const pwdHash = await this.ctx.genHash(password);
     const result = await this.UserModel.findOrCreate({
       where: {
@@ -114,14 +114,17 @@ class UserService extends Service {
     // }
   }
   async batchRegister(userList) {
-    try {  
+    try {
       const result = await this.UserModel.bulkCreate(userList);
       return result;
     } catch (error) {
-      return {error:true,message:error};
+      return {
+        error: true,
+        message: error
+      };
     }
   }
-  async updateUserInfo(uid,nickname, avatar, signature) {
+  async updateUserInfo(uid, nickname, avatar, signature) {
     const result = await this.UserModel.update({
       nickname,
       avatar,
@@ -134,18 +137,18 @@ class UserService extends Service {
     return result;
   }
   async getUserInfo(uid) {
-    let condition = uid ||this.session;
+    let condition = uid || this.session;
     const user = await this.UserModel.findOne({
-      attributes: ['account', 'avatar','integral', 'nickname', 'readingTime', 'signature'],
+      attributes: ['account', 'avatar', 'integral', 'nickname', 'readingTime', 'signature'],
       include: [{
         model: this.BookModel,
         through: {
           attributes: ['created_at', 'update_at'],
         },
-        as:"collection"
+        as: "collection"
       }],
       where: {
-        id:condition
+        id: condition
       }
     });
     return {
@@ -154,13 +157,17 @@ class UserService extends Service {
     }
   }
 
-  async getUserList(rid,limit,offset) {
-    const condition = rid==-1?{where:{role:rid}}:null
+  async getUserList(rid, limit, offset) {
+    const condition = rid == -1 ? {
+      where: {
+        role: rid
+      }
+    } : null
     const result = await this.UserModel.findAndCountAll({
-        condition,
-        attributes:['id','account','nickname','role',],
-        limit,
-        offset
+      condition,
+      attributes: ['id', 'account', 'nickname', 'role', ],
+      limit,
+      offset
     });
     return result;
   }
@@ -174,12 +181,16 @@ class UserService extends Service {
     });
     return result;
   }
-  async searchUser(name,limit,offset){
+  async searchUser(name, limit, offset) {
     const result = await this.UserModel.findAndCountAll({
-        where:{account:{[this.app.Sequelize.Op.like]:`%${name}%`}},
-        attributes:['id','account','nickname','role',],
-        limit,
-        offset
+      where: {
+        account: {
+          [this.app.Sequelize.Op.like]: `%${name}%`
+        }
+      },
+      attributes: ['id', 'account', 'nickname', 'role', ],
+      limit,
+      offset
     });
     return result;
   }
@@ -187,43 +198,77 @@ class UserService extends Service {
 
   }
 
-  async collectBook(uid,bid) {
+  async collectBook(uid, bid) {
     let result = await this.BookShelfsModel.findOrCreate({
       where: {
-          book_id:bid,
-          user_id:uid
+        book_id: bid,
+        user_id: uid
       }
     })
     return result;
   }
-  async cancelCollectBook(uid,bid) {
+  async cancelCollectBook(uid, bid) {
     let result = await this.BookShelfsModel.destroy({
-        where: {
-          book_id:bid,
-          user_id:uid
-        }
+      where: {
+        book_id: bid,
+        user_id: uid
+      }
     })
-    
+
     return result;
   }
   async getAllCollection(uid) {
     const result = await this.UserModel.findOne({
-      include:[{model:this.BookModel,as:'collection'}],
-      where:{
-        id:uid
+      include: [{
+        model: this.BookModel,
+        as: 'collection'
+      }],
+      where: {
+        id: uid
       }
     })
     return result;
   }
+  async getAllArticles(uid) {
+    const result = await this.CommunityModel.findAndCountAll({
+      include: [{
+        model: this.CommunityCommentModel,
+        include: [{
+          model: this.UserModel,
+          as: 'commentator',
+          attributes: ['id', 'nickname', 'avatar', 'role'],
+        }]
+      }, {
+        model: this.UserModel,
+        as: 'likedUser',
+        attributes: ['id'],
+        through: {
+          attributes: []
+        }
+      }, {
+        model: this.UserModel,
+        as: 'unlikedUser',
+        attributes: ['id'],
+        through: {
+          attributes: []
+        }
+      }],
+      where: {
+        aid: uid
+      },
+      distinct: true
+    })
+    return result;
+  }
 
-  async manager(dateTime){
-    let statistics = await this.ctx.helper.getCount([this.BookModel,this.CategoryModel,this.ChapterModel,this.CommentModel,this.UserModel,this.BookShelfsModel,this.CommunityModel]);
-    const tempArr = await this.ctx.helper.getCountByTimeRange([this.BookModel,this.CategoryModel,this.ChapterModel,this.CommentModel,this.UserModel,this.BookShelfsModel,this.CommunityModel],dateTime)
+
+  async manager(dateTime) {
+    let statistics = await this.ctx.helper.getCount([this.BookModel, this.CategoryModel, this.ChapterModel, this.CommentModel, this.UserModel, this.BookShelfsModel, this.CommunityModel]);
+    const tempArr = await this.ctx.helper.getCountByTimeRange([this.BookModel, this.CategoryModel, this.ChapterModel, this.CommentModel, this.UserModel, this.BookShelfsModel, this.CommunityModel], dateTime)
     for (const key in statistics) {
       if (statistics.hasOwnProperty(key)) {
         statistics[key].range = tempArr[key]
       }
-      // console.log(statistics)
     }
     return statistics
   }

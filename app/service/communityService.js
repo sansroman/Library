@@ -10,7 +10,8 @@ class CommunityService extends Service {
         this.CommunityCommentModel = ctx.model.CommunityComment;
         this.LikedCommunityModel = ctx.model.LikedCommunity;
         this.UnlikedCommunityModel = ctx.model.UnlikedCommunity;
-
+        this.LikedCommunityCommentModel = ctx.model.LikedCommunityComment;
+        this.UnlikedCommunityCommentModel = ctx.model.UnlikedCommunityComment;
 
     }
 
@@ -157,7 +158,6 @@ class CommunityService extends Service {
     }
 
     async likedCommunity(cid, uid) {
-        console.log(this.ctx.model)
         let result = await this.LikedCommunityModel.findOrCreate({
             where: {
                 cid,
@@ -193,7 +193,42 @@ class CommunityService extends Service {
         }
         return status;
     }
-
+    async likedCommunityComment(cid, uid) {
+        let result = await this.LikedCommunityCommentModel.findOrCreate({
+            where: {
+                cid,
+                uid
+            }
+        })
+        let status = result[result.length - 1] ? true : false;
+        if (!result[result.length - 1]) {
+            result = await this.LikedCommunityCommentModel.destroy({
+                where: {
+                    cid,
+                    uid
+                }
+            })
+        }
+        return status;
+    }
+    async unlikedCommunityComment(cid, uid) {
+        let result = await this.UnlikedCommunityCommentModel.findOrCreate({
+            where: {
+                cid,
+                uid
+            }
+        })
+        let status = result[result.length - 1] ? true : false;
+        if (!result[result.length - 1]) {
+            result = await this.UnlikedCommunityCommentModel.destroy({
+                where: {
+                    cid,
+                    uid
+                }
+            })
+        }
+        return status;
+    }
 }
 
 module.exports = CommunityService;

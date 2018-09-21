@@ -8,6 +8,8 @@ module.exports = app => {
 
     router.get('/admin', controller.homeController.admin);
 
+    router.get('/', controller.homeController.index);
+
     router.get('/book/:bid/comment',controller.commentController.getAllComment);
 
     router.post('/book/:bid/comment',controller.commentController.createComment);
@@ -75,9 +77,13 @@ module.exports = app => {
     
     router.delete('/community/:cid',controller.communityController.delArticle);
     
-    router.get('/community/:cid/like',controller.communityController.likedCommunity);
+    // router.get('/community/:cid/like',controller.communityController.likedCommunity);
 
-    router.get('/community/:cid/unlike',controller.communityController.unlikedCommunity);
+    // router.get('/community/:cid/unlike',controller.communityController.unlikedCommunity);
+
+    // router.get('/community/comment/:cid/like',controller.communityController.likedCommunityComment);
+
+    // router.get('/community/comment/:cid/unlike',controller.communityController.unlikedCommunityComment);
 
     router.post('/community/:cid',controller.communityController.addCommentToArticle);
 
@@ -102,8 +108,9 @@ module.exports = app => {
 
     router.delete('/user/collect/:bid',controller.userController.cancelCollectBook);
 
-    router.get('/user/collect',controller.userController.getAllCollection);
+    router.get('/user/collections',logged,controller.userController.getAllCollection);
 
+    router.get('/user/articles',logged,controller.userController.getAllArticles);
 
 
     router.post('/admin/login',controller.adminController.login);

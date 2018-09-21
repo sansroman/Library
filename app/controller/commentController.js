@@ -25,7 +25,6 @@ class CommentController extends Controller {
         const {uid} = this.session.user;
         const {bid} = this.ctx.params;
         const {content} = this.ctx.request.body;
-        console.log(content);
         const response = await this.commentService.createComment(bid,uid,content);
         this.ctx.body = response;
     }
