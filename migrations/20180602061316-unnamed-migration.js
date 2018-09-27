@@ -182,7 +182,7 @@ module.exports = {
         allowNull: false,
       },
       content: {
-        type: STRING(20000),
+        type: STRING(10000),
         allowNull: false,
       },
       created_at: DATE,
@@ -266,7 +266,7 @@ module.exports = {
           model: 'User',
           key: 'id'
         }
-  
+
       },
       book_id: {
         type: INTEGER,
@@ -274,7 +274,7 @@ module.exports = {
           model: 'Book',
           key: 'id'
         }
-  
+
       },
       created_at: DATE,
       updated_at: DATE,
