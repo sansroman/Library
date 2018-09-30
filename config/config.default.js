@@ -34,7 +34,7 @@ const config = exports = {
     httpOnly: true,
     encrypt: true,
   }
-  
+
 };
 
   config.keys = appInfo.name + '_1523509508086_5913';
