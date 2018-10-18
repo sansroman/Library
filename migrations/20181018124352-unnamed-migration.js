@@ -10,10 +10,11 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
    const {
+    STRING,
     INTEGER,
     DATE
   } = Sequelize;
-    await queryInterface.createTable('UnlikedCommunityComment', {
+    await queryInterface.createTable('Problem', {
       id: {
         type: INTEGER,
         allowNull: false,
@@ -27,36 +28,17 @@ module.exports = {
           key: 'id'
         }
       },
-      cid: {
-        type: INTEGER,
-        references: {
-          model: 'CommunityComment',
-          key: 'id'
-        }
-      },
-      created_at: DATE,
-      updated_at: DATE,
-    })
-    await queryInterface.createTable('LikedCommunityComment', {
-      id: {
-        type: INTEGER,
+      name:{
+        type: STRING(50),
         allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
+        default: 'guest'
       },
-      uid: {
-        type: INTEGER,
-        references: {
-          model: 'User',
-          key: 'id'
-        }
+      email:{
+        type: STRING(50),
       },
-      cid: {
-        type: INTEGER,
-        references: {
-          model: 'CommunityComment',
-          key: 'id'
-        }
+      content: {
+        type: STRING(10000),
+        allowNull: false,
       },
       created_at: DATE,
       updated_at: DATE,
@@ -71,7 +53,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    await queryInterface.dropTable('UnlikedCommunityComment');
-    await queryInterface.dropTable('LikedCommunityComment')
+    await queryInterface.dropTable('Problem')
   }
 };

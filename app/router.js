@@ -1,6 +1,6 @@
 module.exports = app => {
     const { router, controller } = app;
-    
+
 
     const isAdmin = app.role.can('admin');
 
@@ -32,29 +32,29 @@ module.exports = app => {
     // 书籍阅读量排行  书籍收藏排行
 
     router.get('/book/search',controller.bookController.searchBook)
-    
+
     router.get('/book/recommend',controller.bookController.recommend)
-    
+
     router.get('/book/:bid',controller.bookController.getBookByID)
-    
+
     router.post('/book',controller.bookController.addBook);
-    
+
     router.put('/book/:bid',controller.bookController.modifyBook);
-    
+
     router.put('/book/:bid/type',controller.bookController.changeType);
-    
+
     router.delete('/book/:bid',controller.bookController.delBook);
-    
+
     router.get('/book/:bid/chapter',controller.bookController.getAllChapter);
-    
+
     router.post('/book/:bid/chapter',controller.bookController.createChapter);
-    
+
     router.delete('/book/:bid/chapter',controller.bookController.delChapter);
-    
+
     router.get('/chapter/:chapterID',controller.bookController.geChapterByID)
 
     router.put('/chapter/:chapterID',controller.bookController.modifyChapter);
-    
+
 
     router.get('/category',controller.categoryController.getAllCategory);
 
@@ -72,11 +72,11 @@ module.exports = app => {
     router.get('/community',controller.communityController.getAllArticle);
 
     router.get('/community/search',controller.communityController.searchArticle);
-    
+
     router.get('/community/:cid',controller.communityController.getArticle);
-    
+
     router.delete('/community/:cid',controller.communityController.delArticle);
-    
+
     // router.get('/community/:cid/like',controller.communityController.likedCommunity);
 
     // router.get('/community/:cid/unlike',controller.communityController.unlikedCommunity);
@@ -91,18 +91,18 @@ module.exports = app => {
     router.post('/user/login',controller.userController.login);
 
     router.get('/user/logout',controller.userController.logout);
-    
+
     router.post('/user/register',controller.userController.register);
 
 
-    
+
     router.put('/user/resetPassword',controller.userController.resetPassword);
-    
+
     router.put('/user/info/:uid',controller.userController.updateUserInfo);
-    
+
     router.get('/user/info/:uid',controller.userController.getUserInfo);
 
-    router.get('/user/ranking',controller.userController.getRankList);    
+    router.get('/user/ranking',controller.userController.getRankList);
 
     router.post('/user/collect/',controller.userController.collectBook);
 
@@ -120,10 +120,19 @@ module.exports = app => {
     router.put('/admin/:uid',isAdmin,controller.adminController.modifyRole);
 
     router.get('/admin/search',isAdmin,controller.adminController.searchUser)
-    
+
     router.post('/admin/register',isAdmin,controller.adminController.register)
 
     router.get('/admin/manager',controller.adminController.manager)
-    
+
+
+
+    router.post('/problem', controller.problemController.addProblem);
+
+    router.get('/problem', controller.problemController.getAllProblem);
+
+    router.get('/problem/:id', controller.problemController.getProblem)
+
+    router.delete('/problem/:id', controller.problemController.deleteProblem)
 
 };

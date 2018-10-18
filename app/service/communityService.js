@@ -61,6 +61,8 @@ class CommunityService extends Service {
         return result;
     }
     async delArticle(cid) {
+        const temp = await this.CommunityModel.findById(cid)
+        await temp.removeCommunityComments()
         const result = await this.CommunityModel.destroy({
             where: {
                 id:cid
@@ -147,7 +149,7 @@ class CommunityService extends Service {
         })
         return result;
     }
-    
+
     async addCommentToArticle(uid,community_id,content){
         const result = await this.CommunityCommentModel.create({
             aid: uid,
