@@ -4,27 +4,24 @@
 module.exports = app => {
     const {
         INTEGER,
-        STRING
+        ENUM
     } = app.Sequelize;
-    const ProblemModel = app.model.define('Problem', {
+    const ScoreModel = app.model.define('Score', {
         id: {
             type: INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        name:{
-          type: STRING(50),
+        type:{
+          type: ENUM('LOGIN', 'SIGNIN', 'CUSTOM'),
           allowNull: false,
-          default: 'guest'
+          default: 'LOGIN'
         },
-        email:{
-          type: STRING(50),
+        value:{
+          type: INTEGER,
+          allowNull: false
         },
-        content: {
-          type: STRING(10000),
-          allowNull: false,
-        }
     }, {
         createAt: 'created_at',
         updateAt: 'updated_at',
@@ -32,8 +29,9 @@ module.exports = app => {
         freezeTableName: true, // 默认表名会被加s,此选项强制表名跟model一致
     });
 
-    ProblemModel.associate = function() {
-        ProblemModel.belongsTo(app.model.User, { foreignKey: 'uid',onDelete: 'cascade'});
-      }
-    return ProblemModel;
+    ScoreModel.associate = function() {
+      ScoreModel.belongsTo(app.model.User, { foreignKey: 'uid',onDelete: 'cascade'});
+    }
+
+    return ScoreModel;
 };

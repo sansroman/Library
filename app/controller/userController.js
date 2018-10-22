@@ -1,5 +1,7 @@
 'use strict';
-
+const LOGIN_SCORE = 1;
+const LOGIN = 'LOGIN';
+const SIGNIN = 'SIGNIN';
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
@@ -8,7 +10,9 @@ class UserController extends Controller {
     super(ctx);
     this.session = ctx.session;
     this.userService = ctx.service.userService;
+    this.scoreService = ctx.service.scoreService;
   }
+
   async login() {
     this.ctx.validate({
       account: { type: 'string'},
@@ -20,11 +24,20 @@ class UserController extends Controller {
       password,
       rememberMe,
     } = this.ctx.request.body;
-    const response = await this.userService.login(account, password);
+    let response = await this.userService.login(account, password);
     if (response.error) this.ctx.status = 403;
-    if (!response.error && rememberMe) this.ctx.session.maxAge = ms('30d');
+    else {
+      const {uid} = this.session.user;
+      if (rememberMe) this.ctx.session.maxAge = ms('30d');
+      const checkToday = await this.scoreService.checkToday(uid, LOGIN)
+      if(checkToday){
+        this.scoreService.recordScore(uid, LOGIN, LOGIN_SCORE);
+        response.data.added = true
+      }
+    }
     this.ctx.body = response;
   }
+
   async logout() {
     this.ctx.session = null;
     this.ctx.body = '退出成功';
@@ -64,19 +77,21 @@ class UserController extends Controller {
       avatar = null,
       signature = '这个人很懒,什么都没有留下',
     } = this.ctx.request.body;
-    const response = await this.userService.updateUserInfo( uid,nickname, avatar, signature);
+    const response = await this.userService.updateUserInfo(uid, nickname, avatar, signature);
     this.ctx.body = response;
   }
-  
+
   async getUserInfo() {
     const uid = this.ctx.params.uid;
     const response = await this.userService.getUserInfo(uid);
     if(response.error) this.ctx.state = 404;
     this.ctx.body = response;
   }
+
   async getRankList() {
 
   }
+
   async collectBook() {
       const {bid} = this.ctx.request.body;
       const {uid} = this.session.user;
@@ -90,17 +105,32 @@ class UserController extends Controller {
     const response =await this.userService.cancelCollectBook(uid,bid);
     this.ctx.body = response;
   }
+
   async getAllCollection() {
     const {uid} = this.session.user;
     const response =await this.userService.getAllCollection(uid);
     this.ctx.body = response;
   }
+
   async getAllArticles(){
     const {uid} = this.session.user;
-    const response =await this.userService.getAllArticles(uid);
-    this.ctx.body = response;  
+    const response = await this.userService.getAllArticles(uid);
+    this.ctx.body = response;
   }
 
+  async signin(){
+    const {uid} = this.session.user;
+    const checkToday = await this.scoreService.checkToday(uid, LOGIN)
+     const response = checkToday ? this.scoreService.recordScore(uid, SIGNIN,await this.scoreService.calSignScore(uid)) : {error:true};
+    this.ctx.body = response;
+  }
+
+  async getScore(){
+    const {uid} = this.session.user;
+    console.log(this.scoreService.calSignScore(uid))
+    const response = await this.scoreService.getScore(uid);
+    this.ctx.body = response;
+  }
 
 }
 

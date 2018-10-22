@@ -112,6 +112,10 @@ module.exports = app => {
 
     router.get('/user/articles',logged,controller.userController.getAllArticles);
 
+    router.get('/user/signin', logged, controller.userController.signin);
+
+    router.get('/user/score', logged, controller.userController.getScore);
+
 
     router.post('/admin/login',controller.adminController.login);
 

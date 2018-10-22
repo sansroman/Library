@@ -106,7 +106,7 @@ class UserService extends Service {
       error: true,
       data: '已存在此用户',
     };
-    // try {  
+    // try {
     //   const result = await this.UserModel.bulkCreate(userList);
     //   return result;
     // } catch (error) {

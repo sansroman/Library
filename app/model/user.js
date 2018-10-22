@@ -7,7 +7,7 @@ module.exports = app => {
         INTEGER,
         DATE,
     } = app.Sequelize;
-    const UserModel = app.model.define('User', 
+    const UserModel = app.model.define('User',
     {
         id: {
             type: INTEGER,
@@ -18,7 +18,7 @@ module.exports = app => {
         account: {
             type: STRING(50),
             allowNull: false,
-            unique: true            
+            unique: true
         },
         password: {
             type: STRING(50),
@@ -71,10 +71,12 @@ module.exports = app => {
     UserModel.associate = function() {
         UserModel.hasMany(app.model.Comment,{foreignKey:'aid',as:'commentAuthor'});
         UserModel.hasMany(app.model.Community,{foreignKey:'aid',as:'communityAuthor'});
+        UserModel.hasMany(app.model.Score, {foreignKey:'uid'});
+        UserModel.hasMany(app.model.Problem, {foreignKey:'uid'});
         UserModel.belongsToMany(app.model.Community,{through:'LikedCommunity',foreignKey:'uid',onDelete: 'cascade' ,as:'clikedUser'});
         UserModel.belongsToMany(app.model.Community,{through:'UnlikedCommunity',foreignKey:'uid',as:'cunlikedUsers'});
         UserModel.belongsToMany(app.model.Comment,{through:'LikedComment',foreignKey:'uid',onDelete: 'cascade' ,as:'likedUser'});
-        UserModel.belongsToMany(app.model.Comment,{through:'UnlikedComment',foreignKey:'uid',as:'unlikedUsers'});        
+        UserModel.belongsToMany(app.model.Comment,{through:'UnlikedComment',foreignKey:'uid',as:'unlikedUsers'});
         UserModel.belongsToMany(app.model.Book,{through:'BookShelfs',as:'collection',onDelete: 'cascade'});
         UserModel.belongsToMany(app.model.Book,{through:'RecentBook',foreignKey:'uid',as:'recent',onDelete: 'cascade'});
     };
